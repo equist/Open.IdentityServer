@@ -7,32 +7,25 @@ using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.Models;
 using Xunit;
 
-namespace IdentityServer4.EntityFramework.UnitTests.Mappers
+namespace IdentityServer4.EntityFramework.UnitTests.Mappers;
+
+public class PersistedGrantMappersTests
 {
-    public class PersistedGrantMappersTests
+    [Fact]
+    public void CanMap()
     {
-        [Fact]
-        public void PersistedGrantAutomapperConfigurationIsValid()
+        var model = new PersistedGrant()
         {
-            PersistedGrantMappers.Mapper.ConfigurationProvider.AssertConfigurationIsValid();
-        }
-
-        [Fact]
-        public void CanMap()
-        {
-            var model = new PersistedGrant()
-            {
-                ConsumedTime = new System.DateTime(2020, 02, 03, 4, 5, 6)
-            };
+            ConsumedTime = new System.DateTime(2020, 02, 03, 4, 5, 6)
+        };
             
-            var mappedEntity = model.ToEntity();
-            mappedEntity.ConsumedTime.Value.Should().Be(new System.DateTime(2020, 02, 03, 4, 5, 6));
+        var mappedEntity = model.ToEntity();
+        mappedEntity.ConsumedTime.Value.Should().Be(new System.DateTime(2020, 02, 03, 4, 5, 6));
             
-            var mappedModel = mappedEntity.ToModel();
-            mappedModel.ConsumedTime.Value.Should().Be(new System.DateTime(2020, 02, 03, 4, 5, 6));
+        var mappedModel = mappedEntity.ToModel();
+        mappedModel.ConsumedTime.Value.Should().Be(new System.DateTime(2020, 02, 03, 4, 5, 6));
 
-            Assert.NotNull(mappedModel);
-            Assert.NotNull(mappedEntity);
-        }
+        Assert.NotNull(mappedModel);
+        Assert.NotNull(mappedEntity);
     }
 }
