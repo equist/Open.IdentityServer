@@ -44,7 +44,6 @@
         <PackageReference Update="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.16.0"/>
         <PackageReference Update="System.IdentityModel.Tokens.Jwt" Version="8.16.0"/>
         <PackageReference Update="System.Security.Principal.Windows" Version="5.0.0"/>
-        <PackageReference Update="AutoMapper" Version="14.0.0"/>
 
         <!--microsoft asp.net core -->
         <PackageReference Update="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="$(FrameworkVersion)"/>
