@@ -10,6 +10,7 @@ using IdentityModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using IdentityServer4.Services;
 using IdentityServer4.Configuration;
 using IdentityServer4.Stores;
@@ -19,6 +20,10 @@ using System.Text.Encodings.Web;
 
 namespace IdentityServer4.Endpoints.Results
 {
+    [SuppressMessage(
+        "Usage", 
+        "ASP0019:Suggest using IHeaderDictionary.Append or the indexer", 
+        Justification = "Maintain throwing ArgumentException if the header is already set.")]
     internal class AuthorizeResult : IEndpointResult
     {
         public AuthorizeResponse Response { get; }
