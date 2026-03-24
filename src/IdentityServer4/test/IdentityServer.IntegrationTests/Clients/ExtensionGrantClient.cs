@@ -16,25 +16,39 @@ using IdentityModel.Client;
 using IdentityServer.IntegrationTests.Clients.Setup;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Hosting;
 using System.Text.Json;
 using Xunit;
 
 namespace IdentityServer.IntegrationTests.Clients;
 
-public class ExtensionGrantClient
+public class ExtensionGrantClient : IDisposable
 {
     private const string TokenEndpoint = "https://server/connect/token";
 
     private readonly HttpClient _client;
+        private readonly IHost _host;
 
     public ExtensionGrantClient()
     {
-        var builder = new WebHostBuilder()
-            .UseStartup<Startup>();
-        var server = new TestServer(builder);
+        _host = new HostBuilder()
+            .ConfigureWebHost(webBuilder =>
+            {
+                webBuilder.UseTestServer();
+                webBuilder.UseStartup<Startup>();
+            })
+            .Build();
 
-        _client = server.CreateClient();
+            _host.Start();
+            _client = _host.GetTestClient();
     }
+
+    public void Dispose()
+    {
+        _client?.Dispose();
+        _host?.Dispose();
+    }
+
 
     [Fact]
     public async Task Valid_client_should_succeed()

@@ -16,6 +16,7 @@ using IdentityServer.IntegrationTests.Clients.Setup;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using System.Text.Json;
+using Microsoft.Extensions.Hosting;
 using Xunit;
 
 namespace IdentityServer.IntegrationTests.Clients;
@@ -26,14 +27,26 @@ public class UserInfoEndpointClient
     private const string UserInfoEndpoint = "https://server/connect/userinfo";
 
     private readonly HttpClient _client;
+    private readonly IHost _host;
 
     public UserInfoEndpointClient()
     {
-        var builder = new WebHostBuilder()
-            .UseStartup<Startup>();
-        var server = new TestServer(builder);
+        _host = new HostBuilder()
+            .ConfigureWebHost(builder =>
+            {
+                builder.UseTestServer();
+                builder.UseStartup<Startup>();
+            })
+            .Build();
 
-        _client = server.CreateClient();
+            _host.Start();
+            _host?.Dispose();
+    }
+
+    public void Dispose()
+    {
+        _client?.Dispose();
+        _host?.Dispose();
     }
 
     [Fact]

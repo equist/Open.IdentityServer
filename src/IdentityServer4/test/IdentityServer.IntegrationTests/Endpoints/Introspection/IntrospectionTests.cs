@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -14,27 +15,41 @@ using IdentityModel.Client;
 using IdentityServer.IntegrationTests.Endpoints.Introspection.Setup;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Hosting;
 using Xunit;
 
 namespace IdentityServer.IntegrationTests.Endpoints.Introspection;
 
-public class IntrospectionTests
+public class IntrospectionTests : IDisposable
 {
     private const string Category = "Introspection endpoint";
     private const string IntrospectionEndpoint = "https://server/connect/introspect";
     private const string TokenEndpoint = "https://server/connect/token";
 
     private readonly HttpClient _client;
+    private readonly IHost _host;
     private readonly HttpMessageHandler _handler;
 
     public IntrospectionTests()
     {
-        var builder = new WebHostBuilder()
-            .UseStartup<Startup>();
-        var server = new TestServer(builder);
+        _host = new HostBuilder()
+            .ConfigureWebHost(webBuilder => {
+                webBuilder.UseTestServer();
+                webBuilder.UseStartup<Startup>();
+            })
+            .Build();
 
+        _host.Start();
+
+        var server = _host.GetTestServer();
         _handler = server.CreateHandler();
-        _client = server.CreateClient();
+        _client = _host.GetTestClient();
+    }
+
+    public void Dispose()
+    {
+        _host?.Dispose();
+        _client?.Dispose();
     }
 
     [Fact]

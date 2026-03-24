@@ -15,25 +15,38 @@ using IdentityModel.Client;
 using IdentityServer.IntegrationTests.Clients.Setup;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Hosting;
 using System.Text.Json;
 using Xunit;
 
 namespace IdentityServer.IntegrationTests.Clients;
 
-public class ClientCredentialsClient
+public class ClientCredentialsClient : IDisposable
 {
     private const string TokenEndpoint = "https://server/connect/token";
 
     private readonly HttpClient _client;
+        private readonly IHost _host;
 
     public ClientCredentialsClient()
     {
-        var builder = new WebHostBuilder()
-            .UseStartup<Startup>();
-        var server = new TestServer(builder);
+            _host = new HostBuilder()
+                .ConfigureWebHost(webBuilder =>
+                {
+                    webBuilder.UseTestServer();
+                    webBuilder.UseStartup<Startup>();
+                })
+                .Build();
 
+            _host.Start();
         _client = server.CreateClient();
     }
+
+        public void Dispose()
+        {
+            _client?.Dispose();
+            _host?.Dispose();
+        }
 
     [Fact]
     public async Task Invalid_endpoint_should_return_404()

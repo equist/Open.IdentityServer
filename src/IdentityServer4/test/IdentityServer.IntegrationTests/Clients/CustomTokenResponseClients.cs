@@ -16,23 +16,36 @@ using IdentityModel.Client;
 using IdentityServer.IntegrationTests.Clients.Setup;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Hosting;
 using Xunit;
 
 namespace IdentityServer.IntegrationTests.Clients
 {
-    public class CustomTokenResponseClients
+    public class CustomTokenResponseClients : IDisposable
     {
         private const string TokenEndpoint = "https://server/connect/token";
 
         private readonly HttpClient _client;
+        private readonly IHost _host;
 
         public CustomTokenResponseClients()
         {
-            var builder = new WebHostBuilder()
-                .UseStartup<StartupWithCustomTokenResponses>();
-            var server = new TestServer(builder);
+            _host = Host.CreateDefaultBuilder()
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseTestServer();
+                    webBuilder.UseStartup<StartupWithCustomTokenResponses>();
+                })
+                .Build();
 
-            _client = server.CreateClient();
+            _host.Start();
+            _client = _host.GetTestClient();
+        }
+
+        public void Dispose()
+        {
+            _client?.Dispose();
+            _host?.Dispose();
         }
 
         [Fact]

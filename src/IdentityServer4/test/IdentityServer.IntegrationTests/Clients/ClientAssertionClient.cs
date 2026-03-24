@@ -17,30 +17,43 @@ using IdentityServer.IntegrationTests.Clients.Setup;
 using IdentityServer.IntegrationTests.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.Json;
 using Xunit;
 
 namespace IdentityServer.IntegrationTests.Clients;
 
-public class ClientAssertionClient
+public class ClientAssertionClient : IDisposable
 {
     private const string TokenEndpoint = "https://idsvr4/connect/token";
     private const string ClientId = "certificate_base64_valid";
 
-    private readonly HttpClient _client;
+        private readonly HttpClient _client;
+        private readonly IHost _host;
 
     public ClientAssertionClient()
     {
-        var builder = new WebHostBuilder()
-            .UseStartup<Startup>();
-        var server = new TestServer(builder);
+            _host = new HostBuilder()
+                .ConfigureWebHost(builder =>
+                {
+                    builder.UseTestServer();
+                    builder.UseStartup<Startup>();
+                })
+                .Build();
 
+            _host.Start();
         _client = server.CreateClient();
     }
 
-    [Fact]
-    public async Task Valid_client_with_manual_payload_should_succeed()
+        public void Dispose()
+        {
+            _client?.Dispose();
+            _host?.Dispose();
+        }
+
+        [Fact]
+        public async Task Valid_client_with_manual_payload_should_succeed()
     {
         var token = CreateToken(ClientId);
         var requestBody = new FormUrlEncodedContent(new Dictionary<string, string>
