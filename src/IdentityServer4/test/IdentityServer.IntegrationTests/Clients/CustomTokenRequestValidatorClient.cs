@@ -57,7 +57,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 ClientId = "client",
                 ClientSecret = "secret",
                 Scope = "api1"
-            });
+            }, TestContext.Current.CancellationToken);
 
             var fields = GetFields(response);
             (fields["custom"] as JsonElement?)?.GetString().Should().BeEquivalentTo("custom");
@@ -76,7 +76,7 @@ namespace IdentityServer.IntegrationTests.Clients
 
                 UserName = "bob",
                 Password = "bob"
-            });
+            }, TestContext.Current.CancellationToken);
 
             var fields = GetFields(response);
             (fields["custom"] as JsonElement?)?.GetString().Should().BeEquivalentTo("custom");
@@ -95,7 +95,7 @@ namespace IdentityServer.IntegrationTests.Clients
 
                 UserName = "bob",
                 Password = "bob"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response = await _client.RequestRefreshTokenAsync(new RefreshTokenRequest
             {
@@ -104,7 +104,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 ClientSecret = "secret",
 
                 RefreshToken = response.RefreshToken
-            });
+            }, TestContext.Current.CancellationToken);
 
             var fields = GetFields(response);
             (fields["custom"] as JsonElement?)?.GetString().Should().BeEquivalentTo("custom");
@@ -126,7 +126,7 @@ namespace IdentityServer.IntegrationTests.Clients
                     { "scope", "api1" },
                     { "custom_credential", "custom credential"}
                 }
-            });
+            }, TestContext.Current.CancellationToken);
 
             var fields = GetFields(response);
             (fields["custom"] as JsonElement?)?.GetString().Should().BeEquivalentTo("custom");

@@ -60,7 +60,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 UserName = "bob",
                 Password = "bob",
                 Scope = "api1"
-            });
+            }, TestContext.Current.CancellationToken);
 
             // raw fields
             var fields = GetFields(response);
@@ -126,7 +126,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 UserName = "bob",
                 Password = "invalid",
                 Scope = "api1"
-            });
+            }, TestContext.Current.CancellationToken);
 
             // raw fields
             var fields = GetFields(response);
@@ -179,7 +179,7 @@ namespace IdentityServer.IntegrationTests.Clients
                     { "scope", "api1" },
                     { "outcome", "succeed"}
                 }
-            });
+            }, TestContext.Current.CancellationToken);
 
 
             // raw fields
@@ -232,7 +232,6 @@ namespace IdentityServer.IntegrationTests.Clients
             amr.Should().NotBeNull();
             amr?.Count().Should().Be(1);
             amr?.First().ToString().Should().Be("custom");
-
         }
 
         [Fact]
@@ -251,9 +250,8 @@ namespace IdentityServer.IntegrationTests.Clients
                     { "scope", "api1" },
                     { "outcome", "fail"}
                 }
-            });
-
-
+            }, TestContext.Current.CancellationToken);
+            
             // raw fields
             var fields = GetFields(response);
             
@@ -278,7 +276,6 @@ namespace IdentityServer.IntegrationTests.Clients
             responseDto.int_value.Should().Be(dto.int_value);
             responseDto.nested.string_value.Should().Be(dto.nested.string_value);
             responseDto.nested.int_value.Should().Be(dto.nested.int_value);
-
 
             // token client response
             response.IsError.Should().Be(true);

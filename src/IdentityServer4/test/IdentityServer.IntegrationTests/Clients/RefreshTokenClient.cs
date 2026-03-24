@@ -55,7 +55,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 Scope = "api1 offline_access",
                 UserName = "bob",
                 Password = "bob"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ExpiresIn.Should().Be(3600);
@@ -70,7 +70,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 ClientSecret = "secret",
 
                 RefreshToken = response.RefreshToken
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ExpiresIn.Should().Be(3600);
@@ -91,7 +91,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 Scope = "openid api1 offline_access",
                 UserName = "bob",
                 Password = "bob"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ExpiresIn.Should().Be(3600);
@@ -106,7 +106,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 ClientSecret = "secret",
 
                 RefreshToken = response.RefreshToken
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ExpiresIn.Should().Be(3600);
@@ -127,7 +127,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 Scope = "openid api1 offline_access",
                 UserName = "bob",
                 Password = "bob"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ExpiresIn.Should().Be(3600);
@@ -144,7 +144,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 ClientSecret = "secret",
 
                 RefreshToken = response.RefreshToken
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ExpiresIn.Should().Be(3600);
@@ -169,7 +169,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 Scope = "openid api1 offline_access",
                 UserName = "bob",
                 Password = "bob"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ExpiresIn.Should().Be(3600);
@@ -186,7 +186,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 ClientSecret = "secret",
 
                 RefreshToken = response.RefreshToken
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ExpiresIn.Should().Be(3600);
@@ -212,7 +212,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 Scope = "openid api1 offline_access",
                 UserName = "bob",
                 Password = "bob"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ExpiresIn.Should().Be(3600);
@@ -230,7 +230,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 ClientSecret = "secret",
 
                 RefreshToken = response.RefreshToken
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ExpiresIn.Should().Be(3600);
@@ -246,7 +246,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 ClientSecret = "secret",
 
                 RefreshToken = rt1
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.Error.Should().Be("invalid_grant");
@@ -265,7 +265,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 Scope = "openid api1 offline_access",
                 UserName = "bob",
                 Password = "bob"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ExpiresIn.Should().Be(3600);
@@ -283,7 +283,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 ClientSecret = "secret",
 
                 RefreshToken = rt1
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
         }
@@ -301,7 +301,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 Scope = "openid api1 offline_access",
                 UserName = "bob",
                 Password = "bob"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ExpiresIn.Should().Be(3600);
@@ -321,7 +321,7 @@ namespace IdentityServer.IntegrationTests.Clients
 
                 Token = rt1,
                 TokenTypeHint = "refresh_token"
-            });
+            }, TestContext.Current.CancellationToken);
 
             revocationResponse.IsError.Should().Be(false);
             
@@ -333,7 +333,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 ClientSecret = "secret",
 
                 RefreshToken = rt1
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.Error.Should().Be("invalid_grant");

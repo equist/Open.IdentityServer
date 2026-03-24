@@ -66,7 +66,7 @@ public class ExtensionGrantClient : IDisposable
                 { "custom_credential", "custom credential"},
                 { "scope", "api1" }
             }
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().BeFalse();
         response.HttpStatusCode.Should().Be(HttpStatusCode.OK);
@@ -114,7 +114,7 @@ public class ExtensionGrantClient : IDisposable
                 { "extra_claim", "extra_value" },
                 { "scope", "api1" }
             }
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().BeFalse();
         response.HttpStatusCode.Should().Be(HttpStatusCode.OK);
@@ -163,7 +163,7 @@ public class ExtensionGrantClient : IDisposable
                 { "extra_claim", "extra_value" },
                 { "scope", "api1 offline_access" }
             }
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().BeFalse();
         response.HttpStatusCode.Should().Be(HttpStatusCode.OK);
@@ -180,7 +180,7 @@ public class ExtensionGrantClient : IDisposable
             ClientSecret = "secret",
 
             RefreshToken = response.RefreshToken
-        });
+        }, TestContext.Current.CancellationToken);
 
         refreshResponse.IsError.Should().BeFalse();
         refreshResponse.HttpStatusCode.Should().Be(HttpStatusCode.OK);
@@ -228,7 +228,7 @@ public class ExtensionGrantClient : IDisposable
                 { "custom_credential", "custom credential"},
                 { "scope", "api1" }
             }
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().BeFalse();
         response.HttpStatusCode.Should().Be(HttpStatusCode.OK);

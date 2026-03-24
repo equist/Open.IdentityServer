@@ -51,7 +51,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 ClientId = "client.and.ro",
                 ClientSecret = "secret",
                 Scope = "api1"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().Be(false);
         }
@@ -65,7 +65,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 ClientId = "client.and.ro",
                 ClientSecret = "secret",
                 Scope = "openid api1"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().Be(true);
         }
@@ -82,7 +82,7 @@ namespace IdentityServer.IntegrationTests.Clients
 
                 UserName = "bob",
                 Password = "bob"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().Be(false);
         }
@@ -99,7 +99,7 @@ namespace IdentityServer.IntegrationTests.Clients
 
                 UserName = "bob",
                 Password = "bob"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().Be(false);
         }

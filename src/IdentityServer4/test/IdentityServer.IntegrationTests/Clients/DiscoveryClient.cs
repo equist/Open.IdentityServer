@@ -53,7 +53,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 {
                     ValidateIssuerName = false
                 }
-            });
+            }, TestContext.Current.CancellationToken);
 
             // endpoints
             doc.TokenEndpoint.Should().Be("https://server/connect/token");

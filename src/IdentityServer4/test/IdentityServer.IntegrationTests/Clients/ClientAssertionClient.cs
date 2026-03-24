@@ -87,9 +87,9 @@ public class ClientAssertionClient : IDisposable
             },
             ClientCredentialStyle = ClientCredentialStyle.PostBody,
 
-            Scope = "api1"
-        });
-
+                Scope = "api1"
+            }, TestContext.Current.CancellationToken);
+            
         AssertValidToken(response);
     }
 
@@ -110,11 +110,11 @@ public class ClientAssertionClient : IDisposable
             },
             ClientCredentialStyle = ClientCredentialStyle.PostBody,
 
-            Scope = "api1"
-        });
+                Scope = "api1"
+            }, TestContext.Current.CancellationToken);
 
-        AssertValidToken(response);
-    }
+            AssertValidToken(response);
+        }
         
     [Fact]
     public async Task Valid_client_with_token_replay_should_fail()
@@ -133,10 +133,10 @@ public class ClientAssertionClient : IDisposable
             },
             ClientCredentialStyle = ClientCredentialStyle.PostBody,
 
-            Scope = "api1"
-        });
+                Scope = "api1"
+            }, TestContext.Current.CancellationToken);
 
-        AssertValidToken(response);
+            AssertValidToken(response);
             
         // replay
         response = await _client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
@@ -151,9 +151,9 @@ public class ClientAssertionClient : IDisposable
             },
             ClientCredentialStyle = ClientCredentialStyle.PostBody,
 
-            Scope = "api1"
-        });
-
+                Scope = "api1"
+            }, TestContext.Current.CancellationToken);
+            
         response.IsError.Should().BeTrue();
         response.Error.Should().Be("invalid_client");
     }
@@ -172,10 +172,9 @@ public class ClientAssertionClient : IDisposable
                 Value = "invalid"
             },
             ClientCredentialStyle = ClientCredentialStyle.PostBody,
-
-            Scope = "api1"
-        });
-
+                Scope = "api1"
+            }, TestContext.Current.CancellationToken);
+            
         response.IsError.Should().Be(true);
         response.Error.Should().Be(OidcConstants.TokenErrors.InvalidClient);
         response.ErrorType.Should().Be(ResponseErrorType.Protocol);
@@ -198,10 +197,9 @@ public class ClientAssertionClient : IDisposable
                 Value = token
             },
             ClientCredentialStyle = ClientCredentialStyle.PostBody,
-
-            Scope = "api1"
-        });
-
+                Scope = "api1"
+            }, TestContext.Current.CancellationToken);
+            
         response.IsError.Should().Be(true);
         response.Error.Should().Be(OidcConstants.TokenErrors.InvalidClient);
         response.ErrorType.Should().Be(ResponseErrorType.Protocol);

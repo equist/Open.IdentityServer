@@ -57,7 +57,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 Scope = "api1",
                 UserName = "bob",
                 Password = "bob"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
 
@@ -69,7 +69,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 ClientSecret = "secret",
 
                 Token = response.AccessToken
-            });
+            }, TestContext.Current.CancellationToken);
 
             introspectionResponse.IsActive.Should().Be(true);
 
@@ -81,7 +81,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 ClientSecret = "secret",
 
                 Token = response.AccessToken
-            });
+            }, TestContext.Current.CancellationToken);
 
             // introspect - should be inactive
             introspectionResponse = await _client.IntrospectTokenAsync(new TokenIntrospectionRequest
@@ -91,7 +91,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 ClientSecret = "secret",
 
                 Token = response.AccessToken
-            });
+            }, TestContext.Current.CancellationToken);
 
             introspectionResponse.IsActive.Should().Be(false);
         }

@@ -57,7 +57,7 @@ public class ClientCredentialsClient : IDisposable
             ClientId = "client",
             ClientSecret = "secret",
             Scope = "api1"
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(true);
         response.ErrorType.Should().Be(ResponseErrorType.Http);
@@ -74,7 +74,7 @@ public class ClientCredentialsClient : IDisposable
             ClientId = "client",
             ClientSecret = "secret",
             Scope = "api1"
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(false);
         response.ExpiresIn.Should().Be(3600);
@@ -104,7 +104,7 @@ public class ClientCredentialsClient : IDisposable
             ClientId = "client",
             ClientSecret = "secret",
             Scope = "api1 other_api"
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(false);
         response.ExpiresIn.Should().Be(3600);
@@ -138,7 +138,7 @@ public class ClientCredentialsClient : IDisposable
             ClientId = "client.cnf",
             ClientSecret = "foo",
             Scope = "api1"
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(false);
         response.ExpiresIn.Should().Be(3600);
@@ -171,7 +171,7 @@ public class ClientCredentialsClient : IDisposable
             ClientId = "client",
             ClientSecret = "secret",
             Scope = "api1 api2"
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(false);
         response.ExpiresIn.Should().Be(3600);
@@ -202,7 +202,7 @@ public class ClientCredentialsClient : IDisposable
             Address = TokenEndpoint,
             ClientId = "client",
             ClientSecret = "secret"
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(false);
         response.ExpiresIn.Should().Be(3600);
@@ -238,7 +238,7 @@ public class ClientCredentialsClient : IDisposable
             Address = TokenEndpoint,
             ClientId = "client.no_default_scopes",
             ClientSecret = "secret"
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(true);
         response.ExpiresIn.Should().Be(0);
@@ -259,7 +259,7 @@ public class ClientCredentialsClient : IDisposable
             Scope = "api1",
 
             ClientCredentialStyle = ClientCredentialStyle.PostBody
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(false);
         response.ExpiresIn.Should().Be(3600);
@@ -286,7 +286,7 @@ public class ClientCredentialsClient : IDisposable
             Address = TokenEndpoint,
             ClientId = "client.no_secret",
             Scope = "api1"
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(false);
         response.ExpiresIn.Should().Be(3600);
@@ -313,7 +313,7 @@ public class ClientCredentialsClient : IDisposable
             ClientId = "client",
             ClientSecret = "invalid",
             Scope = "api1"
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(true);
         response.Error.Should().Be("invalid_client");
@@ -328,7 +328,7 @@ public class ClientCredentialsClient : IDisposable
             ClientId = "invalid",
             ClientSecret = "secret",
             Scope = "api1"
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(true);
         response.ErrorType.Should().Be(ResponseErrorType.Protocol);
@@ -344,7 +344,7 @@ public class ClientCredentialsClient : IDisposable
             Address = TokenEndpoint,
             ClientId = "implicit",
             Scope = "api1"
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(true);
         response.ErrorType.Should().Be(ResponseErrorType.Protocol);
@@ -361,7 +361,7 @@ public class ClientCredentialsClient : IDisposable
             ClientId = "implicit_and_client_creds",
             ClientSecret = "invalid",
             Scope = "api1"
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(true);
         response.ErrorType.Should().Be(ResponseErrorType.Protocol);
@@ -379,7 +379,7 @@ public class ClientCredentialsClient : IDisposable
             ClientId = "client",
             ClientSecret = "secret",
             Scope = "unknown"
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(true);
         response.ErrorType.Should().Be(ResponseErrorType.Protocol);
@@ -396,7 +396,7 @@ public class ClientCredentialsClient : IDisposable
             ClientId = "client.identityscopes",
             ClientSecret = "secret",
             Scope = "openid api1"
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(true);
         response.ErrorType.Should().Be(ResponseErrorType.Protocol);
@@ -413,7 +413,7 @@ public class ClientCredentialsClient : IDisposable
             ClientId = "client",
             ClientSecret = "secret",
             Scope = "api1 offline_access"
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(true);
         response.ErrorType.Should().Be(ResponseErrorType.Protocol);
@@ -430,7 +430,7 @@ public class ClientCredentialsClient : IDisposable
             ClientId = "client",
             ClientSecret = "secret",
             Scope = "api3"
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(true);
         response.ErrorType.Should().Be(ResponseErrorType.Protocol);
@@ -447,7 +447,7 @@ public class ClientCredentialsClient : IDisposable
             ClientId = "client",
             ClientSecret = "secret",
             Scope = "api1 api3"
-        });
+        }, TestContext.Current.CancellationToken);
 
         response.IsError.Should().Be(true);
         response.ErrorType.Should().Be(ResponseErrorType.Protocol);
