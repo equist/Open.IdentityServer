@@ -23,10 +23,10 @@ namespace IdentityServer4.EntityFramework.IntegrationTests.Stores
 
         public DeviceFlowStoreTests(DatabaseProviderFixture<PersistedGrantDbContext> fixture) : base(fixture)
         {
-            foreach (var options in TestDatabaseProviders.SelectMany(x => x.Select(y => (DbContextOptions<PersistedGrantDbContext>)y)).ToList())
+            foreach (var row in TestDatabaseProviders)
             {
-                using (var context = new PersistedGrantDbContext(options, StoreOptions))
-                    context.Database.EnsureCreated();
+                using var context = new PersistedGrantDbContext(row.Data, StoreOptions);
+                context.Database.EnsureCreated();
             }
         }
 
