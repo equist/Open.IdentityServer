@@ -8,7 +8,7 @@ namespace IdentityServer4.EntityFramework.Mappers;
 /// <summary>
 /// Class containing mapping extensions for UserClaim classes.
 /// </summary>
-public static class UserClaimMappingExtentions
+public static class UserClaimMappingExtensions
 {
     /// <summary>
     /// Mapping extension methods for List of Type

@@ -8,7 +8,7 @@ namespace IdentityServer4.EntityFramework.Mappers;
 /// <summary>
 /// Class containing mapping extensions for Secret classes.
 /// </summary>
-public static class SecretMappingExtentions
+public static class SecretMappingExtensions
 {
     /// <summary>
     /// Mapping extension methods for <see cref="Entities.ApiResource"/>
