@@ -1,4 +1,4 @@
-rmdir /S /Q Migrations
+rm -rf Migrations 
 
 dotnet ef migrations add Grants -c PersistedGrantDbContext -o Migrations/PersistedGrantDb
 dotnet ef migrations add Configuration -c ConfigurationDbContext -o Migrations/ConfigurationDb
