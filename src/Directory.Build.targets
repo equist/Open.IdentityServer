@@ -39,7 +39,6 @@
         <PackageReference Update="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(ExtensionsVersion)"/>
 
         <!--misc -->
-        <PackageReference Update="Newtonsoft.Json" Version="13.0.4"/>
         <PackageReference Update="System.Text.Json" Version="10.0.5"/>
         <PackageReference Update="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.16.0"/>
         <PackageReference Update="System.IdentityModel.Tokens.Jwt" Version="8.16.0"/>
