@@ -287,7 +287,7 @@ namespace IdentityServer.IntegrationTests.Clients
             response.RefreshToken.Should().BeNull();
         }
 
-        private CustomResponseDto? GetDto(JsonElement? responseObject)
+        private CustomResponseDto GetDto(JsonElement? responseObject)
         {
             return responseObject?.Deserialize<CustomResponseDto>();;
         }
@@ -306,7 +306,7 @@ namespace IdentityServer.IntegrationTests.Clients
 
         private Dictionary<string, object> GetPayload(TokenResponse response)
         {
-            var token = response.AccessToken.Split('.').Skip(1).Take(1).First();
+            var token = response.AccessToken!.Split('.').Skip(1).Take(1).First();
             var dictionary = JsonSerializer.Deserialize<Dictionary<string, object>>(
                 Encoding.UTF8.GetString(Base64Url.Decode(token)));
 
