@@ -26,6 +26,7 @@ using static Open.IdentityServer.Constants;
 using Open.IdentityServer.Extensions;
 using Open.IdentityServer.Hosting.FederatedSignOut;
 using Open.IdentityServer.Services.Default;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -165,7 +166,16 @@ namespace Microsoft.Extensions.DependencyInjection
             builder.Services.TryAddTransient<IReferenceTokenStore, DefaultReferenceTokenStore>();
             builder.Services.TryAddTransient<IUserConsentStore, DefaultUserConsentStore>();
             builder.Services.TryAddTransient<IHandleGenerationService, DefaultHandleGenerationService>();
-            builder.Services.TryAddTransient<IPersistentGrantSerializer, PersistentGrantSerializer>();
+            
+            builder.Services.TryAddTransient<PersistentGrantSerializer>();
+            builder.Services.TryAddTransient<IPersistentGrantSerializer>(sp =>
+            {
+                var persistentGrantSerializer = sp.GetRequiredService<PersistentGrantSerializer>();
+                var dataProtectionProvider = sp.GetRequiredService<IDataProtectionProvider>();
+                var options = sp.GetRequiredService<IOptions<IdentityServerOptions>>();
+                return new PersistentGrantSerializerDataProtectionDecorator(persistentGrantSerializer, dataProtectionProvider, options);
+            });
+            
             builder.Services.TryAddTransient<IEventService, DefaultEventService>();
             builder.Services.TryAddTransient<IEventSink, DefaultEventSink>();
             builder.Services.TryAddTransient<IUserCodeService, DefaultUserCodeService>();

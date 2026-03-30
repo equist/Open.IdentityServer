@@ -17,8 +17,7 @@ public class PersistentGrantSerializerDataProtectionDecorator(
     IDataProtectionProvider dataProtectionProvider,
     IOptions<IdentityServerOptions> options): IPersistentGrantSerializer
 {
-    private const string ProtectorPurpose = "PersistedGrant-DataProtection";
-    private IDataProtector dataProtector = dataProtectionProvider.CreateProtector(ProtectorPurpose);
+    private IDataProtector dataProtector = dataProtectionProvider.CreateProtector(nameof(PersistentGrantSerializer));
     private IdentityServerOptions options = options.Value;
 
     private JsonSerializerOptions serializerOptions = new();
@@ -26,10 +25,10 @@ public class PersistentGrantSerializerDataProtectionDecorator(
     /// <summary>
     /// Serializes the specified value. And protects the data using Data Protection
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TGrant">type of grant to be serialized</typeparam>
     /// <param name="value">The value.</param>
     /// <returns></returns>
-    public string Serialize<T>(T value)
+    public string Serialize<TGrant>(TGrant value)
     {
         string data = decoratedSerializer.Serialize(value);
         
@@ -45,15 +44,15 @@ public class PersistentGrantSerializerDataProtectionDecorator(
     /// <summary>
     /// Deserializes the specified string. And unprotects the data using Data Protection
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TGrant">type of grant to be deserialized</typeparam>
     /// <param name="json">The json.</param>
     /// <returns></returns>
-    public T Deserialize<T>(string json)
+    public TGrant Deserialize<TGrant>(string json)
     {
-        var wrappedData = JsonSerializer.Deserialize<DataProtectedGrantData>(json, serializerOptions);
+        DataProtectedGrantData wrappedData = JsonSerializer.Deserialize<DataProtectedGrantData>(json, serializerOptions);
 
         var data = wrappedData.DataProtected ? dataProtector.Unprotect(wrappedData.Payload) : wrappedData.Payload;
 
-        return decoratedSerializer.Deserialize<T>(data);
+        return decoratedSerializer.Deserialize<TGrant>(data);
     }
 }
