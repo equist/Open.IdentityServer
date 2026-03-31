@@ -1,6 +1,7 @@
 <Project>
   <PropertyGroup>
     <VersionPrefix>5.0.0</VersionPrefix>
+    <MinVerMinimumMajorMinor>5.0</MinVerMinimumMajorMinor>
     <Company>RockSolidKnowledge</Company>
   </PropertyGroup>
 </Project>
