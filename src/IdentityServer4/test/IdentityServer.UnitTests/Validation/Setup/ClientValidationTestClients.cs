@@ -8,7 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 using IdentityServer.UnitTests.Common;
 using OpenIdentityServer;
 using OpenIdentityServer.Models;
-using static IdentityServer4.IdentityServerConstants;
+using static OpenIdentityServer.IdentityServerConstants;
 
 namespace IdentityServer.UnitTests.Validation.Setup
 {

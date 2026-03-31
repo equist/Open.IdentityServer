@@ -11,7 +11,7 @@ using OpenIdentityServer.Configuration;
 using OpenIdentityServer.Hosting;
 using Microsoft.AspNetCore.Http;
 using Xunit;
-using static IdentityServer4.Constants;
+using static OpenIdentityServer.Constants;
 
 namespace IdentityServer.UnitTests.Hosting
 {

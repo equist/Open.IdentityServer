@@ -4,7 +4,7 @@
 
 using OpenIdentityServer.Extensions;
 using OpenIdentityServer.Validation;
-using static IdentityServer4.Constants;
+using static OpenIdentityServer.Constants;
 
 namespace OpenIdentityServer.Events
 {

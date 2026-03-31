@@ -22,7 +22,7 @@ using System.Linq;
 using OpenIdentityServer.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-using static IdentityServer4.Constants;
+using static OpenIdentityServer.Constants;
 using OpenIdentityServer.Extensions;
 using OpenIdentityServer.Hosting.FederatedSignOut;
 using OpenIdentityServer.Services.Default;

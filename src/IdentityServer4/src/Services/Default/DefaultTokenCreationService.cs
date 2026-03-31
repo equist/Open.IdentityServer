@@ -13,7 +13,7 @@ using System;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
-using static IdentityServer4.IdentityServerConstants;
+using static OpenIdentityServer.IdentityServerConstants;
 
 namespace OpenIdentityServer.Services
 {

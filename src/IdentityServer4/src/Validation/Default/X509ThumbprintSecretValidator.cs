@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using OpenIdentityServer.Extensions;
 using OpenIdentityServer.Models;
 using Microsoft.Extensions.Logging;
-using static IdentityServer4.IdentityServerConstants;
+using static OpenIdentityServer.IdentityServerConstants;
 
 namespace OpenIdentityServer.Validation
 {
