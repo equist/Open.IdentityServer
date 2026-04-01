@@ -45,9 +45,14 @@ public static class TokenExtensions
             payload.AddClaim(new Claim(JwtClaimTypes.Audience, aud));
         }
 
-        var amrClaims = token.Claims.Where(x => x.Type == JwtClaimTypes.AuthenticationMethod).ToArray();
-        var scopeClaims = token.Claims.Where(x => x.Type == JwtClaimTypes.Scope).ToArray();
-        var jsonClaims = token.Claims.Where(x => x.ValueType == IdentityServerConstants.ClaimValueTypes.Json).ToList();
+        var nonStandardClaims = token.Claims.Where(x => x.Type != JwtClaimTypes.Issuer &&
+                                                        x.Type != JwtClaimTypes.Audience &&
+                                                        x.Type != JwtClaimTypes.NotBefore &&
+                                                        x.Type != JwtClaimTypes.Expiration).ToArray();
+
+        var amrClaims = nonStandardClaims.Where(x => x.Type == JwtClaimTypes.AuthenticationMethod).ToArray();
+        var scopeClaims = nonStandardClaims.Where(x => x.Type == JwtClaimTypes.Scope).ToArray();
+        var jsonClaims = nonStandardClaims.Where(x => x.ValueType == IdentityServerConstants.ClaimValueTypes.Json).ToList();
             
         // add confirmation claim if present (it's JSON valued)
         if (token.Confirmation.IsPresent())
@@ -55,7 +60,7 @@ public static class TokenExtensions
             jsonClaims.Add(new Claim(JwtClaimTypes.Confirmation, token.Confirmation, IdentityServerConstants.ClaimValueTypes.Json));
         }
 
-        var normalClaims = token.Claims
+        var normalClaims = nonStandardClaims
             .Except(amrClaims)
             .Except(jsonClaims)
             .Except(scopeClaims);
