@@ -166,16 +166,12 @@ namespace Microsoft.Extensions.DependencyInjection
             builder.Services.TryAddTransient<IReferenceTokenStore, DefaultReferenceTokenStore>();
             builder.Services.TryAddTransient<IUserConsentStore, DefaultUserConsentStore>();
             builder.Services.TryAddTransient<IHandleGenerationService, DefaultHandleGenerationService>();
-            
-            builder.Services.TryAddTransient<PersistentGrantSerializer>();
             builder.Services.TryAddTransient<IPersistentGrantSerializer>(sp =>
             {
-                var persistentGrantSerializer = sp.GetRequiredService<PersistentGrantSerializer>();
+                var persistentGrantSerializer = new PersistentGrantSerializer();
                 var dataProtectionProvider = sp.GetRequiredService<IDataProtectionProvider>();
-                var options = sp.GetRequiredService<IOptions<IdentityServerOptions>>();
-                return new PersistentGrantSerializerDataProtectionDecorator(persistentGrantSerializer, dataProtectionProvider, options);
+                return new PersistentGrantSerializerDataProtectionDecorator(persistentGrantSerializer, dataProtectionProvider);
             });
-            
             builder.Services.TryAddTransient<IEventService, DefaultEventService>();
             builder.Services.TryAddTransient<IEventSink, DefaultEventSink>();
             builder.Services.TryAddTransient<IUserCodeService, DefaultUserCodeService>();

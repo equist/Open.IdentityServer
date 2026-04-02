@@ -22,7 +22,6 @@ public class PersistentGrantSerializerDataProtectionDecoratorTests
     private readonly IPersistentGrantSerializer decoratedSerializer = Mock.Of<IPersistentGrantSerializer>();
     private readonly IDataProtectionProvider dataProtectionProvider = Mock.Of<IDataProtectionProvider>();
     private readonly IDataProtector dataProtector = Mock.Of<IDataProtector>();
-    private readonly IOptions<IdentityServerOptions> options = Mock.Of<IOptions<IdentityServerOptions>>();
 
     public PersistentGrantSerializerDataProtectionDecoratorTests()
     {
@@ -31,19 +30,9 @@ public class PersistentGrantSerializerDataProtectionDecoratorTests
             .Returns(dataProtector);
     }
 
-    private PersistentGrantSerializerDataProtectionDecorator CreateSut(bool enabled)
+    private PersistentGrantSerializerDataProtectionDecorator CreateSut()
     {
-        Mock.Get(options)
-            .Setup(x => x.Value)
-            .Returns(new IdentityServerOptions
-            {
-                PersistentGrants = new PersistentGrantsOptions
-                {
-                    DataProtectData = enabled,
-                },
-            });
-
-        return new PersistentGrantSerializerDataProtectionDecorator(decoratedSerializer, dataProtectionProvider, options);
+        return new PersistentGrantSerializerDataProtectionDecorator(decoratedSerializer, dataProtectionProvider);
     }
 
     [Fact]
@@ -64,7 +53,7 @@ public class PersistentGrantSerializerDataProtectionDecoratorTests
                 b => Encoding.UTF8.GetString(b) == inputSerialised)))
             .Returns(protectedBytes);
 
-        var sut = CreateSut(true);
+        var sut = CreateSut();
         var actual = sut.Serialize(input);
 
         actual.Should().NotBeNullOrWhiteSpace();
@@ -73,27 +62,6 @@ public class PersistentGrantSerializerDataProtectionDecoratorTests
         element.GetProperty("PersistentGrantDataContainerVersion").GetInt32().Should().Be(1);
         element.GetProperty("DataProtected").GetBoolean().Should().BeTrue();
         element.GetProperty("Payload").GetString().Should().BeEquivalentTo(expectedPayload);
-    }
-
-    [Fact]
-    public void Serialize_WhenProtectionDisabled_ShouldWrapInDataProtectedDataObjectUnprotected()
-    {
-        var input = new FakeData { Value1 = "someVal" };
-        var inputSerialised = "{ \"value1\" = \"someVal\" }";
-
-        Mock.Get(decoratedSerializer)
-            .Setup(x => x.Serialize(input))
-            .Returns(inputSerialised);
-
-        var sut = CreateSut(false);
-        var actual = sut.Serialize(input);
-
-        actual.Should().NotBeNullOrWhiteSpace();
-        JsonElement element = JsonElement.Parse(actual);
-
-        element.GetProperty("PersistentGrantDataContainerVersion").GetInt32().Should().Be(1);
-        element.GetProperty("DataProtected").GetBoolean().Should().BeFalse();
-        element.GetProperty("Payload").GetString().Should().BeEquivalentTo(inputSerialised);
     }
 
     [Fact]
@@ -122,7 +90,7 @@ public class PersistentGrantSerializerDataProtectionDecoratorTests
                 b => Convert.ToBase64String(b) == protectedPayloadBase64)))
             .Returns(Encoding.UTF8.GetBytes(serialisedPayload));
 
-        var sut = CreateSut(true);
+        var sut = CreateSut();
         var actual = sut.Deserialize<FakeData>(input);
 
         actual.Should().BeEquivalentTo(payload);
@@ -146,7 +114,7 @@ public class PersistentGrantSerializerDataProtectionDecoratorTests
             .Setup(x => x.Deserialize<FakeData>(serialisedPayload))
             .Returns(payload);
 
-        var sut = CreateSut(true);
+        var sut = CreateSut();
         var actual = sut.Deserialize<FakeData>(input);
 
         actual.Should().BeEquivalentTo(payload);

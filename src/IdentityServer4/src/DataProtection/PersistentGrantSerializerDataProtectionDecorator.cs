@@ -14,11 +14,9 @@ namespace IdentityServer4.DataProtection;
 /// <seealso cref="IdentityServer4.Stores.Serialization.IPersistentGrantSerializer" />
 public class PersistentGrantSerializerDataProtectionDecorator(
     IPersistentGrantSerializer decoratedSerializer,
-    IDataProtectionProvider dataProtectionProvider,
-    IOptions<IdentityServerOptions> options): IPersistentGrantSerializer
+    IDataProtectionProvider dataProtectionProvider): IPersistentGrantSerializer
 {
     private IDataProtector dataProtector = dataProtectionProvider.CreateProtector(nameof(PersistentGrantSerializer));
-    private IdentityServerOptions options = options.Value;
 
     private JsonSerializerOptions serializerOptions = new();
 
@@ -34,8 +32,8 @@ public class PersistentGrantSerializerDataProtectionDecorator(
         
         var wrappedData = new DataProtectedGrantData
         {
-            DataProtected = options.PersistentGrants.DataProtectData,
-            Payload = options.PersistentGrants.DataProtectData ? dataProtector.Protect(data) : data,
+            DataProtected = true,
+            Payload = dataProtector.Protect(data),
         };
 
         return JsonSerializer.Serialize(wrappedData, serializerOptions);
