@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+#nullable enable
 
 namespace Open.IdentityServer.Stores.Serialization
 {
@@ -23,6 +24,6 @@ namespace Open.IdentityServer.Stores.Serialization
         /// <typeparam name="T"></typeparam>
         /// <param name="json">The json.</param>
         /// <returns></returns>
-        T Deserialize<T>(string json);
+        T? Deserialize<T>(string json);
     }
 }

@@ -1,10 +1,10 @@
+#nullable enable
+
 using System;
 using System.Text.Json;
-using IdentityServer4.Configuration;
 using IdentityServer4.Storage.Stores.DataProtection;
 using IdentityServer4.Stores.Serialization;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.Extensions.Options;
 
 namespace IdentityServer4.DataProtection;
 
@@ -45,11 +45,28 @@ public class PersistentGrantSerializerDataProtectionDecorator(
     /// <typeparam name="TGrant">type of grant to be deserialized</typeparam>
     /// <param name="json">The json.</param>
     /// <returns></returns>
-    public TGrant Deserialize<TGrant>(string json)
+    public TGrant? Deserialize<TGrant>(string json)
     {
-        DataProtectedGrantData wrappedData = JsonSerializer.Deserialize<DataProtectedGrantData>(json, serializerOptions);
+        DataProtectedGrantData? wrappedData = JsonSerializer.Deserialize<DataProtectedGrantData>(json, serializerOptions);
 
-        var data = wrappedData.DataProtected ? dataProtector.Unprotect(wrappedData.Payload) : wrappedData.Payload;
+        if (wrappedData == null)
+        {
+            throw new Exception("Failed to deserialize protected grant data from store");
+        }
+        
+        var data = wrappedData.Payload;
+
+        if (wrappedData.DataProtected)
+        {
+            try
+            {
+                data = dataProtector.Unprotect(data);
+            }
+            catch (Exception ex)
+            {
+                throw new DataProtectionException(ex, "Failed to unprotect grant data, this could be because data protection is incorrectly configured");
+            }
+        }
 
         return decoratedSerializer.Deserialize<TGrant>(data);
     }

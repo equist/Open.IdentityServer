@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using AwesomeAssertions;
@@ -6,6 +7,7 @@ using IdentityServer4.Configuration;
 using IdentityServer4.DataProtection;
 using IdentityServer4.Stores.Serialization;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using Xunit;
@@ -65,6 +67,51 @@ public class PersistentGrantSerializerDataProtectionDecoratorTests
     }
 
     [Fact]
+    public void Deserialize_WhenProtectedDataDeserialisationFails_ShouldThrowException()
+    {
+        var input = "null";
+
+        var sut = CreateSut();
+        Action act = () => sut.Deserialize<FakeData>(input);
+
+        act.Should().ThrowExactly<Exception>();
+    }
+
+    [Fact]
+    public void Deserialize_WhenUnprotectThrowsException_ShouldThrowDataProtectionException()
+    {
+        CryptographicException fakeException = new CryptographicException();
+        FakeData payload = new() { Value1 = "someVal" };
+        var serialisedPayload = "{ \"value1\" = \"someVal\" }";
+
+        var protectedPayloadBytes = Encoding.UTF8.GetBytes("PROTECTED_INPUT");
+        var protectedPayloadBase64 = Convert.ToBase64String(protectedPayloadBytes);
+
+        var input = """
+                    {
+                        "PersistentGrantDataContainerVersion": 1,
+                        "DataProtected": true,
+                        "Payload": "{ \u0022value1\u0022 = \u0022someVal\u0022 }"
+                    }
+                    """;
+
+        Mock.Get(decoratedSerializer)
+            .Setup(x => x.Deserialize<FakeData>(serialisedPayload))
+            .Returns(payload);
+
+        Mock.Get(dataProtector)
+            .Setup(x => x.Unprotect(It.Is<byte[]>(
+                b => Convert.ToBase64String(b) == protectedPayloadBase64)))
+            .Throws<CryptographicException>();
+
+        var sut = CreateSut();
+        Action act = () => sut.Deserialize<FakeData>(input);
+
+        act.Should().ThrowExactly<DataProtectionException>()
+            .WithInnerException(fakeException.GetType());
+    }
+
+    [Fact]
     public void Deserialize_WhenProtectedDataProvided_ShouldUnprotectAndReturn()
     {
         FakeData payload = new() { Value1 = "someVal" };
@@ -74,12 +121,12 @@ public class PersistentGrantSerializerDataProtectionDecoratorTests
         var protectedPayloadBase64 = Convert.ToBase64String(protectedPayloadBytes);
 
         var input = $$"""
-                    {
-                        "PersistentGrantDataContainerVersion": 1,
-                        "DataProtected": true,
-                        "Payload": "{{protectedPayloadBase64}}"
-                    }
-                    """;
+                      {
+                          "PersistentGrantDataContainerVersion": 1,
+                          "DataProtected": true,
+                          "Payload": "{{protectedPayloadBase64}}"
+                      }
+                      """;
 
         Mock.Get(decoratedSerializer)
             .Setup(x => x.Deserialize<FakeData>(serialisedPayload))
