@@ -2,79 +2,46 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Open.IdentityServer.Configuration;
-using Open.IdentityServer.Hosting;
 using Microsoft.AspNetCore.Http;
 using Open.IdentityServer.Validation;
 using Open.IdentityServer.Extensions;
-using Microsoft.Extensions.DependencyInjection;
 using Open.IdentityServer.Stores;
-using Open.IdentityServer.Models;
 
 namespace Open.IdentityServer.Endpoints.Results
 {
     /// <summary>
     /// Result for consent page
     /// </summary>
-    /// <seealso cref="Open.IdentityServer.Hosting.IEndpointResult" />
-    public class ConsentPageResult : IEndpointResult
+    /// <seealso cref="Open.IdentityServer.Hosting.ReturnUrlResult" />
+    public class ConsentPageResult : ReturnUrlResult
     {
-        private readonly ValidatedAuthorizeRequest _request;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ConsentPageResult"/> class.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <exception cref="System.ArgumentNullException">request</exception>
-        public ConsentPageResult(ValidatedAuthorizeRequest request)
-        {
-            _request = request ?? throw new ArgumentNullException(nameof(request));
-        }
+        public ConsentPageResult(ValidatedAuthorizeRequest request):
+            base(request) { }
 
         internal ConsentPageResult(
             ValidatedAuthorizeRequest request,
             IdentityServerOptions options,
-            IAuthorizationParametersMessageStore authorizationParametersMessageStore = null) 
-            : this(request)
-        {
-            _options = options;
-            _authorizationParametersMessageStore = authorizationParametersMessageStore;
-        }
-
-        private IdentityServerOptions _options;
-        private IAuthorizationParametersMessageStore _authorizationParametersMessageStore;
-
-        private void Init(HttpContext context)
-        {
-            _options = _options ?? context.RequestServices.GetRequiredService<IdentityServerOptions>();
-            _authorizationParametersMessageStore = _authorizationParametersMessageStore ?? context.RequestServices.GetService<IAuthorizationParametersMessageStore>();
-        }
+            IAuthorizationParametersMessageStore authorizationParametersMessageStore = null): 
+            base(request, options, authorizationParametersMessageStore) { }
 
         /// <summary>
         /// Executes the result.
         /// </summary>
         /// <param name="context">The HTTP context.</param>
         /// <returns></returns>
-        public async Task ExecuteAsync(HttpContext context)
+        public override async Task ExecuteAsync(HttpContext context)
         {
             Init(context);
+            var returnUrl = await BuildReturnUrl(context, Constants.ProtocolRoutePaths.AuthorizeCallback);
 
-            var returnUrl = context.GetIdentityServerBasePath().EnsureTrailingSlash() + Constants.ProtocolRoutePaths.AuthorizeCallback;
-            if (_authorizationParametersMessageStore != null)
-            {
-                var msg = new Message<IDictionary<string, string[]>>(_request.Raw.ToFullDictionary());
-                var id = await _authorizationParametersMessageStore.WriteAsync(msg);
-                returnUrl = returnUrl.AddQueryString(Constants.AuthorizationParamsStore.MessageStoreIdParameterName, id);
-            }
-            else
-            {
-                returnUrl = returnUrl.AddQueryString(_request.Raw.ToQueryString());
-            }
-
-            var consentUrl = _options.UserInteraction.ConsentUrl;
+            var consentUrl = Options.UserInteraction.ConsentUrl;
             if (!consentUrl.IsLocalUrl())
             {
                 // this converts the relative redirect path to an absolute one if we're 
@@ -82,7 +49,7 @@ namespace Open.IdentityServer.Endpoints.Results
                 returnUrl = context.GetIdentityServerHost().EnsureTrailingSlash() + returnUrl.RemoveLeadingSlash();
             }
 
-            var url = consentUrl.AddQueryString(_options.UserInteraction.ConsentReturnUrlParameter, returnUrl);
+            var url = consentUrl.AddQueryString(Options.UserInteraction.ConsentReturnUrlParameter, returnUrl);
             context.Response.RedirectToAbsoluteUrl(url);
         }
     }

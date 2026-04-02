@@ -1,25 +1,22 @@
 // Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-
 using System;
 using System.Threading.Tasks;
-using Open.IdentityServer.Hosting;
 using Open.IdentityServer.Validation;
-using Microsoft.AspNetCore.Http;
 using Open.IdentityServer.Extensions;
 using Open.IdentityServer.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using Open.IdentityServer.Stores;
+using Microsoft.AspNetCore.Http;
 
 namespace Open.IdentityServer.Endpoints.Results
 {
     /// <summary>
     /// Result for a custom redirect
     /// </summary>
-    /// <seealso cref="Open.IdentityServer.Hosting.IEndpointResult" />
-    public class CustomRedirectResult : IEndpointResult
+    /// <seealso cref="Open.IdentityServer.Hosting.ReturnUrlResult" />
+    public class CustomRedirectResult : ReturnUrlResult
     {
-        private readonly ValidatedAuthorizeRequest _request;
         private readonly string _url;
 
         /// <summary>
@@ -32,29 +29,22 @@ namespace Open.IdentityServer.Endpoints.Results
         /// or
         /// url
         /// </exception>
-        public CustomRedirectResult(ValidatedAuthorizeRequest request, string url)
+        public CustomRedirectResult(ValidatedAuthorizeRequest request, string url): 
+            base(request)
         {
-            if (request == null) throw new ArgumentNullException(nameof(request));
             if (url.IsMissing()) throw new ArgumentNullException(nameof(url));
-
-            _request = request;
             _url = url;
         }
 
         internal CustomRedirectResult(
             ValidatedAuthorizeRequest request,
             string url,
-            IdentityServerOptions options) 
-            : this(request, url)
+            IdentityServerOptions options,
+            IAuthorizationParametersMessageStore authorizationParametersMessageStore = null):
+            base(request, options, authorizationParametersMessageStore)
         {
-            _options = options;
-        }
-
-        private IdentityServerOptions _options;
-
-        private void Init(HttpContext context)
-        {
-            _options = _options ?? context.RequestServices.GetRequiredService<IdentityServerOptions>();
+            if (url.IsMissing()) throw new ArgumentNullException(nameof(url));
+            _url = url;
         }
 
         /// <summary>
@@ -62,12 +52,10 @@ namespace Open.IdentityServer.Endpoints.Results
         /// </summary>
         /// <param name="context">The HTTP context.</param>
         /// <returns></returns>
-        public Task ExecuteAsync(HttpContext context)
+        public override async Task ExecuteAsync(HttpContext context)
         {
             Init(context);
-
-            var returnUrl = context.GetIdentityServerBasePath().EnsureTrailingSlash() + Constants.ProtocolRoutePaths.Authorize;
-            returnUrl = returnUrl.AddQueryString(_request.Raw.ToQueryString());
+            var returnUrl = await BuildReturnUrl(context, Constants.ProtocolRoutePaths.Authorize);
 
             if (!_url.IsLocalUrl())
             {
@@ -76,10 +64,8 @@ namespace Open.IdentityServer.Endpoints.Results
                 returnUrl = context.GetIdentityServerBaseUrl().EnsureTrailingSlash() + returnUrl.RemoveLeadingSlash();
             }
 
-            var url = _url.AddQueryString(_options.UserInteraction.CustomRedirectReturnUrlParameter, returnUrl);
+            var url = _url.AddQueryString(Options.UserInteraction.CustomRedirectReturnUrlParameter, returnUrl);
             context.Response.RedirectToAbsoluteUrl(url);
-
-            return Task.CompletedTask;
         }
     }
 }
