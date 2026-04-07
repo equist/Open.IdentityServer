@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 using AwesomeAssertions;
 using IdentityModel;
 using IdentityServer.UnitTests.Common;
-using OpenIdentityServer;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Validation;
 using Xunit;
 
 namespace IdentityServer.UnitTests.ResponseHandling.AuthorizeInteractionResponseGenerator;

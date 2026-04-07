@@ -8,7 +8,7 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 
-namespace OpenIdentityServer.Models
+namespace Open.IdentityServer.Models
 {
     /// <summary>
     /// Models an OpenID Connect or OAuth2 client

@@ -4,7 +4,7 @@
 
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Services
+namespace Open.IdentityServer.Services
 {
     /// <summary>
     /// Implements user code generation

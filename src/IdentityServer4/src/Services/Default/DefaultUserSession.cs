@@ -4,13 +4,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using IdentityModel;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Extensions;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication;
 
-namespace OpenIdentityServer.Services
+namespace Open.IdentityServer.Services
 {
     /// <summary>
     /// Cookie-based session implementation

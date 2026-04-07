@@ -5,7 +5,7 @@
 
 using System;
 
-namespace OpenIdentityServer.Models
+namespace Open.IdentityServer.Models
 {
     /// <summary>
     /// Base class for data that needs to be written out as cookies.

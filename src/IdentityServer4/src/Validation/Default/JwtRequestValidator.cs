@@ -9,15 +9,15 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using IdentityModel;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Validates JWT authorization request objects

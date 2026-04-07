@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AwesomeAssertions;
 using IdentityServer.UnitTests.Common;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Validation;
 using Microsoft.AspNetCore.Http;
 using Xunit;
 

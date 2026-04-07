@@ -7,15 +7,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityModel;
-using OpenIdentityServer.EntityFramework.DbContexts;
-using OpenIdentityServer.EntityFramework.Mappers;
-using OpenIdentityServer.EntityFramework.Options;
-using OpenIdentityServer.EntityFramework.Stores;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.EntityFramework.DbContexts;
+using Open.IdentityServer.EntityFramework.Mappers;
+using Open.IdentityServer.EntityFramework.Options;
+using Open.IdentityServer.EntityFramework.Stores;
+using Open.IdentityServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace OpenIdentityServer.EntityFramework.IntegrationTests.Stores
+namespace Open.IdentityServer.EntityFramework.IntegrationTests.Stores
 {
     public class ScopeStoreTests : IntegrationTest<ScopeStoreTests, ConfigurationDbContext, ConfigurationStoreOptions>
     {

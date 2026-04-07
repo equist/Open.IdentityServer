@@ -3,18 +3,18 @@
 
 
 using System.Linq;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Validation;
 using System.Threading.Tasks;
-using OpenIdentityServer.Hosting;
+using Open.IdentityServer.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Configuration;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Configuration;
 using System.Text.Encodings.Web;
 
-namespace OpenIdentityServer.Endpoints.Results
+namespace Open.IdentityServer.Endpoints.Results
 {
     internal class EndSessionCallbackResult : IEndpointResult
     {

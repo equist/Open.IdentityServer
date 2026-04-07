@@ -1,4 +1,4 @@
-﻿using OpenIdentityServer.Validation;
+﻿using Open.IdentityServer.Validation;
 using Microsoft.Extensions.Logging;
 using System;
 

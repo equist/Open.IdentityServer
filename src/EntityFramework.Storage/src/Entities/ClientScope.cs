@@ -4,7 +4,7 @@
 
 #pragma warning disable 1591
 
-namespace OpenIdentityServer.EntityFramework.Entities
+namespace Open.IdentityServer.EntityFramework.Entities
 {
     public class ClientScope
     {

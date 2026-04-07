@@ -4,12 +4,12 @@
 
 using System;
 using System.Threading.Tasks;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace OpenIdentityServer.Services
+namespace Open.IdentityServer.Services
 {
     /// <summary>
     /// The default device flow throttling service using IDistributedCache.

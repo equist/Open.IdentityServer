@@ -3,9 +3,9 @@
 
 
 using System.Threading.Tasks;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.ResponseHandling;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.ResponseHandling;
+using Open.IdentityServer.Validation;
 
 namespace IdentityServer.UnitTests.Endpoints.Authorize
 {

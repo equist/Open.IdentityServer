@@ -5,9 +5,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AwesomeAssertions;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Endpoints.Results;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Endpoints.Results;
+using Open.IdentityServer.Validation;
 using Microsoft.AspNetCore.Http;
 using Xunit;
 

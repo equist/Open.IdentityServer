@@ -9,11 +9,11 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using AwesomeAssertions;
 using IdentityServer.UnitTests.Common;
-using OpenIdentityServer;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.ResponseHandling;
-using OpenIdentityServer.Stores;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.ResponseHandling;
+using Open.IdentityServer.Stores;
+using Open.IdentityServer.Validation;
 using Xunit;
 
 namespace IdentityServer.UnitTests.ResponseHandling;

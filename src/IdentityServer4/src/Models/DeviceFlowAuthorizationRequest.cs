@@ -2,9 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Validation;
 
-namespace OpenIdentityServer.Models
+namespace Open.IdentityServer.Models
 {
     /// <summary>
     /// Represents contextual information about a device flow authorization request.

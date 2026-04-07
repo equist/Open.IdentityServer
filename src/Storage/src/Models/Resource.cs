@@ -5,7 +5,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace OpenIdentityServer.Models
+namespace Open.IdentityServer.Models
 {
     /// <summary>
     /// Models the common data of API and identity resources.

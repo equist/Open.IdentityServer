@@ -3,13 +3,13 @@
 
 
 using IdentityModel;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.ResponseHandling;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.ResponseHandling;
+using Open.IdentityServer.Validation;
 using System.Collections.Generic;
 using static OpenIdentityServer.Constants;
 
-namespace OpenIdentityServer.Events
+namespace Open.IdentityServer.Events
 {
     /// <summary>
     /// Event for successful token issuance

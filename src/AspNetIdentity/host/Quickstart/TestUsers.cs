@@ -3,7 +3,7 @@
 
 
 using IdentityModel;
-using OpenIdentityServer.Test;
+using Open.IdentityServer.Test;
 using System.Collections.Generic;
 using System.Security.Claims;
 

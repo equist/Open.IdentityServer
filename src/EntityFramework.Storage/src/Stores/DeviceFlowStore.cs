@@ -6,15 +6,15 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityModel;
-using OpenIdentityServer.EntityFramework.Entities;
-using OpenIdentityServer.EntityFramework.Interfaces;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Stores;
-using OpenIdentityServer.Stores.Serialization;
+using Open.IdentityServer.EntityFramework.Entities;
+using Open.IdentityServer.EntityFramework.Interfaces;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Stores;
+using Open.IdentityServer.Stores.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace OpenIdentityServer.EntityFramework.Stores
+namespace Open.IdentityServer.EntityFramework.Stores
 {
     /// <summary>
     /// Implementation of IDeviceFlowStore thats uses EF.

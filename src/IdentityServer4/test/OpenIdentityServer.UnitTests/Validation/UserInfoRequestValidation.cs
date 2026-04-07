@@ -5,8 +5,8 @@
 using AwesomeAssertions;
 using IdentityModel;
 using IdentityServer.UnitTests.Validation.Setup;
-using OpenIdentityServer.Stores;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Stores;
+using Open.IdentityServer.Validation;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;

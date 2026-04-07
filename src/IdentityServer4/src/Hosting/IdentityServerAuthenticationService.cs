@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using OpenIdentityServer.Services;
+using Open.IdentityServer.Services;
 using Microsoft.Extensions.Logging;
-using OpenIdentityServer.Configuration.DependencyInjection;
-using OpenIdentityServer.Extensions;
+using Open.IdentityServer.Configuration.DependencyInjection;
+using Open.IdentityServer.Extensions;
 using System;
 using IdentityModel;
 using System.Linq;
-using OpenIdentityServer.Configuration;
+using Open.IdentityServer.Configuration;
 
-namespace OpenIdentityServer.Hosting
+namespace Open.IdentityServer.Hosting
 {
     // this decorates the real authentication service to detect when the 
     // user is being signed in. this allows us to ensure the user has

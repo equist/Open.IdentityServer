@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using IdentityModel;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Parses a POST body for a JWT bearer client assertion

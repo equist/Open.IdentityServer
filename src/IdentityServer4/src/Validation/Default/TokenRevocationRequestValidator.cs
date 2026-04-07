@@ -3,14 +3,14 @@
 
 
 using IdentityModel;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Models;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// The token revocation request validator

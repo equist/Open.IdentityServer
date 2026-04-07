@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 
-namespace OpenIdentityServer.Logging.Models
+namespace Open.IdentityServer.Logging.Models
 {
     internal class TokenValidationLog
     {

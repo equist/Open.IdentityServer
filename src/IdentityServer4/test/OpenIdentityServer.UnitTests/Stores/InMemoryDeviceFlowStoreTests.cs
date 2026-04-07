@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AwesomeAssertions;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Stores;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Stores;
 using Xunit;
 
 namespace IdentityServer.UnitTests.Stores

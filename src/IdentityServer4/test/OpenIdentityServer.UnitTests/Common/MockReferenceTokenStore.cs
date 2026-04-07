@@ -1,5 +1,5 @@
-﻿using OpenIdentityServer.Models;
-using OpenIdentityServer.Stores;
+﻿using Open.IdentityServer.Models;
+using Open.IdentityServer.Stores;
 using System;
 using System.Threading.Tasks;
 

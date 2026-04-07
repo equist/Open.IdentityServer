@@ -2,15 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.ResponseHandling;
-using OpenIdentityServer.Services;
-using OpenIdentityServer.Stores;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.ResponseHandling;
+using Open.IdentityServer.Services;
+using Open.IdentityServer.Stores;
+using Open.IdentityServer.Validation;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Net.Http;
-using OpenIdentityServer;
-using OpenIdentityServer.Configuration;
+using Open.IdentityServer;
+using Open.IdentityServer.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Microsoft.Extensions.DependencyInjection

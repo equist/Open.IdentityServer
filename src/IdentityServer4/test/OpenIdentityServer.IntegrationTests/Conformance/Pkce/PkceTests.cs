@@ -11,9 +11,9 @@ using AwesomeAssertions;
 using IdentityModel;
 using IdentityModel.Client;
 using IdentityServer.IntegrationTests.Common;
-using OpenIdentityServer;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Test;
+using Open.IdentityServer;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Test;
 using Xunit;
 
 namespace IdentityServer.IntegrationTests.Conformance.Pkce

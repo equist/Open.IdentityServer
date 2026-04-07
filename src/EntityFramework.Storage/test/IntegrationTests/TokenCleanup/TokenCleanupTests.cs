@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AwesomeAssertions;
-using OpenIdentityServer.EntityFramework.DbContexts;
-using OpenIdentityServer.EntityFramework.Entities;
-using OpenIdentityServer.EntityFramework.Interfaces;
-using OpenIdentityServer.EntityFramework.Options;
-using OpenIdentityServer.EntityFramework.Stores;
-using OpenIdentityServer.Stores;
-using OpenIdentityServer.Test;
+using Open.IdentityServer.EntityFramework.DbContexts;
+using Open.IdentityServer.EntityFramework.Entities;
+using Open.IdentityServer.EntityFramework.Interfaces;
+using Open.IdentityServer.EntityFramework.Options;
+using Open.IdentityServer.EntityFramework.Stores;
+using Open.IdentityServer.Stores;
+using Open.IdentityServer.Test;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace OpenIdentityServer.EntityFramework.IntegrationTests.TokenCleanup;
+namespace Open.IdentityServer.EntityFramework.IntegrationTests.TokenCleanup;
 
 public class TokenCleanupTests : IntegrationTest<TokenCleanupTests, PersistedGrantDbContext, OperationalStoreOptions>
 {

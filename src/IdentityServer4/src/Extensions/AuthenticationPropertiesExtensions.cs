@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace OpenIdentityServer.Extensions
+namespace Open.IdentityServer.Extensions
 {
     /// <summary>
     /// Extensions for AuthenticationProperties

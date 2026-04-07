@@ -3,22 +3,22 @@
 
 
 using System.Threading.Tasks;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Hosting;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Hosting;
 using IdentityModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using OpenIdentityServer.Services;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Stores;
-using OpenIdentityServer.ResponseHandling;
+using Open.IdentityServer.Services;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Stores;
+using Open.IdentityServer.ResponseHandling;
 using Microsoft.AspNetCore.Authentication;
 using System.Text.Encodings.Web;
 
-namespace OpenIdentityServer.Endpoints.Results
+namespace Open.IdentityServer.Endpoints.Results
 {
     [SuppressMessage(
         "Usage", 

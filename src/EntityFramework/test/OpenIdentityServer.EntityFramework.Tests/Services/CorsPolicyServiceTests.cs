@@ -4,20 +4,20 @@
 
 using System;
 using System.Collections.Generic;
-using OpenIdentityServer.EntityFramework.DbContexts;
-using OpenIdentityServer.EntityFramework.Mappers;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.EntityFramework.DbContexts;
+using Open.IdentityServer.EntityFramework.Mappers;
+using Open.IdentityServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using System.Linq;
 using System.Threading.Tasks;
-using OpenIdentityServer.EntityFramework.Options;
+using Open.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using OpenIdentityServer.EntityFramework.Interfaces;
-using OpenIdentityServer.EntityFramework.Services;
+using Open.IdentityServer.EntityFramework.Interfaces;
+using Open.IdentityServer.EntityFramework.Services;
 
-namespace OpenIdentityServer.EntityFramework.IntegrationTests.Services;
+namespace Open.IdentityServer.EntityFramework.IntegrationTests.Services;
 
 public class CorsPolicyServiceTests : IntegrationTest<CorsPolicyServiceTests, ConfigurationDbContext, ConfigurationStoreOptions>
 {

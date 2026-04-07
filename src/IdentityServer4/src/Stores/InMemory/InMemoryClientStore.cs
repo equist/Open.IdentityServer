@@ -2,14 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Stores
+namespace Open.IdentityServer.Stores
 {
     /// <summary>
     /// In-memory client store

@@ -2,10 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Events;
+using Open.IdentityServer.Events;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Services
+namespace Open.IdentityServer.Services
 {
     /// <summary>
     /// Interface for the event service

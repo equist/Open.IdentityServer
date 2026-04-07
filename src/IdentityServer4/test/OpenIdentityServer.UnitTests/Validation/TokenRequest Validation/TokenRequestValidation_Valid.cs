@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 using AwesomeAssertions;
 using IdentityModel;
 using IdentityServer.UnitTests.Validation.Setup;
-using OpenIdentityServer;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Stores;
+using Open.IdentityServer;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Stores;
 using Xunit;
 
 namespace IdentityServer.UnitTests.Validation.TokenRequest_Validation

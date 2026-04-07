@@ -2,9 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Stores;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Stores;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Threading.Tasks;
@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 using System.Linq;
 using Microsoft.AspNetCore.Authentication;
 
-namespace OpenIdentityServer.Services
+namespace Open.IdentityServer.Services
 {
     internal class DefaultIdentityServerInteractionService : IIdentityServerInteractionService
     {

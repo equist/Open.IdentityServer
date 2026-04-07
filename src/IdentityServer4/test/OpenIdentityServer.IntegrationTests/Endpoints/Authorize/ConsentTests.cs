@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 using AwesomeAssertions;
 using IdentityModel.Client;
 using IdentityServer.IntegrationTests.Common;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Stores;
-using OpenIdentityServer.Stores.Default;
-using OpenIdentityServer.Test;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Stores;
+using Open.IdentityServer.Stores.Default;
+using Open.IdentityServer.Test;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 

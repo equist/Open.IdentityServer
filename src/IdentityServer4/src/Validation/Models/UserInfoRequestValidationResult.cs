@@ -4,7 +4,7 @@
 
 using System.Security.Claims;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Validation result for userinfo requests

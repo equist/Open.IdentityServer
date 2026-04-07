@@ -3,9 +3,9 @@
 
 
 using IdentityModel;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Services;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Services;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -14,13 +14,13 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
-using OpenIdentityServer.Stores;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Logging.Models;
+using Open.IdentityServer.Stores;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Logging.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     internal class TokenValidator : ITokenValidator
     {

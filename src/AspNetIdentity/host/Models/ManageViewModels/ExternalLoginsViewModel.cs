@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 
-namespace OpenIdentityServer.Models.ManageViewModels
+namespace Open.IdentityServer.Models.ManageViewModels
 {
     public class ExternalLoginsViewModel
     {

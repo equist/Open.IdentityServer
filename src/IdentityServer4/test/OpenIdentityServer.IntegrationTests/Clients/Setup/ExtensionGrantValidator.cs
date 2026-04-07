@@ -4,8 +4,8 @@
 
 using System.Security.Claims;
 using System.Threading.Tasks;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Validation;
 
 namespace IdentityServer.IntegrationTests.Clients.Setup
 {

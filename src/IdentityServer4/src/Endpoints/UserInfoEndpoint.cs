@@ -3,16 +3,16 @@
 
 
 using System.Threading.Tasks;
-using OpenIdentityServer.Validation;
-using OpenIdentityServer.ResponseHandling;
+using Open.IdentityServer.Validation;
+using Open.IdentityServer.ResponseHandling;
 using Microsoft.Extensions.Logging;
-using OpenIdentityServer.Hosting;
-using OpenIdentityServer.Endpoints.Results;
+using Open.IdentityServer.Hosting;
+using Open.IdentityServer.Endpoints.Results;
 using IdentityModel;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 
-namespace OpenIdentityServer.Endpoints
+namespace Open.IdentityServer.Endpoints
 {
     /// <summary>
     /// The userinfo endpoint

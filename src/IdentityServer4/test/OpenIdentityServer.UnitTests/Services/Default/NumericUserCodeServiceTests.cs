@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using AwesomeAssertions;
-using OpenIdentityServer.Services;
+using Open.IdentityServer.Services;
 using Xunit;
 
 namespace IdentityServer.UnitTests.Services.Default;

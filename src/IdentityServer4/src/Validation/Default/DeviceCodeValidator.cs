@@ -6,13 +6,13 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityModel;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Services;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Validates an incoming token request using the device flow

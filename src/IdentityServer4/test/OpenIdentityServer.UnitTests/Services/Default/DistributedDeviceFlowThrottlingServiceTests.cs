@@ -5,9 +5,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using AwesomeAssertions;
 using IdentityServer.UnitTests.Common;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Services;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Services;
 using Microsoft.Extensions.Caching.Distributed;
 using Xunit;
 

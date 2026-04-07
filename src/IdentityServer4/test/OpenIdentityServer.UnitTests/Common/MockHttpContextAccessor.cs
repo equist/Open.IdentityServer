@@ -2,10 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Services;
-using OpenIdentityServer.Stores;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Services;
+using Open.IdentityServer.Stores;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;

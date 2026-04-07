@@ -5,7 +5,7 @@
 using System.Collections.Specialized;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Validation;
 
 namespace IdentityServer.UnitTests.Endpoints.EndSession
 {

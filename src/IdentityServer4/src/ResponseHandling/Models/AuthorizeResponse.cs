@@ -2,12 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Validation;
 
 #pragma warning disable 1591
 
-namespace OpenIdentityServer.ResponseHandling
+namespace Open.IdentityServer.ResponseHandling
 {
     public class AuthorizeResponse
     {

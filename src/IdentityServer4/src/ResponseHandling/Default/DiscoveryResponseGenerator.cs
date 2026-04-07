@@ -3,11 +3,11 @@
 
 
 using IdentityModel;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Services;
-using OpenIdentityServer.Stores;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Services;
+using Open.IdentityServer.Stores;
+using Open.IdentityServer.Validation;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -16,7 +16,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.ResponseHandling
+namespace Open.IdentityServer.ResponseHandling
 {
     /// <summary>
     /// Default implementation of the discovery endpoint response generator

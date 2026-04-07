@@ -4,7 +4,7 @@
 
 using System;
 
-namespace OpenIdentityServer.Models
+namespace Open.IdentityServer.Models
 {
     /// <summary>
     /// A model for a persisted grant

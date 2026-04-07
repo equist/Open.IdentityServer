@@ -6,8 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using IdentityServer.IntegrationTests.Common;
-using OpenIdentityServer;
-using OpenIdentityServer.Models;
+using Open.IdentityServer;
+using Open.IdentityServer.Models;
 
 namespace IdentityServer.IntegrationTests.Clients.Setup
 {

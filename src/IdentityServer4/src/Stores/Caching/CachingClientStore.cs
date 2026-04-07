@@ -2,14 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Services;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Services;
 using System.Threading.Tasks;
-using OpenIdentityServer.Configuration;
+using Open.IdentityServer.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace OpenIdentityServer.Stores
+namespace Open.IdentityServer.Stores
 {
     /// <summary>
     /// Cache decorator for IClientStore

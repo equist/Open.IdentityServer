@@ -3,7 +3,7 @@
 
 
 using System.Threading.Tasks;
-using OpenIdentityServer.Services;
+using Open.IdentityServer.Services;
 
 namespace IdentityServer.UnitTests.Cors
 {

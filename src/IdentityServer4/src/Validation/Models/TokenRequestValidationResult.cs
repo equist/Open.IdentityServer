@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Validation result for token requests

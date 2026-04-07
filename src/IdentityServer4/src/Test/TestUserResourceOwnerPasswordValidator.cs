@@ -3,12 +3,12 @@
 
 
 using IdentityModel;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Validation;
 using System.Threading.Tasks;
 using System;
 using Microsoft.AspNetCore.Authentication;
 
-namespace OpenIdentityServer.Test
+namespace Open.IdentityServer.Test
 {
     /// <summary>
     /// Resource owner password validator for test users

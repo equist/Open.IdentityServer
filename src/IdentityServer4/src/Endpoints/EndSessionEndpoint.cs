@@ -4,15 +4,15 @@
 using System.Collections.Specialized;
 using System.Net;
 using System.Threading.Tasks;
-using OpenIdentityServer.Endpoints.Results;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Hosting;
-using OpenIdentityServer.Services;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Endpoints.Results;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Hosting;
+using Open.IdentityServer.Services;
+using Open.IdentityServer.Validation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace OpenIdentityServer.Endpoints
+namespace Open.IdentityServer.Endpoints
 {
     internal class EndSessionEndpoint : IEndpointHandler
     {

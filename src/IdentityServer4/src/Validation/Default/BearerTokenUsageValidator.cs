@@ -3,13 +3,13 @@
 
 
 using IdentityModel;
-using OpenIdentityServer.Extensions;
+using Open.IdentityServer.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Validates a request that uses a bearer token for authentication

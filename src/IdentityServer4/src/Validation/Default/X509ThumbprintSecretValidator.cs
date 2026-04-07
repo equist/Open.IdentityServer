@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Models;
 using Microsoft.Extensions.Logging;
 using static OpenIdentityServer.IdentityServerConstants;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Validator for an X.509 certificate based client secret using the thumbprint

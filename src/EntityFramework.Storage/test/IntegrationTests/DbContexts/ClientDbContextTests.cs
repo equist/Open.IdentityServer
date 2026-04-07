@@ -2,14 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.EntityFramework.DbContexts;
+using Open.IdentityServer.EntityFramework.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using OpenIdentityServer.EntityFramework.Entities;
-using OpenIdentityServer.EntityFramework.Options;
+using Open.IdentityServer.EntityFramework.Entities;
+using Open.IdentityServer.EntityFramework.Options;
 using Xunit;
 
-namespace OpenIdentityServer.EntityFramework.IntegrationTests.DbContexts
+namespace Open.IdentityServer.EntityFramework.IntegrationTests.DbContexts
 {
     public class ClientDbContextTests : IntegrationTest<ClientDbContextTests, ConfigurationDbContext, ConfigurationStoreOptions>
     {

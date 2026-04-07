@@ -2,10 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Validation;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.ResponseHandling
+namespace Open.IdentityServer.ResponseHandling
 {
     /// <summary>
     /// Interface for the authorize response generator

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using IdentityModel;
 using IdentityServer.UnitTests.Common;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Models;
 
 namespace IdentityServer.UnitTests.Validation.Setup
 {

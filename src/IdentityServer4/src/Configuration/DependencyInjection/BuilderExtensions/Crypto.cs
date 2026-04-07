@@ -2,10 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Stores;
+using Open.IdentityServer;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Stores;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IO;

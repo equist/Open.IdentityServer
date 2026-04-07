@@ -1,10 +1,10 @@
 using AwesomeAssertions;
 using IdentityServer.UnitTests.Common;
-using OpenIdentityServer;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Services;
-using OpenIdentityServer.Stores;
-using OpenIdentityServer.Stores.Serialization;
+using Open.IdentityServer;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Services;
+using Open.IdentityServer.Stores;
+using Open.IdentityServer.Stores.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;

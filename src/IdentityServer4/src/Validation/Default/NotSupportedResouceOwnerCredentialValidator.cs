@@ -4,9 +4,9 @@
 
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Models;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Default resource owner password validator (no implementation == not supported)

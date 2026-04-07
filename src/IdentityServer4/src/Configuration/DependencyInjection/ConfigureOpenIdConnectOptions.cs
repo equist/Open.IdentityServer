@@ -4,12 +4,12 @@
 
 using System;
 using System.Linq;
-using OpenIdentityServer.Infrastructure;
+using Open.IdentityServer.Infrastructure;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 
-namespace OpenIdentityServer.Configuration
+namespace Open.IdentityServer.Configuration
 {
     internal class ConfigureOpenIdConnectOptions : IPostConfigureOptions<OpenIdConnectOptions>
     {

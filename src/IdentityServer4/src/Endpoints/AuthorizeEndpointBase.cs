@@ -6,20 +6,20 @@ using System.Collections.Specialized;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using IdentityModel;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Endpoints.Results;
-using OpenIdentityServer.Events;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Hosting;
-using OpenIdentityServer.Logging.Models;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.ResponseHandling;
-using OpenIdentityServer.Services;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Endpoints.Results;
+using Open.IdentityServer.Events;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Hosting;
+using Open.IdentityServer.Logging.Models;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.ResponseHandling;
+using Open.IdentityServer.Services;
+using Open.IdentityServer.Validation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace OpenIdentityServer.Endpoints
+namespace Open.IdentityServer.Endpoints
 {
     internal abstract class AuthorizeEndpointBase : IEndpointHandler
     {

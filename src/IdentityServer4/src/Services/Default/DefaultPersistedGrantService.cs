@@ -2,16 +2,16 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Models;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using OpenIdentityServer.Stores;
-using OpenIdentityServer.Stores.Serialization;
+using Open.IdentityServer.Stores;
+using Open.IdentityServer.Stores.Serialization;
 using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace OpenIdentityServer.Services
+namespace Open.IdentityServer.Services
 {
     /// <summary>
     /// Default persisted grant service

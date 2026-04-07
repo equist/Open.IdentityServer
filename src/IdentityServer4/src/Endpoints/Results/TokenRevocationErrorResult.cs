@@ -2,13 +2,13 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Hosting;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Endpoints.Results
+namespace Open.IdentityServer.Endpoints.Results
 {
     /// <summary>
     /// Result for revocation error

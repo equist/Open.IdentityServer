@@ -10,10 +10,10 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AwesomeAssertions;
 using IdentityServer.UnitTests.Common;
-using OpenIdentityServer;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Services;
+using Open.IdentityServer;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Services;
 using Microsoft.AspNetCore.Authentication;
 using Xunit;
 

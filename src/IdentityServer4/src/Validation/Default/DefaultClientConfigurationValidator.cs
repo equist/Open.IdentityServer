@@ -1,10 +1,10 @@
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Default client configuration validator

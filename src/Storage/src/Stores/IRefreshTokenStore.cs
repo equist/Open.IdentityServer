@@ -2,10 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Models;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Stores
+namespace Open.IdentityServer.Stores
 {
     /// <summary>
     /// Interface for refresh token storage

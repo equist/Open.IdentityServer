@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 using AwesomeAssertions;
 using IdentityModel;
 using IdentityServer.IntegrationTests.Common;
-using OpenIdentityServer;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Test;
+using Open.IdentityServer;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Test;
 using Microsoft.AspNetCore.Authentication;
 using Xunit;
 

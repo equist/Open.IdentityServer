@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 
-namespace OpenIdentityServer.Configuration
+namespace Open.IdentityServer.Configuration
 {
     /// <summary>
     /// The ValidationOptions contains settings that affect some of the default validation behavior.

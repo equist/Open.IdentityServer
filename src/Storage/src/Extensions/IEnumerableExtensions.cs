@@ -8,7 +8,7 @@ using System.Linq;
 
 #pragma warning disable 1591
 
-namespace OpenIdentityServer.Extensions
+namespace Open.IdentityServer.Extensions
 {
     internal static class IEnumerableExtensions
     {

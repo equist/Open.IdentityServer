@@ -4,14 +4,14 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-using OpenIdentityServer.Extensions;
+using Open.IdentityServer.Extensions;
 using Microsoft.Extensions.Primitives;
-using OpenIdentityServer.Hosting;
+using Open.IdentityServer.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
 using IdentityModel;
 
-namespace OpenIdentityServer.Endpoints.Results
+namespace Open.IdentityServer.Endpoints.Results
 {
     [SuppressMessage(
         "Usage", 

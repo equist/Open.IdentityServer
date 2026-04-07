@@ -4,10 +4,10 @@
 
 using System.Collections.Generic;
 using IdentityModel;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Validation;
 
-namespace OpenIdentityServer.Logging.Models
+namespace Open.IdentityServer.Logging.Models
 {
     internal class EndSessionRequestValidationLog
     {

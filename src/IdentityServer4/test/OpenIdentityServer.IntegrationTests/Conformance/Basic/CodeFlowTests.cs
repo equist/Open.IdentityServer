@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 using AwesomeAssertions;
 using IdentityModel.Client;
 using IdentityServer.IntegrationTests.Common;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Test;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Test;
 using Xunit;
 
 namespace IdentityServer.IntegrationTests.Conformance.Basic

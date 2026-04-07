@@ -2,13 +2,13 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Configuration;
+using Open.IdentityServer.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 #pragma warning disable 1591
 
-namespace OpenIdentityServer.Hosting
+namespace Open.IdentityServer.Hosting
 {
     public static class CorsMiddlewareExtensions
     {

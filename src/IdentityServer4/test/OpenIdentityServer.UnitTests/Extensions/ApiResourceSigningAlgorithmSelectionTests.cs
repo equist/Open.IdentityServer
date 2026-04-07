@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AwesomeAssertions;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Models;
 using Xunit;
 
 namespace IdentityServer.UnitTests.Extensions

@@ -3,7 +3,7 @@
 
 
 using IdentityModel;
-using OpenIdentityServer.Extensions;
+using Open.IdentityServer.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ using System.Text;
 
 #pragma warning disable 1591
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     public static class ValidatedAuthorizeRequestExtensions
     {

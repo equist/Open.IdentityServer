@@ -2,12 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Validation;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenIdentityServer.Events
+namespace Open.IdentityServer.Events
 {
     /// <summary>
     /// Event for successful token introspection

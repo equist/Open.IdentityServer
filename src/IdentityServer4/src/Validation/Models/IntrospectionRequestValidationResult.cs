@@ -2,12 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Models;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Security.Claims;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Validation result for introspection request

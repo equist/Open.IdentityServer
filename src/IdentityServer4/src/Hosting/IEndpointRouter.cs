@@ -4,7 +4,7 @@
 
 using Microsoft.AspNetCore.Http;
 
-namespace OpenIdentityServer.Hosting
+namespace Open.IdentityServer.Hosting
 {
     /// <summary>
     /// The endpoint router

@@ -4,7 +4,7 @@
 
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Allows inserting custom validation logic into token requests

@@ -4,13 +4,13 @@
 
 using System;
 using System.Threading.Tasks;
-using OpenIdentityServer.EntityFramework.Entities;
-using OpenIdentityServer.EntityFramework.Extensions;
-using OpenIdentityServer.EntityFramework.Interfaces;
-using OpenIdentityServer.EntityFramework.Options;
+using Open.IdentityServer.EntityFramework.Entities;
+using Open.IdentityServer.EntityFramework.Extensions;
+using Open.IdentityServer.EntityFramework.Interfaces;
+using Open.IdentityServer.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 
-namespace OpenIdentityServer.EntityFramework.DbContexts
+namespace Open.IdentityServer.EntityFramework.DbContexts
 {
     /// <summary>
     /// DbContext for the IdentityServer operational data.

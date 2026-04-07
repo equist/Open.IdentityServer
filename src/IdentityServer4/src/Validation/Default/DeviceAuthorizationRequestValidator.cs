@@ -8,13 +8,13 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityModel;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Logging;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Logging;
+using Open.IdentityServer.Models;
 using Microsoft.Extensions.Logging;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     internal class DeviceAuthorizationRequestValidator : IDeviceAuthorizationRequestValidator
     {

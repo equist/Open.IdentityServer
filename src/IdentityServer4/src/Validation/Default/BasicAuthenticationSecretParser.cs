@@ -2,9 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Models;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Text;
@@ -13,7 +13,7 @@ using System.Linq;
 using IdentityModel;
 using Microsoft.AspNetCore.Http;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Parses a Basic Authentication header

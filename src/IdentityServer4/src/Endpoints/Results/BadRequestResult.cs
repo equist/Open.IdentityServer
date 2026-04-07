@@ -3,11 +3,11 @@
 
 
 using System.Threading.Tasks;
-using OpenIdentityServer.Hosting;
+using Open.IdentityServer.Hosting;
 using Microsoft.AspNetCore.Http;
-using OpenIdentityServer.Extensions;
+using Open.IdentityServer.Extensions;
 
-namespace OpenIdentityServer.Endpoints.Results
+namespace Open.IdentityServer.Endpoints.Results
 {
     internal class BadRequestResult : IEndpointResult
     {

@@ -5,8 +5,8 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using IdentityModel;
-using OpenIdentityServer;
-using OpenIdentityServer.Test;
+using Open.IdentityServer;
+using Open.IdentityServer.Test;
 
 namespace IdentityServer.IntegrationTests.Clients.Setup
 {

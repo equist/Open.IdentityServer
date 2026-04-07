@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace OpenIdentityServer.Models
+namespace Open.IdentityServer.Models
 {
     /// <summary>
     /// Models a grant the user has given.

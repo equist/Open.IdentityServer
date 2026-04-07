@@ -5,7 +5,7 @@
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Hosting
+namespace Open.IdentityServer.Hosting
 {
     /// <summary>
     /// Endpoint result

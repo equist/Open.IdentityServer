@@ -7,8 +7,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AwesomeAssertions;
 using IdentityServer.IntegrationTests.Common;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Test;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Test;
 using Xunit;
 
 namespace IdentityServer.IntegrationTests.Endpoints.Authorize

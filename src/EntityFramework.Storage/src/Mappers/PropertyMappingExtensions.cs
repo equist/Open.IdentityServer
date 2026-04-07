@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenIdentityServer.EntityFramework.Mappers;
+namespace Open.IdentityServer.EntityFramework.Mappers;
 
 /// <summary>
 /// Class containing mapping extensions for property classes.

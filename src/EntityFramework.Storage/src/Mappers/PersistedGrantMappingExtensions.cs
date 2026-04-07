@@ -1,4 +1,4 @@
-namespace OpenIdentityServer.EntityFramework.Mappers;
+namespace Open.IdentityServer.EntityFramework.Mappers;
 
 /// <summary>
 /// Mapping extension methods for PersistedGrant objects

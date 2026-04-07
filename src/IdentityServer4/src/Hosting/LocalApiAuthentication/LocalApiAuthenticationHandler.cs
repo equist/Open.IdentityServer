@@ -3,7 +3,7 @@
 
 
 using IdentityModel;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Validation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -12,7 +12,7 @@ using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Hosting.LocalApiAuthentication
+namespace Open.IdentityServer.Hosting.LocalApiAuthentication
 {
     /// <summary>
     /// Authentication handler for validating access token from the local IdentityServer

@@ -3,7 +3,7 @@
 
 #pragma warning disable 1591
 
-namespace OpenIdentityServer.Models
+namespace Open.IdentityServer.Models
 {
     public static class GrantType
     {

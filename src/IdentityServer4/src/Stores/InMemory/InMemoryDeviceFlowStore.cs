@@ -5,9 +5,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Models;
 
-namespace OpenIdentityServer.Stores
+namespace Open.IdentityServer.Stores
 {
     /// <summary>
     /// In-memory device flow store

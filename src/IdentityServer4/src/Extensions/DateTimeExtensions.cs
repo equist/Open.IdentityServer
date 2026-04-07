@@ -5,7 +5,7 @@
 using System;
 using System.Diagnostics;
 
-namespace OpenIdentityServer.Extensions
+namespace Open.IdentityServer.Extensions
 {
     internal static class DateTimeExtensions
     {

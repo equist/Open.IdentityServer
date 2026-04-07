@@ -3,16 +3,16 @@
 
 
 using IdentityModel;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Hosting;
-using OpenIdentityServer.ResponseHandling;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Hosting;
+using Open.IdentityServer.ResponseHandling;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Endpoints.Results
+namespace Open.IdentityServer.Endpoints.Results
 {
     internal class TokenResult : IEndpointResult
     {

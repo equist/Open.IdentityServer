@@ -4,10 +4,10 @@
 
 using System.Collections.Generic;
 using IdentityModel;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Validation;
 
-namespace OpenIdentityServer.Logging
+namespace Open.IdentityServer.Logging
 {
     internal class DeviceAuthorizationRequestValidationLog
     {

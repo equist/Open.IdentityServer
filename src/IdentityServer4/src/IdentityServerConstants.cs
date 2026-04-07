@@ -6,7 +6,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
 
-namespace OpenIdentityServer
+namespace Open.IdentityServer
 {
     public static class IdentityServerConstants
     {

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 using AwesomeAssertions;
 using IdentityModel;
 using IdentityServer.UnitTests.Common;
-using OpenIdentityServer;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Services;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Services;
+using Open.IdentityServer.Validation;
 using Xunit;
 
 namespace IdentityServer.UnitTests.Services.Default

@@ -3,14 +3,14 @@
 
 
 using IdentityModel;
-using OpenIdentityServer.Extensions;
+using Open.IdentityServer.Extensions;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace OpenIdentityServer.Models
+namespace Open.IdentityServer.Models
 {
     /// <summary>
     /// Models the parameters to identify a request for consent.

@@ -5,7 +5,7 @@
 using System;
 using System.Security.Claims;
 
-namespace OpenIdentityServer.Models
+namespace Open.IdentityServer.Models
 {
     /// <summary>
     /// A client claim

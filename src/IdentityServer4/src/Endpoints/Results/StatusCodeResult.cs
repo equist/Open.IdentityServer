@@ -4,10 +4,10 @@
 
 using System.Threading.Tasks;
 using System.Net;
-using OpenIdentityServer.Hosting;
+using Open.IdentityServer.Hosting;
 using Microsoft.AspNetCore.Http;
 
-namespace OpenIdentityServer.Endpoints.Results
+namespace Open.IdentityServer.Endpoints.Results
 {
     /// <summary>
     /// Result for a raw HTTP status code

@@ -5,7 +5,7 @@
 using IdentityModel;
 using System.Collections.Generic;
 
-namespace OpenIdentityServer.ResponseHandling
+namespace Open.IdentityServer.ResponseHandling
 {
     /// <summary>
     /// Models a token error response

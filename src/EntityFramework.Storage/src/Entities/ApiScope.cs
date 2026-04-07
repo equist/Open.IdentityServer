@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace OpenIdentityServer.EntityFramework.Entities
+namespace Open.IdentityServer.EntityFramework.Entities
 {
     public class ApiScope
     {

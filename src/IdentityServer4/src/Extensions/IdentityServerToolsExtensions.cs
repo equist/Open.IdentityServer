@@ -6,11 +6,11 @@ using IdentityModel;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using OpenIdentityServer.Extensions;
+using Open.IdentityServer.Extensions;
 using Microsoft.Extensions.DependencyInjection;
-using OpenIdentityServer.Configuration;
+using Open.IdentityServer.Configuration;
 
-namespace OpenIdentityServer
+namespace Open.IdentityServer
 {
     /// <summary>
     /// Extensions for IdentityServerTools

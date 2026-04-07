@@ -4,15 +4,15 @@
 
 using System;
 using System.Threading.Tasks;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Services;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Services;
+using Open.IdentityServer.Validation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 
-namespace OpenIdentityServer.ResponseHandling
+namespace Open.IdentityServer.ResponseHandling
 {
     /// <summary>
     /// The device authorizaiton response generator

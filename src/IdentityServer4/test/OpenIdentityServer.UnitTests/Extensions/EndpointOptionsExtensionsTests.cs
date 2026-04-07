@@ -1,6 +1,6 @@
-﻿using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Hosting;
+﻿using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Hosting;
 using Xunit;
 using static OpenIdentityServer.Constants;
 

@@ -3,7 +3,7 @@
 
 #pragma warning disable 1591
 
-namespace OpenIdentityServer.Events
+namespace Open.IdentityServer.Events
 {
     public static class EventIds
     {

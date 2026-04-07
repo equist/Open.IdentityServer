@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Allows parsing raw scopes values into structured scope values.

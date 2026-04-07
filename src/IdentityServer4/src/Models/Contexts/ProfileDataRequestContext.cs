@@ -5,9 +5,9 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Validation;
 
-namespace OpenIdentityServer.Models
+namespace Open.IdentityServer.Models
 {
     /// <summary>
     /// Class describing the profile data request

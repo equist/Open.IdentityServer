@@ -1,4 +1,4 @@
-﻿namespace OpenIdentityServer.Validation
+﻿namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Context for custom authorize request validation.

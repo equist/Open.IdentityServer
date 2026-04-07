@@ -1,12 +1,12 @@
 using System;
 using System.Threading.Tasks;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Extensions;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace OpenIdentityServer.Hosting
+namespace Open.IdentityServer.Hosting
 {
     /// <summary>
     ///     Middleware for re-writing the MTLS enabled endpoints to the standard protocol endpoints

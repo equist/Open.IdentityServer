@@ -3,21 +3,21 @@
 
 
 using IdentityModel;
-using OpenIdentityServer.Extensions;
+using Open.IdentityServer.Extensions;
 using Microsoft.Extensions.Logging;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Services;
-using OpenIdentityServer.Stores;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Services;
+using Open.IdentityServer.Stores;
 using Microsoft.AspNetCore.Http;
 using System;
-using OpenIdentityServer.Logging.Models;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Logging.Models;
+using Open.IdentityServer.Models;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Validates requests to the end session endpoint.

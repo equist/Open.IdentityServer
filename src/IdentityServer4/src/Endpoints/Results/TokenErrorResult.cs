@@ -3,15 +3,15 @@
 
 
 using System.Threading.Tasks;
-using OpenIdentityServer.Hosting;
+using Open.IdentityServer.Hosting;
 using Microsoft.AspNetCore.Http;
-using OpenIdentityServer.Extensions;
+using Open.IdentityServer.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using OpenIdentityServer.ResponseHandling;
+using Open.IdentityServer.ResponseHandling;
 
-namespace OpenIdentityServer.Endpoints.Results
+namespace Open.IdentityServer.Endpoints.Results
 {
     internal class TokenErrorResult : IEndpointResult
     {

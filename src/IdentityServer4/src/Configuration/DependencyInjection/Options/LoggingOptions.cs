@@ -5,7 +5,7 @@
 using System.Collections.Generic;
 using IdentityModel;
 
-namespace OpenIdentityServer.Configuration
+namespace Open.IdentityServer.Configuration
 {
     /// <summary>
     /// Options for configuring logging behavior

@@ -2,12 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Models;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Validation;
 
-namespace OpenIdentityServer.Services
+namespace Open.IdentityServer.Services
 {
     /// <summary>
     /// Implements refresh token creation and validation

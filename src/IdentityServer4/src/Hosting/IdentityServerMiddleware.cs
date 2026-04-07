@@ -2,15 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Events;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Services;
+using Open.IdentityServer.Events;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Hosting
+namespace Open.IdentityServer.Hosting
 {
     /// <summary>
     /// IdentityServer middleware

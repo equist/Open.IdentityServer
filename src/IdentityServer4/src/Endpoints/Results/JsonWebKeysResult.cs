@@ -2,15 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Hosting;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Hosting;
+using Open.IdentityServer.Models;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Endpoints.Results
+namespace Open.IdentityServer.Endpoints.Results
 {
     /// <summary>
     /// Result for the jwks document

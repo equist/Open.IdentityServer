@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenIdentityServer.EntityFramework.Mappers;
+namespace Open.IdentityServer.EntityFramework.Mappers;
 
 internal static class StringExtensions
 {

@@ -1,5 +1,5 @@
-﻿using OpenIdentityServer.Models;
-using OpenIdentityServer.Services;
+﻿using Open.IdentityServer.Models;
+using Open.IdentityServer.Services;
 using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
 using System.Linq;

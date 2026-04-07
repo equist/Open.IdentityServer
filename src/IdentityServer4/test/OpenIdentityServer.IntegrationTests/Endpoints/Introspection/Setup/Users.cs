@@ -3,7 +3,7 @@
 
 
 using System.Collections.Generic;
-using OpenIdentityServer.Test;
+using Open.IdentityServer.Test;
 
 namespace IdentityServer.IntegrationTests.Endpoints.Introspection.Setup
 {

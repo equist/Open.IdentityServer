@@ -5,7 +5,7 @@
 
 #pragma warning disable 1591
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     public enum BearerTokenUsageType
     {

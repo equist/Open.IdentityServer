@@ -4,7 +4,7 @@
 
 using System;
 
-namespace OpenIdentityServer.Configuration
+namespace Open.IdentityServer.Configuration
 {
     /// <summary>
     /// Caching options.

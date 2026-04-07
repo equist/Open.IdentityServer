@@ -5,7 +5,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Services
+namespace Open.IdentityServer.Services
 {
     /// <summary>
     /// Abstract interface to model data caching

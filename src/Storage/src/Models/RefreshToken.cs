@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace OpenIdentityServer.Models
+namespace Open.IdentityServer.Models
 {
     /// <summary>
     /// Models a refresh token.

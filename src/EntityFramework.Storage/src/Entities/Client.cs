@@ -4,11 +4,11 @@
 
 #pragma warning disable 1591
 
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Models;
 using System;
 using System.Collections.Generic;
 
-namespace OpenIdentityServer.EntityFramework.Entities
+namespace Open.IdentityServer.EntityFramework.Entities
 {
     public class Client
     {

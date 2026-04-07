@@ -3,9 +3,9 @@
 
 
 using System.Threading.Tasks;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Validation;
 
-namespace OpenIdentityServer.ResponseHandling
+namespace Open.IdentityServer.ResponseHandling
 {
     /// <summary>
     /// Interface the token response generator

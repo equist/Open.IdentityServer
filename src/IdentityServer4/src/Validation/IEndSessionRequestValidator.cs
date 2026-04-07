@@ -6,7 +6,7 @@ using System.Collections.Specialized;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     ///  Validates end session requests.

@@ -3,8 +3,8 @@
 
 
 using System.Threading.Tasks;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Services;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Services;
 
 namespace IdentityServer.UnitTests.Endpoints.EndSession
 {

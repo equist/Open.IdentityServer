@@ -3,10 +3,10 @@
 
 
 using System.Threading.Tasks;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Models;
 using Microsoft.Extensions.Logging;
 
-namespace OpenIdentityServer.Services
+namespace Open.IdentityServer.Services
 {
     /// <summary>
     /// Default profile service implementation.

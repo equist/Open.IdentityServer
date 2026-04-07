@@ -4,7 +4,7 @@
 
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Handles validation of resource owner password credentials

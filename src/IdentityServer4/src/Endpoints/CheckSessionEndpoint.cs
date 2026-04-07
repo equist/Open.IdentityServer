@@ -2,14 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Endpoints.Results;
-using OpenIdentityServer.Hosting;
+using Open.IdentityServer.Endpoints.Results;
+using Open.IdentityServer.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Endpoints
+namespace Open.IdentityServer.Endpoints
 {
     internal class CheckSessionEndpoint : IEndpointHandler
     {

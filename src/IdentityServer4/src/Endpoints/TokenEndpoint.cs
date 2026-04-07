@@ -3,19 +3,19 @@
 
 
 using IdentityModel;
-using OpenIdentityServer.Endpoints.Results;
-using OpenIdentityServer.Events;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Hosting;
-using OpenIdentityServer.ResponseHandling;
-using OpenIdentityServer.Services;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Endpoints.Results;
+using Open.IdentityServer.Events;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Hosting;
+using Open.IdentityServer.ResponseHandling;
+using Open.IdentityServer.Services;
+using Open.IdentityServer.Validation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Endpoints
+namespace Open.IdentityServer.Endpoints
 {
     /// <summary>
     /// The token endpoint

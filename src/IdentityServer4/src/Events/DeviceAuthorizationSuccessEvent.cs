@@ -2,11 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.ResponseHandling;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.ResponseHandling;
+using Open.IdentityServer.Validation;
 
-namespace OpenIdentityServer.Events
+namespace Open.IdentityServer.Events
 {
     /// <summary>
     /// Event for device authorization failure

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Test;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Test;
 using Microsoft.Extensions.Logging;
 
 namespace IdentityServer.IntegrationTests.Clients.Setup

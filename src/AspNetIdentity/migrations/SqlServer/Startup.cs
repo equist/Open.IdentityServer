@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using IdentityServerHost.Data;
 using Microsoft.AspNetCore.Identity;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Models;
 
 namespace SqlServer
 {

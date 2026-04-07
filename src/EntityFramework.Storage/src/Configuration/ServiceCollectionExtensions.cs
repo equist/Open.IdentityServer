@@ -2,14 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.EntityFramework.DbContexts;
-using OpenIdentityServer.EntityFramework.Interfaces;
+using Open.IdentityServer.EntityFramework.DbContexts;
+using Open.IdentityServer.EntityFramework.Interfaces;
 using System;
-using OpenIdentityServer.EntityFramework.Options;
+using Open.IdentityServer.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace OpenIdentityServer.EntityFramework.Storage
+namespace Open.IdentityServer.EntityFramework.Storage
 {
     /// <summary>
     /// Extension methods to add EF database support to IdentityServer.

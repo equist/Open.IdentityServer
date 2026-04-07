@@ -5,7 +5,7 @@
 using IdentityModel;
 using System.Linq;
 
-namespace OpenIdentityServer.Models
+namespace Open.IdentityServer.Models
 {
     /// <summary>
     /// Convenience class that defines standard identity resources.

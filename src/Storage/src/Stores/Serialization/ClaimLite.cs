@@ -4,7 +4,7 @@
 
 #pragma warning disable 1591
 
-namespace OpenIdentityServer.Stores.Serialization
+namespace Open.IdentityServer.Stores.Serialization
 {
     public class ClaimLite
     {

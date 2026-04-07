@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using AwesomeAssertions;
 using IdentityModel;
 using IdentityServer.UnitTests.Common;
-using OpenIdentityServer;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Validation;
 using Xunit;
 
 namespace IdentityServer.UnitTests.Validation

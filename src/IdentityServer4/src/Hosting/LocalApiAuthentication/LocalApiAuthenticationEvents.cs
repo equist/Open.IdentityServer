@@ -3,7 +3,7 @@ using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Hosting.LocalApiAuthentication
+namespace Open.IdentityServer.Hosting.LocalApiAuthentication
 {
     /// <summary>
     /// Events for local API authentication

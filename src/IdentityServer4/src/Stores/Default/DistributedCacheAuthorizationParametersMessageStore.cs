@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using IdentityModel;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Services;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Services;
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace OpenIdentityServer.Stores.Default
+namespace Open.IdentityServer.Stores.Default
 {
     /// <summary>
     /// Implementation of IAuthorizationParametersMessageStore that uses the IDistributedCache.

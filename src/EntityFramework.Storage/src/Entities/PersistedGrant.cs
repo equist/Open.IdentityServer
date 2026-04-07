@@ -6,7 +6,7 @@
 
 using System;
 
-namespace OpenIdentityServer.EntityFramework.Entities
+namespace Open.IdentityServer.EntityFramework.Entities
 {
     public class PersistedGrant
     {

@@ -3,11 +3,11 @@
 
 
 using System.Threading.Tasks;
-using OpenIdentityServer.Configuration.DependencyInjection;
+using Open.IdentityServer.Configuration.DependencyInjection;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 
-namespace OpenIdentityServer.Hosting.FederatedSignOut
+namespace Open.IdentityServer.Hosting.FederatedSignOut
 {
     // this intercepts IAuthenticationRequestHandler authentication handlers
     // to detect when they are handling federated signout. when they are invoked,

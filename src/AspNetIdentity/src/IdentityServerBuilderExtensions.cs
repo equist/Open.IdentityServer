@@ -5,9 +5,9 @@
 using System;
 using System.Linq;
 using IdentityModel;
-using OpenIdentityServer;
-using OpenIdentityServer.AspNetIdentity;
-using OpenIdentityServer.Configuration;
+using Open.IdentityServer;
+using Open.IdentityServer.AspNetIdentity;
+using Open.IdentityServer.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 

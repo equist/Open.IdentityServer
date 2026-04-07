@@ -3,7 +3,7 @@
 
 #pragma warning disable 1591
 
-namespace OpenIdentityServer
+namespace Open.IdentityServer
 {
     internal static class IdentityServerConstants
     {

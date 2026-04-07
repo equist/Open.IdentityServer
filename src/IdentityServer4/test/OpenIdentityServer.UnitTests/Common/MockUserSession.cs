@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using OpenIdentityServer.Services;
+using Open.IdentityServer.Services;
 using Microsoft.AspNetCore.Authentication;
 
 namespace IdentityServer.UnitTests.Common

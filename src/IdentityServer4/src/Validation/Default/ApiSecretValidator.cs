@@ -2,15 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Events;
-using OpenIdentityServer.Services;
-using OpenIdentityServer.Stores;
+using Open.IdentityServer.Events;
+using Open.IdentityServer.Services;
+using Open.IdentityServer.Stores;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Validates API secrets using the registered secret validators and parsers

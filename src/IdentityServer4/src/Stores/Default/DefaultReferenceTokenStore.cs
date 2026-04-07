@@ -3,12 +3,12 @@
 
 
 using System.Threading.Tasks;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Stores.Serialization;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Stores.Serialization;
 using Microsoft.Extensions.Logging;
-using OpenIdentityServer.Services;
+using Open.IdentityServer.Services;
 
-namespace OpenIdentityServer.Stores
+namespace Open.IdentityServer.Stores
 {
     /// <summary>
     /// Default reference token store.

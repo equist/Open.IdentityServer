@@ -4,13 +4,13 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using OpenIdentityServer.EntityFramework.Interfaces;
-using OpenIdentityServer.Services;
+using Open.IdentityServer.EntityFramework.Interfaces;
+using Open.IdentityServer.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace OpenIdentityServer.EntityFramework.Services
+namespace Open.IdentityServer.EntityFramework.Services
 {
     /// <summary>
     /// Implementation of ICorsPolicyService that consults the client configuration in the database for allowed CORS origins.

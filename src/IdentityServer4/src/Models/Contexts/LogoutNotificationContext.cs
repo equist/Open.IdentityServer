@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace OpenIdentityServer.Models
+namespace Open.IdentityServer.Models
 {
     /// <summary>
     /// Provides the context necessary to construct a logout notificaiton.

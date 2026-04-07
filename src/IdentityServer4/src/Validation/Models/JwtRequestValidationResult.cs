@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Models the result of JWT request validation.

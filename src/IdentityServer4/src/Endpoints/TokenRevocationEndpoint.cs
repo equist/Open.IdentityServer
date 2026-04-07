@@ -3,19 +3,19 @@
 
 
 using IdentityModel;
-using OpenIdentityServer.Endpoints.Results;
-using OpenIdentityServer.Hosting;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Endpoints.Results;
+using Open.IdentityServer.Hosting;
+using Open.IdentityServer.Validation;
 using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Threading.Tasks;
-using OpenIdentityServer.Services;
+using Open.IdentityServer.Services;
 using Microsoft.AspNetCore.Http;
-using OpenIdentityServer.Events;
-using OpenIdentityServer.ResponseHandling;
-using OpenIdentityServer.Extensions;
+using Open.IdentityServer.Events;
+using Open.IdentityServer.ResponseHandling;
+using Open.IdentityServer.Extensions;
 
-namespace OpenIdentityServer.Endpoints
+namespace Open.IdentityServer.Endpoints
 {
     /// <summary>
     /// The revocation endpoint

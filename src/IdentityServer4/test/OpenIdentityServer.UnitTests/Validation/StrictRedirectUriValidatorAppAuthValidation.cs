@@ -1,7 +1,7 @@
 ﻿using AwesomeAssertions;
 using IdentityServer.UnitTests.Common;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Validation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;

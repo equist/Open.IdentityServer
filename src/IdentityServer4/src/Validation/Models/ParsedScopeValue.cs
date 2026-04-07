@@ -4,7 +4,7 @@
 
 using System;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Models a parsed scope value.

@@ -4,11 +4,11 @@
 
 using System.Linq;
 using AwesomeAssertions;
-using OpenIdentityServer.EntityFramework.Mappers;
+using Open.IdentityServer.EntityFramework.Mappers;
 using Xunit;
 using ApiResource = OpenIdentityServer.Models.ApiResource;
 
-namespace OpenIdentityServer.EntityFramework.UnitTests.Mappers;
+namespace Open.IdentityServer.EntityFramework.UnitTests.Mappers;
 
 public class ApiResourceMappersTests
 {

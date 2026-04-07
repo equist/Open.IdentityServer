@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AwesomeAssertions;
 using IdentityServer.UnitTests.Common;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Services;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Services;
 using Xunit;
 
 namespace IdentityServer.UnitTests.Services.InMemory

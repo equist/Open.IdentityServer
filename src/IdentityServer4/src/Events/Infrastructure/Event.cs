@@ -2,12 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Logging;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Events
+namespace Open.IdentityServer.Events
 {
     /// <summary>
     /// Models base class for events raised from IdentityServer.

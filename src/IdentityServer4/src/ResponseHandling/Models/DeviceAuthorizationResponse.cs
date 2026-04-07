@@ -4,7 +4,7 @@
 
 #pragma warning disable 1591
 
-namespace OpenIdentityServer.ResponseHandling
+namespace Open.IdentityServer.ResponseHandling
 {
     public class DeviceAuthorizationResponse
     {

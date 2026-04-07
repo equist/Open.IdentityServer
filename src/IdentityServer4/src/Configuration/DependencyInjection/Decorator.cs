@@ -4,7 +4,7 @@
 
 using System;
 
-namespace OpenIdentityServer.Configuration.DependencyInjection
+namespace Open.IdentityServer.Configuration.DependencyInjection
 {
     internal class Decorator<TService>
     {

@@ -5,9 +5,9 @@
 using AwesomeAssertions;
 using IdentityModel.Client;
 using IdentityServer.IntegrationTests.Common;
-using OpenIdentityServer;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Models;
+using Open.IdentityServer;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.Json;

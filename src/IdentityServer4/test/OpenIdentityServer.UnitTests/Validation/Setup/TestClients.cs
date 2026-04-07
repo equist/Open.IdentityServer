@@ -3,8 +3,8 @@
 
 
 using System.Collections.Generic;
-using OpenIdentityServer;
-using OpenIdentityServer.Models;
+using Open.IdentityServer;
+using Open.IdentityServer.Models;
 
 namespace IdentityServer.UnitTests.Validation.Setup
 {

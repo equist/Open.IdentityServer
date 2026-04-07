@@ -3,9 +3,9 @@
 
 
 using System.Threading.Tasks;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Models;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Interface for the token validator

@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AwesomeAssertions;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Stores;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Stores;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 

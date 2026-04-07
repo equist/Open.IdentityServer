@@ -2,15 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.EntityFramework.DbContexts;
-using OpenIdentityServer.EntityFramework.Interfaces;
-using OpenIdentityServer.EntityFramework.Services;
-using OpenIdentityServer.EntityFramework.Stores;
-using OpenIdentityServer.Stores;
+using Open.IdentityServer.EntityFramework.DbContexts;
+using Open.IdentityServer.EntityFramework.Interfaces;
+using Open.IdentityServer.EntityFramework.Services;
+using Open.IdentityServer.EntityFramework.Stores;
+using Open.IdentityServer.Stores;
 using System;
-using OpenIdentityServer.EntityFramework.Options;
-using OpenIdentityServer.EntityFramework;
-using OpenIdentityServer.EntityFramework.Storage;
+using Open.IdentityServer.EntityFramework.Options;
+using Open.IdentityServer.EntityFramework;
+using Open.IdentityServer.EntityFramework.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 

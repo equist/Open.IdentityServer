@@ -2,11 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.ResponseHandling;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.ResponseHandling;
 using System.Collections.Specialized;
 
-namespace OpenIdentityServer.Models
+namespace Open.IdentityServer.Models
 {
     internal static class AuthorizeResponseExtensions
     {

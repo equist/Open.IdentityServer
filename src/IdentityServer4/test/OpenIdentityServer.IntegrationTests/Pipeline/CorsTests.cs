@@ -9,9 +9,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AwesomeAssertions;
 using IdentityServer.IntegrationTests.Common;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Services;
-using OpenIdentityServer.Test;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Services;
+using Open.IdentityServer.Test;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 

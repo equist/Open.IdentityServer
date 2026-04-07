@@ -4,7 +4,7 @@
 
 using Microsoft.IdentityModel.Tokens;
 
-namespace OpenIdentityServer.Models
+namespace Open.IdentityServer.Models
 {
     /// <summary>
     /// Information about a security key

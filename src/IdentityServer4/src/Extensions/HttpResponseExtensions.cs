@@ -3,8 +3,8 @@
 
 
 using System.Diagnostics.CodeAnalysis;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Models;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
 using System.Text;
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 #pragma warning disable 1591
 
-namespace OpenIdentityServer.Extensions
+namespace Open.IdentityServer.Extensions
 {
     [SuppressMessage(
         "Usage", 

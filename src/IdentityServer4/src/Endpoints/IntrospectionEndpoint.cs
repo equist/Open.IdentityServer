@@ -3,18 +3,18 @@
 
 
 using System.Threading.Tasks;
-using OpenIdentityServer.Validation;
-using OpenIdentityServer.ResponseHandling;
+using Open.IdentityServer.Validation;
+using Open.IdentityServer.ResponseHandling;
 using Microsoft.Extensions.Logging;
-using OpenIdentityServer.Hosting;
-using OpenIdentityServer.Endpoints.Results;
+using Open.IdentityServer.Hosting;
+using Open.IdentityServer.Endpoints.Results;
 using Microsoft.AspNetCore.Http;
 using System.Net;
-using OpenIdentityServer.Services;
-using OpenIdentityServer.Events;
-using OpenIdentityServer.Extensions;
+using Open.IdentityServer.Services;
+using Open.IdentityServer.Events;
+using Open.IdentityServer.Extensions;
 
-namespace OpenIdentityServer.Endpoints
+namespace Open.IdentityServer.Endpoints
 {
     /// <summary>
     /// Introspection endpoint

@@ -1,4 +1,4 @@
-﻿namespace OpenIdentityServer.Models.ManageViewModels
+﻿namespace Open.IdentityServer.Models.ManageViewModels
 {
     public class GenerateRecoveryCodesViewModel
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace OpenIdentityServer.Models.ManageViewModels
+namespace Open.IdentityServer.Models.ManageViewModels
 {
     public class EnableAuthenticatorViewModel
     {

@@ -3,13 +3,13 @@
 
 
 using System.Threading.Tasks;
-using OpenIdentityServer.Hosting;
+using Open.IdentityServer.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Extensions;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Extensions;
 
-namespace OpenIdentityServer.Endpoints.Results
+namespace Open.IdentityServer.Endpoints.Results
 {
     internal class CheckSessionResult : IEndpointResult
     {

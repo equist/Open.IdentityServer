@@ -1,10 +1,10 @@
 ﻿// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 using System.Collections.Generic;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Models;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Parser for finding the best secret in an Enumerable List

@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Validation;
 
 namespace IdentityServer.UnitTests.Validation.Setup
 {

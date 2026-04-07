@@ -6,7 +6,7 @@
 using System;
 using Microsoft.AspNetCore.Http;
 
-namespace OpenIdentityServer.Hosting
+namespace Open.IdentityServer.Hosting
 {
     public class Endpoint
     {

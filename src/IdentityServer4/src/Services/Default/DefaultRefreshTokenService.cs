@@ -3,18 +3,18 @@
 
 
 using System;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Stores;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Stores;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using IdentityModel;
-using OpenIdentityServer.Logging.Models;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Logging.Models;
+using Open.IdentityServer.Validation;
 using Microsoft.AspNetCore.Authentication;
 
-namespace OpenIdentityServer.Services
+namespace Open.IdentityServer.Services
 {
     /// <summary>
     /// Default refresh token service

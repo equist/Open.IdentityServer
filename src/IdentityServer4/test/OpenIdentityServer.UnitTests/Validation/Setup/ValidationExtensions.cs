@@ -1,5 +1,5 @@
-﻿using OpenIdentityServer.Models;
-using OpenIdentityServer.Validation;
+﻿using Open.IdentityServer.Models;
+using Open.IdentityServer.Validation;
 
 namespace IdentityServer.UnitTests.Validation.Setup
 { 

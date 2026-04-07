@@ -5,16 +5,16 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using OpenIdentityServer.Hosting;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Hosting;
+using Open.IdentityServer.Validation;
 using Microsoft.AspNetCore.Http;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Configuration;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenIdentityServer.Stores;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Stores;
+using Open.IdentityServer.Models;
 
-namespace OpenIdentityServer.Endpoints.Results
+namespace Open.IdentityServer.Endpoints.Results
 {
     /// <summary>
     /// Result for login page

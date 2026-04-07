@@ -3,14 +3,14 @@
 
 
 using IdentityModel;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System;
 
-namespace OpenIdentityServer.Validation
+namespace Open.IdentityServer.Validation
 {
     /// <summary>
     /// Models the result of custom grant validation.

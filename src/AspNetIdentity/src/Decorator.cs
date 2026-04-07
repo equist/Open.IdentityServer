@@ -4,7 +4,7 @@
 
 using System;
 
-namespace OpenIdentityServer.AspNetIdentity
+namespace Open.IdentityServer.AspNetIdentity
 {
     internal class Decorator<TService>
     {

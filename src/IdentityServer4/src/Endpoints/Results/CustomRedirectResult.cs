@@ -4,14 +4,14 @@
 
 using System;
 using System.Threading.Tasks;
-using OpenIdentityServer.Hosting;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Hosting;
+using Open.IdentityServer.Validation;
 using Microsoft.AspNetCore.Http;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Configuration;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace OpenIdentityServer.Endpoints.Results
+namespace Open.IdentityServer.Endpoints.Results
 {
     /// <summary>
     /// Result for a custom redirect

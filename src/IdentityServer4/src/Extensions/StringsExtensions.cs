@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 
-namespace OpenIdentityServer.Extensions
+namespace Open.IdentityServer.Extensions
 {
     internal static class StringExtensions
     {

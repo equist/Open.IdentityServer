@@ -6,10 +6,10 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AwesomeAssertions;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Endpoints.Results;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Endpoints.Results;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Models;
 using Microsoft.AspNetCore.Http;
 using Xunit;
 

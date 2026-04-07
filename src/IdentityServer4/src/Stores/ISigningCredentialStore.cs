@@ -5,7 +5,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Threading.Tasks;
 
-namespace OpenIdentityServer.Stores
+namespace Open.IdentityServer.Stores
 {
     /// <summary>
     /// Interface for a signing credential store

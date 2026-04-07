@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 
-namespace OpenIdentityServer.EntityFramework.IntegrationTests
+namespace Open.IdentityServer.EntityFramework.IntegrationTests
 {
     /// <summary>
     /// Base class for integration tests, responsible for initializing test database providers & an xUnit class fixture

@@ -2,12 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.EntityFramework.Entities;
-using OpenIdentityServer.EntityFramework.Options;
+using Open.IdentityServer.EntityFramework.Entities;
+using Open.IdentityServer.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace OpenIdentityServer.EntityFramework.Extensions;
+namespace Open.IdentityServer.EntityFramework.Extensions;
 
 /// <summary>
 /// Extension methods to define the database schema for the configuration and operational data stores.

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 
-namespace OpenIdentityServer.Hosting.FederatedSignOut
+namespace Open.IdentityServer.Hosting.FederatedSignOut
 {
     internal class AuthenticationRequestSignInHandlerWrapper : AuthenticationRequestSignOutHandlerWrapper, IAuthenticationSignInHandler
     {

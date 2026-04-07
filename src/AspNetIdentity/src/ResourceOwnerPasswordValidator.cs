@@ -2,16 +2,16 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Validation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using static IdentityModel.OidcConstants;
-using OpenIdentityServer.Services;
-using OpenIdentityServer.Events;
+using Open.IdentityServer.Services;
+using Open.IdentityServer.Events;
 
-namespace OpenIdentityServer.AspNetIdentity
+namespace Open.IdentityServer.AspNetIdentity
 {
     /// <summary>
     /// IResourceOwnerPasswordValidator that integrates with ASP.NET Identity.

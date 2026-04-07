@@ -3,18 +3,18 @@
 
 
 using System.Threading.Tasks;
-using OpenIdentityServer.Validation;
-using OpenIdentityServer.Hosting;
+using Open.IdentityServer.Validation;
+using Open.IdentityServer.Hosting;
 using Microsoft.AspNetCore.Http;
-using OpenIdentityServer.Configuration;
+using Open.IdentityServer.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Stores;
-using OpenIdentityServer.Extensions;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Stores;
+using Open.IdentityServer.Extensions;
 using System;
 using Microsoft.AspNetCore.Authentication;
 
-namespace OpenIdentityServer.Endpoints.Results
+namespace Open.IdentityServer.Endpoints.Results
 {
     /// <summary>
     /// Result for endsession

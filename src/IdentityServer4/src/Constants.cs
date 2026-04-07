@@ -3,11 +3,11 @@
 
 
 using IdentityModel;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Models;
 using System;
 using System.Collections.Generic;
 
-namespace OpenIdentityServer
+namespace Open.IdentityServer
 {
     internal static class Constants
     {

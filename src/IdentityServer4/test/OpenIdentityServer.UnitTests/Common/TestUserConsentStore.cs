@@ -3,10 +3,10 @@
 
 
 using System.Threading.Tasks;
-using OpenIdentityServer.Models;
-using OpenIdentityServer.Services;
-using OpenIdentityServer.Stores;
-using OpenIdentityServer.Stores.Serialization;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Services;
+using Open.IdentityServer.Stores;
+using Open.IdentityServer.Stores.Serialization;
 
 namespace IdentityServer.UnitTests.Common
 {

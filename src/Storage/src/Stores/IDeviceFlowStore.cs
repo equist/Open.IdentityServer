@@ -3,9 +3,9 @@
 
 
 using System.Threading.Tasks;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Models;
 
-namespace OpenIdentityServer.Stores
+namespace Open.IdentityServer.Stores
 {
     /// <summary>
     /// Interface for the device flow store

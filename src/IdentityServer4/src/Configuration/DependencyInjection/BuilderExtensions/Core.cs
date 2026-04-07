@@ -2,30 +2,30 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using OpenIdentityServer;
-using OpenIdentityServer.Configuration;
-using OpenIdentityServer.Configuration.DependencyInjection;
-using OpenIdentityServer.Endpoints;
-using OpenIdentityServer.Events;
-using OpenIdentityServer.Hosting;
-using OpenIdentityServer.ResponseHandling;
-using OpenIdentityServer.Services;
-using OpenIdentityServer.Stores;
-using OpenIdentityServer.Stores.Serialization;
-using OpenIdentityServer.Validation;
+using Open.IdentityServer;
+using Open.IdentityServer.Configuration;
+using Open.IdentityServer.Configuration.DependencyInjection;
+using Open.IdentityServer.Endpoints;
+using Open.IdentityServer.Events;
+using Open.IdentityServer.Hosting;
+using Open.IdentityServer.ResponseHandling;
+using Open.IdentityServer.Services;
+using Open.IdentityServer.Stores;
+using Open.IdentityServer.Stores.Serialization;
+using Open.IdentityServer.Validation;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
-using OpenIdentityServer.Models;
+using Open.IdentityServer.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using static OpenIdentityServer.Constants;
-using OpenIdentityServer.Extensions;
-using OpenIdentityServer.Hosting.FederatedSignOut;
-using OpenIdentityServer.Services.Default;
+using Open.IdentityServer.Extensions;
+using Open.IdentityServer.Hosting.FederatedSignOut;
+using Open.IdentityServer.Services.Default;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
