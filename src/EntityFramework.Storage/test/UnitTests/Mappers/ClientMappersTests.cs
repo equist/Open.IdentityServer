@@ -7,7 +7,7 @@ using System.Linq;
 using AwesomeAssertions;
 using Open.IdentityServer.EntityFramework.Mappers;
 using Xunit;
-using Client = OpenIdentityServer.Models.Client;
+using Client = Open.IdentityServer.Models.Client;
 
 namespace Open.IdentityServer.EntityFramework.UnitTests.Mappers;
 
@@ -61,7 +61,7 @@ public class ClientMappersTests
     [Fact]
     public void duplicates_properties_in_db_map()
     {
-        var entity = new OpenIdentityServer.EntityFramework.Entities.Client
+        var entity = new Open.IdentityServer.EntityFramework.Entities.Client
         {
             Properties = new System.Collections.Generic.List<Entities.ClientProperty>()
             {
@@ -77,7 +77,7 @@ public class ClientMappersTests
     [Fact]
     public void missing_values_should_use_defaults()
     {
-        var entity = new OpenIdentityServer.EntityFramework.Entities.Client
+        var entity = new Open.IdentityServer.EntityFramework.Entities.Client
         {
             ClientSecrets = new System.Collections.Generic.List<Entities.ClientSecret>
             {

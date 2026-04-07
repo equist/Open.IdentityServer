@@ -10,7 +10,7 @@ namespace Open.IdentityServer.Events
     /// <summary>
     /// Event for device authorization failure
     /// </summary>
-    /// <seealso cref="OpenIdentityServer.Events.Event" />
+    /// <seealso cref="Open.IdentityServer.Events.Event" />
     public class DeviceAuthorizationFailureEvent : Event
     {
         /// <summary>

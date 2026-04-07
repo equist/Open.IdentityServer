@@ -17,7 +17,7 @@ namespace Open.IdentityServer.AspNetIdentity
     /// IResourceOwnerPasswordValidator that integrates with ASP.NET Identity.
     /// </summary>
     /// <typeparam name="TUser">The type of the user.</typeparam>
-    /// <seealso cref="OpenIdentityServer.Validation.IResourceOwnerPasswordValidator" />
+    /// <seealso cref="Open.IdentityServer.Validation.IResourceOwnerPasswordValidator" />
     public class ResourceOwnerPasswordValidator<TUser> : IResourceOwnerPasswordValidator
         where TUser : class
     {

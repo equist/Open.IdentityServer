@@ -7,7 +7,7 @@ namespace Open.IdentityServer.Events
     /// <summary>
     /// Event for revoked grants.
     /// </summary>
-    /// <seealso cref="OpenIdentityServer.Events.Event" />
+    /// <seealso cref="Open.IdentityServer.Events.Event" />
     public class GrantsRevokedEvent : Event
     {
         /// <summary>

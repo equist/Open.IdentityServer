@@ -21,7 +21,7 @@ namespace IdentityServer.UnitTests.ResponseHandling.AuthorizeInteractionResponse
 
 public class AuthorizeInteractionResponseGeneratorTests_Consent
 {
-    private readonly OpenIdentityServer.ResponseHandling.AuthorizeInteractionResponseGenerator _subject;
+    private readonly Open.IdentityServer.ResponseHandling.AuthorizeInteractionResponseGenerator _subject;
     private readonly MockConsentService _mockConsent = new();
     private readonly MockProfileService _fakeUserService = new();
 
@@ -93,9 +93,9 @@ public class AuthorizeInteractionResponseGeneratorTests_Consent
 
     public AuthorizeInteractionResponseGeneratorTests_Consent()
     {
-        _subject = new OpenIdentityServer.ResponseHandling.AuthorizeInteractionResponseGenerator(
+        _subject = new Open.IdentityServer.ResponseHandling.AuthorizeInteractionResponseGenerator(
             new StubClock(),
-            TestLogger.Create<OpenIdentityServer.ResponseHandling.AuthorizeInteractionResponseGenerator>(),
+            TestLogger.Create<Open.IdentityServer.ResponseHandling.AuthorizeInteractionResponseGenerator>(),
             _mockConsent,
             _fakeUserService);
     }

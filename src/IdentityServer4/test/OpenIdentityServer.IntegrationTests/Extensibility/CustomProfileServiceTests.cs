@@ -38,7 +38,7 @@ public class CustomProfileServiceTests
         _mockPipeline.IdentityScopes.Add(new IdentityResources.OpenId());
         _mockPipeline.IdentityScopes.Add(new IdentityResource("custom_identity", new[] { "foo" }));
 
-        _mockPipeline.Users.Add(new OpenIdentityServer.Test.TestUser
+        _mockPipeline.Users.Add(new Open.IdentityServer.Test.TestUser
         {
             SubjectId = "bob",
             Username = "bob",

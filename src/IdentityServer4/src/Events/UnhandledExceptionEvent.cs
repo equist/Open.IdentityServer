@@ -9,7 +9,7 @@ namespace Open.IdentityServer.Events
     /// <summary>
     /// Event for unhandled exceptions
     /// </summary>
-    /// <seealso cref="OpenIdentityServer.Events.Event" />
+    /// <seealso cref="Open.IdentityServer.Events.Event" />
     public class UnhandledExceptionEvent : Event
     {
         /// <summary>

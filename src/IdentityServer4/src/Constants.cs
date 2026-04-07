@@ -11,7 +11,7 @@ namespace Open.IdentityServer
 {
     internal static class Constants
     {
-        public const string IdentityServerName               = "OpenIdentityServer";
+        public const string IdentityServerName               = "Open.IdentityServer";
         public const string IdentityServerAuthenticationType = IdentityServerName;
         public const string ExternalAuthenticationMethod     = "external";
         public const string DefaultHashAlgorithm             = "SHA256";

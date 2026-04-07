@@ -7,7 +7,7 @@ namespace Open.IdentityServer.Events
     /// <summary>
     /// Event for successful client authentication
     /// </summary>
-    /// <seealso cref="OpenIdentityServer.Events.Event" />
+    /// <seealso cref="Open.IdentityServer.Events.Event" />
     public class ClientAuthenticationSuccessEvent : Event
     {
         /// <summary>

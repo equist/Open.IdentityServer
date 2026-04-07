@@ -54,8 +54,8 @@ namespace Microsoft.AspNetCore.Builder
             var loggerFactory = app.ApplicationServices.GetService(typeof(ILoggerFactory)) as ILoggerFactory;
             if (loggerFactory == null) throw new ArgumentNullException(nameof(loggerFactory));
 
-            var logger = loggerFactory.CreateLogger("OpenIdentityServer.Startup");
-            logger.LogInformation("Starting OpenIdentityServer version {version}", typeof(OpenIdentityServer.Hosting.IdentityServerMiddleware).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion);
+            var logger = loggerFactory.CreateLogger("Open.IdentityServer.Startup");
+            logger.LogInformation("Starting Open.IdentityServer version {version}", typeof(Open.IdentityServer.Hosting.IdentityServerMiddleware).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion);
 
             var scopeFactory = app.ApplicationServices.GetService<IServiceScopeFactory>();
 

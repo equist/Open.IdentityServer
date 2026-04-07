@@ -14,7 +14,7 @@ namespace Open.IdentityServer.Test
     /// <summary>
     /// Profile service for test users
     /// </summary>
-    /// <seealso cref="OpenIdentityServer.Services.IProfileService" />
+    /// <seealso cref="Open.IdentityServer.Services.IProfileService" />
     public class TestUserProfileService : IProfileService
     {
         /// <summary>

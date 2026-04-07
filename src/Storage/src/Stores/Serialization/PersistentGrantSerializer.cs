@@ -10,7 +10,7 @@ namespace Open.IdentityServer.Stores.Serialization
     /// <summary>
     /// JSON-based persisted grant serializer
     /// </summary>
-    /// <seealso cref="OpenIdentityServer.Stores.Serialization.IPersistentGrantSerializer" />
+    /// <seealso cref="Open.IdentityServer.Stores.Serialization.IPersistentGrantSerializer" />
     public class PersistentGrantSerializer : IPersistentGrantSerializer
     {
         private static readonly JsonSerializerOptions _settings;

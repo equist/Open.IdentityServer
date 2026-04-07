@@ -21,7 +21,7 @@ namespace Open.IdentityServer.EntityFramework.IntegrationTests
         public static DbContextOptions<T> BuildSqlite<T>(string name) where T : DbContext
         {
             var builder = new DbContextOptionsBuilder<T>();
-            builder.UseSqlite($"Filename=./Test.OpenIdentityServer.EntityFramework-3.1.0.{name}.db");
+            builder.UseSqlite($"Filename=./Test.Open.IdentityServer.EntityFramework-3.1.0.{name}.db");
             return builder.Options;
         }
 
@@ -29,7 +29,7 @@ namespace Open.IdentityServer.EntityFramework.IntegrationTests
         {
             var builder = new DbContextOptionsBuilder<T>();
             builder.UseSqlServer(
-                $@"Data Source=(LocalDb)\MSSQLLocalDB;database=Test.OpenIdentityServer.EntityFramework-3.1.0.{name};trusted_connection=yes;");
+                $@"Data Source=(LocalDb)\MSSQLLocalDB;database=Test.Open.IdentityServer.EntityFramework-3.1.0.{name};trusted_connection=yes;");
             return builder.Options;
         }
     }

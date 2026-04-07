@@ -19,11 +19,11 @@ using static IdentityModel.OidcConstants;
 
 namespace IdentityServer.UnitTests.ResponseHandling.AuthorizeInteractionResponseGenerator
 {
-    public class CustomAuthorizeInteractionResponseGenerator : OpenIdentityServer.ResponseHandling.AuthorizeInteractionResponseGenerator
+    public class CustomAuthorizeInteractionResponseGenerator : Open.IdentityServer.ResponseHandling.AuthorizeInteractionResponseGenerator
     {
         public CustomAuthorizeInteractionResponseGenerator(
             TimeProvider clock, 
-            ILogger<OpenIdentityServer.ResponseHandling.AuthorizeInteractionResponseGenerator> logger, 
+            ILogger<Open.IdentityServer.ResponseHandling.AuthorizeInteractionResponseGenerator> logger, 
             IConsentService consent, IProfileService profile) : base(clock, logger, consent, profile)
         {
         }
@@ -61,7 +61,7 @@ namespace IdentityServer.UnitTests.ResponseHandling.AuthorizeInteractionResponse
         {
             _subject = new CustomAuthorizeInteractionResponseGenerator(
                 _clock,
-                TestLogger.Create<OpenIdentityServer.ResponseHandling.AuthorizeInteractionResponseGenerator>(),
+                TestLogger.Create<Open.IdentityServer.ResponseHandling.AuthorizeInteractionResponseGenerator>(),
                 _mockConsentService,
                 new MockProfileService());
         }

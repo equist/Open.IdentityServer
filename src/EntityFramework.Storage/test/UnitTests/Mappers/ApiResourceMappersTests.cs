@@ -6,7 +6,7 @@ using System.Linq;
 using AwesomeAssertions;
 using Open.IdentityServer.EntityFramework.Mappers;
 using Xunit;
-using ApiResource = OpenIdentityServer.Models.ApiResource;
+using ApiResource = Open.IdentityServer.Models.ApiResource;
 
 namespace Open.IdentityServer.EntityFramework.UnitTests.Mappers;
 
@@ -56,7 +56,7 @@ public class ApiResourceMappersTests
     [Fact]
     public void missing_values_should_use_defaults()
     {
-        var entity = new OpenIdentityServer.EntityFramework.Entities.ApiResource
+        var entity = new Open.IdentityServer.EntityFramework.Entities.ApiResource
         {
             Secrets = new System.Collections.Generic.List<Entities.ApiResourceSecret>
             {

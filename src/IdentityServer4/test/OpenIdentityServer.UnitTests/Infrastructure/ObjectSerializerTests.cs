@@ -17,7 +17,7 @@ namespace IdentityServer.UnitTests.Infrastructure
         [Fact]
         public void Can_be_deserialize_message()
         {
-            Action a = () => OpenIdentityServer.ObjectSerializer.FromString<Message<ErrorMessage>>("{\"created\":0, \"data\": {\"error\": \"error\"}}");
+            Action a = () => Open.IdentityServer.ObjectSerializer.FromString<Message<ErrorMessage>>("{\"created\":0, \"data\": {\"error\": \"error\"}}");
             a.Should().NotThrow();
         }
     }

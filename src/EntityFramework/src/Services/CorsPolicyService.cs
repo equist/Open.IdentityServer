@@ -15,7 +15,7 @@ namespace Open.IdentityServer.EntityFramework.Services
     /// <summary>
     /// Implementation of ICorsPolicyService that consults the client configuration in the database for allowed CORS origins.
     /// </summary>
-    /// <seealso cref="OpenIdentityServer.Services.ICorsPolicyService" />
+    /// <seealso cref="Open.IdentityServer.Services.ICorsPolicyService" />
     public class CorsPolicyService : ICorsPolicyService
     {
         private readonly IHttpContextAccessor _context;

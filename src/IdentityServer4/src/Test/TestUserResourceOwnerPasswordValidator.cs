@@ -13,7 +13,7 @@ namespace Open.IdentityServer.Test
     /// <summary>
     /// Resource owner password validator for test users
     /// </summary>
-    /// <seealso cref="OpenIdentityServer.Validation.IResourceOwnerPasswordValidator" />
+    /// <seealso cref="Open.IdentityServer.Validation.IResourceOwnerPasswordValidator" />
     public class TestUserResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
     {
         private readonly TestUserStore _users;

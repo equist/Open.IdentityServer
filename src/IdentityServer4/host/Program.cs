@@ -16,7 +16,7 @@ namespace IdentityServerHost
     {
         public static int Main(string[] args)
         {
-            Console.Title = "OpenIdentityServer";
+            Console.Title = "Open.IdentityServer";
             Activity.DefaultIdFormat = ActivityIdFormat.W3C;
 
             Log.Logger = new LoggerConfiguration()

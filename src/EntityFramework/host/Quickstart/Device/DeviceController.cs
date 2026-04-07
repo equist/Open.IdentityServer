@@ -102,7 +102,7 @@ namespace IdentityServerHost.Quickstart.UI
                     var scopes = model.ScopesConsented;
                     if (ConsentOptions.EnableOfflineAccess == false)
                     {
-                        scopes = scopes.Where(x => x != OpenIdentityServer.IdentityServerConstants.StandardScopes.OfflineAccess);
+                        scopes = scopes.Where(x => x != Open.IdentityServer.IdentityServerConstants.StandardScopes.OfflineAccess);
                     }
 
                     grantedConsent = new ConsentResponse
@@ -184,7 +184,7 @@ namespace IdentityServerHost.Quickstart.UI
             }
             if (ConsentOptions.EnableOfflineAccess && request.ValidatedResources.Resources.OfflineAccess)
             {
-                apiScopes.Add(GetOfflineAccessScope(vm.ScopesConsented.Contains(OpenIdentityServer.IdentityServerConstants.StandardScopes.OfflineAccess) || model == null));
+                apiScopes.Add(GetOfflineAccessScope(vm.ScopesConsented.Contains(Open.IdentityServer.IdentityServerConstants.StandardScopes.OfflineAccess) || model == null));
             }
             vm.ApiScopes = apiScopes;
 
@@ -221,7 +221,7 @@ namespace IdentityServerHost.Quickstart.UI
         {
             return new ScopeViewModel
             {
-                Value = OpenIdentityServer.IdentityServerConstants.StandardScopes.OfflineAccess,
+                Value = Open.IdentityServer.IdentityServerConstants.StandardScopes.OfflineAccess,
                 DisplayName = ConsentOptions.OfflineAccessDisplayName,
                 Description = ConsentOptions.OfflineAccessDescription,
                 Emphasize = true,
