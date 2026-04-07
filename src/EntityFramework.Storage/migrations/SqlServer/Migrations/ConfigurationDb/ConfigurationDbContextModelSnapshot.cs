@@ -464,7 +464,7 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.ToTable("ClientClaims", (string)null);
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ClientCorsOrigin", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ClientCorsOrigin", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -487,7 +487,7 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.ToTable("ClientCorsOrigins", (string)null);
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ClientGrantType", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ClientGrantType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -510,7 +510,7 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.ToTable("ClientGrantTypes", (string)null);
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ClientIdPRestriction", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ClientIdPRestriction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -533,7 +533,7 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.ToTable("ClientIdPRestrictions", (string)null);
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ClientPostLogoutRedirectUri", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ClientPostLogoutRedirectUri", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -556,7 +556,7 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.ToTable("ClientPostLogoutRedirectUris", (string)null);
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ClientProperty", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ClientProperty", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -584,7 +584,7 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.ToTable("ClientProperties", (string)null);
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ClientRedirectUri", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ClientRedirectUri", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -607,7 +607,7 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.ToTable("ClientRedirectUris", (string)null);
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ClientScope", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ClientScope", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -630,7 +630,7 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.ToTable("ClientScopes", (string)null);
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ClientSecret", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ClientSecret", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -668,7 +668,7 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.ToTable("ClientSecrets", (string)null);
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.IdentityResource", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.IdentityResource", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -718,7 +718,7 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.ToTable("IdentityResources", (string)null);
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.IdentityResourceClaim", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.IdentityResourceClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -741,7 +741,7 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.ToTable("IdentityResourceClaims", (string)null);
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.IdentityResourceProperty", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.IdentityResourceProperty", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -769,9 +769,9 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.ToTable("IdentityResourceProperties", (string)null);
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ApiResourceClaim", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ApiResourceClaim", b =>
                 {
-                    b.HasOne("OpenIdentityServer.EntityFramework.Entities.ApiResource", "ApiResource")
+                    b.HasOne("Open.IdentityServer.EntityFramework.Entities.ApiResource", "ApiResource")
                         .WithMany("UserClaims")
                         .HasForeignKey("ApiResourceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -780,9 +780,9 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("ApiResource");
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ApiResourceProperty", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ApiResourceProperty", b =>
                 {
-                    b.HasOne("OpenIdentityServer.EntityFramework.Entities.ApiResource", "ApiResource")
+                    b.HasOne("Open.IdentityServer.EntityFramework.Entities.ApiResource", "ApiResource")
                         .WithMany("Properties")
                         .HasForeignKey("ApiResourceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -791,9 +791,9 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("ApiResource");
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ApiResourceScope", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ApiResourceScope", b =>
                 {
-                    b.HasOne("OpenIdentityServer.EntityFramework.Entities.ApiResource", "ApiResource")
+                    b.HasOne("Open.IdentityServer.EntityFramework.Entities.ApiResource", "ApiResource")
                         .WithMany("Scopes")
                         .HasForeignKey("ApiResourceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -802,9 +802,9 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("ApiResource");
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ApiResourceSecret", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ApiResourceSecret", b =>
                 {
-                    b.HasOne("OpenIdentityServer.EntityFramework.Entities.ApiResource", "ApiResource")
+                    b.HasOne("Open.IdentityServer.EntityFramework.Entities.ApiResource", "ApiResource")
                         .WithMany("Secrets")
                         .HasForeignKey("ApiResourceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -813,9 +813,9 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("ApiResource");
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ApiScopeClaim", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ApiScopeClaim", b =>
                 {
-                    b.HasOne("OpenIdentityServer.EntityFramework.Entities.ApiScope", "Scope")
+                    b.HasOne("Open.IdentityServer.EntityFramework.Entities.ApiScope", "Scope")
                         .WithMany("UserClaims")
                         .HasForeignKey("ScopeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -824,9 +824,9 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("Scope");
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ApiScopeProperty", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ApiScopeProperty", b =>
                 {
-                    b.HasOne("OpenIdentityServer.EntityFramework.Entities.ApiScope", "Scope")
+                    b.HasOne("Open.IdentityServer.EntityFramework.Entities.ApiScope", "Scope")
                         .WithMany("Properties")
                         .HasForeignKey("ScopeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -835,9 +835,9 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("Scope");
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ClientClaim", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ClientClaim", b =>
                 {
-                    b.HasOne("OpenIdentityServer.EntityFramework.Entities.Client", "Client")
+                    b.HasOne("Open.IdentityServer.EntityFramework.Entities.Client", "Client")
                         .WithMany("Claims")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -846,9 +846,9 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ClientCorsOrigin", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ClientCorsOrigin", b =>
                 {
-                    b.HasOne("OpenIdentityServer.EntityFramework.Entities.Client", "Client")
+                    b.HasOne("Open.IdentityServer.EntityFramework.Entities.Client", "Client")
                         .WithMany("AllowedCorsOrigins")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -857,9 +857,9 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ClientGrantType", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ClientGrantType", b =>
                 {
-                    b.HasOne("OpenIdentityServer.EntityFramework.Entities.Client", "Client")
+                    b.HasOne("Open.IdentityServer.EntityFramework.Entities.Client", "Client")
                         .WithMany("AllowedGrantTypes")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -868,9 +868,9 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ClientIdPRestriction", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ClientIdPRestriction", b =>
                 {
-                    b.HasOne("OpenIdentityServer.EntityFramework.Entities.Client", "Client")
+                    b.HasOne("Open.IdentityServer.EntityFramework.Entities.Client", "Client")
                         .WithMany("IdentityProviderRestrictions")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -879,9 +879,9 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ClientPostLogoutRedirectUri", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ClientPostLogoutRedirectUri", b =>
                 {
-                    b.HasOne("OpenIdentityServer.EntityFramework.Entities.Client", "Client")
+                    b.HasOne("Open.IdentityServer.EntityFramework.Entities.Client", "Client")
                         .WithMany("PostLogoutRedirectUris")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -890,9 +890,9 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ClientProperty", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ClientProperty", b =>
                 {
-                    b.HasOne("OpenIdentityServer.EntityFramework.Entities.Client", "Client")
+                    b.HasOne("Open.IdentityServer.EntityFramework.Entities.Client", "Client")
                         .WithMany("Properties")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -901,9 +901,9 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ClientRedirectUri", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ClientRedirectUri", b =>
                 {
-                    b.HasOne("OpenIdentityServer.EntityFramework.Entities.Client", "Client")
+                    b.HasOne("Open.IdentityServer.EntityFramework.Entities.Client", "Client")
                         .WithMany("RedirectUris")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -912,9 +912,9 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ClientScope", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ClientScope", b =>
                 {
-                    b.HasOne("OpenIdentityServer.EntityFramework.Entities.Client", "Client")
+                    b.HasOne("Open.IdentityServer.EntityFramework.Entities.Client", "Client")
                         .WithMany("AllowedScopes")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -923,9 +923,9 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.ClientSecret", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ClientSecret", b =>
                 {
-                    b.HasOne("OpenIdentityServer.EntityFramework.Entities.Client", "Client")
+                    b.HasOne("Open.IdentityServer.EntityFramework.Entities.Client", "Client")
                         .WithMany("ClientSecrets")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -934,9 +934,9 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.IdentityResourceClaim", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.IdentityResourceClaim", b =>
                 {
-                    b.HasOne("OpenIdentityServer.EntityFramework.Entities.IdentityResource", "IdentityResource")
+                    b.HasOne("Open.IdentityServer.EntityFramework.Entities.IdentityResource", "IdentityResource")
                         .WithMany("UserClaims")
                         .HasForeignKey("IdentityResourceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -945,9 +945,9 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("IdentityResource");
                 });
 
-            modelBuilder.Entity("OpenIdentityServer.EntityFramework.Entities.IdentityResourceProperty", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.IdentityResourceProperty", b =>
                 {
-                    b.HasOne("OpenIdentityServer.EntityFramework.Entities.IdentityResource", "IdentityResource")
+                    b.HasOne("Open.IdentityServer.EntityFramework.Entities.IdentityResource", "IdentityResource")
                         .WithMany("Properties")
                         .HasForeignKey("IdentityResourceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -956,7 +956,7 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("IdentityResource");
                 });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiResource", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ApiResource", b =>
                 {
                     b.Navigation("Properties");
 
@@ -967,14 +967,14 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("UserClaims");
                 });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiScope", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.ApiScope", b =>
                 {
                     b.Navigation("Properties");
 
                     b.Navigation("UserClaims");
                 });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.Client", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.Client", b =>
                 {
                     b.Navigation("AllowedCorsOrigins");
 
@@ -995,7 +995,7 @@ namespace SqlServer.Migrations.ConfigurationDb
                     b.Navigation("RedirectUris");
                 });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.IdentityResource", b =>
+            modelBuilder.Entity("Open.IdentityServer.EntityFramework.Entities.IdentityResource", b =>
                 {
                     b.Navigation("Properties");
 
