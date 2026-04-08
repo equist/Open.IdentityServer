@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <IsPackable>false</IsPackable>
+        <AssemblyOriginatorKeyFile>../../key.snk</AssemblyOriginatorKeyFile>
+        <SignAssembly>true</SignAssembly>
+        <DeterministicSourcePaths>false</DeterministicSourcePaths>
+    </PropertyGroup>
+
+    <!--Conditional compilation-->
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+    </PropertyGroup>
+    <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+        <TargetFrameworks>net462;net472;$(TargetFrameworks)</TargetFrameworks>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\IdentityModel.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+        <PackageReference Include="xunit.v3"/>
+        <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="All"/>
+        <PackageReference Include="AwesomeAssertions"/>
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'net462' or $(TargetFramework) == 'net472'">
+        <Reference Include="System.Net.Http" />
+    </ItemGroup>
+</Project>
