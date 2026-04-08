@@ -1,4 +1,4 @@
-namespace IdentityServer4.Storage.Stores.DataProtection;
+namespace Open.IdentityServer.Storage.Stores.DataProtection;
 
 public class DataProtectedGrantData
 {

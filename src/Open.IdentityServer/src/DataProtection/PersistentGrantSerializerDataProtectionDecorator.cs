@@ -2,11 +2,11 @@
 
 using System;
 using System.Text.Json;
-using IdentityServer4.Storage.Stores.DataProtection;
-using IdentityServer4.Stores.Serialization;
+using Open.IdentityServer.Storage.Stores.DataProtection;
+using Open.IdentityServer.Stores.Serialization;
 using Microsoft.AspNetCore.DataProtection;
 
-namespace IdentityServer4.DataProtection;
+namespace Open.IdentityServer.DataProtection;
 
 /// <summary>
 /// Decorator for IPersistentGrantSerializer that protects to serialized persisted grant data 

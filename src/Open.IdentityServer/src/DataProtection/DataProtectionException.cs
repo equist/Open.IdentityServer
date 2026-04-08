@@ -1,7 +1,7 @@
 #nullable enable
 using System;
 
-namespace IdentityServer4.DataProtection;
+namespace Open.IdentityServer.DataProtection;
 
 /// <summary>
 /// Exception thrown when an error occurs with data protection
