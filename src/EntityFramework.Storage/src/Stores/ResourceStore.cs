@@ -6,19 +6,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using IdentityServer4.EntityFramework.Interfaces;
-using IdentityServer4.EntityFramework.Mappers;
-using IdentityServer4.Models;
-using IdentityServer4.Stores;
+using Open.IdentityServer.EntityFramework.Interfaces;
+using Open.IdentityServer.EntityFramework.Mappers;
+using Open.IdentityServer.Models;
+using Open.IdentityServer.Stores;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace IdentityServer4.EntityFramework.Stores
+namespace Open.IdentityServer.EntityFramework.Stores
 {
     /// <summary>
     /// Implementation of IResourceStore thats uses EF.
     /// </summary>
-    /// <seealso cref="IdentityServer4.Stores.IResourceStore" />
+    /// <seealso cref="Open.IdentityServer.Stores.IResourceStore" />
     public class ResourceStore : IResourceStore
     {
         /// <summary>

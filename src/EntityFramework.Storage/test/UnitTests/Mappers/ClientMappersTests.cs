@@ -5,11 +5,11 @@
 using System;
 using System.Linq;
 using AwesomeAssertions;
-using IdentityServer4.EntityFramework.Mappers;
+using Open.IdentityServer.EntityFramework.Mappers;
 using Xunit;
-using Client = IdentityServer4.Models.Client;
+using Client = Open.IdentityServer.Models.Client;
 
-namespace IdentityServer4.EntityFramework.UnitTests.Mappers;
+namespace Open.IdentityServer.EntityFramework.UnitTests.Mappers;
 
 public class ClientMappersTests
 {
@@ -61,7 +61,7 @@ public class ClientMappersTests
     [Fact]
     public void duplicates_properties_in_db_map()
     {
-        var entity = new IdentityServer4.EntityFramework.Entities.Client
+        var entity = new Open.IdentityServer.EntityFramework.Entities.Client
         {
             Properties = new System.Collections.Generic.List<Entities.ClientProperty>()
             {
@@ -77,7 +77,7 @@ public class ClientMappersTests
     [Fact]
     public void missing_values_should_use_defaults()
     {
-        var entity = new IdentityServer4.EntityFramework.Entities.Client
+        var entity = new Open.IdentityServer.EntityFramework.Entities.Client
         {
             ClientSecrets = new System.Collections.Generic.List<Entities.ClientSecret>
             {

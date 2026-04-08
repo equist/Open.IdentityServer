@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace IdentityServer4.Models.AccountViewModels
+namespace Open.IdentityServer.Models.AccountViewModels
 {
     public class ResetPasswordViewModel
     {

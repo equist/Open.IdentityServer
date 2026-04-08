@@ -4,7 +4,7 @@
 
 using System;
 
-namespace IdentityServer4.Models
+namespace Open.IdentityServer.Models
 {
     /// <summary>
     /// Models a client secret with identifier and expiration

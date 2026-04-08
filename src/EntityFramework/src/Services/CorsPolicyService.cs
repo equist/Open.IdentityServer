@@ -4,18 +4,18 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using IdentityServer4.EntityFramework.Interfaces;
-using IdentityServer4.Services;
+using Open.IdentityServer.EntityFramework.Interfaces;
+using Open.IdentityServer.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace IdentityServer4.EntityFramework.Services
+namespace Open.IdentityServer.EntityFramework.Services
 {
     /// <summary>
     /// Implementation of ICorsPolicyService that consults the client configuration in the database for allowed CORS origins.
     /// </summary>
-    /// <seealso cref="IdentityServer4.Services.ICorsPolicyService" />
+    /// <seealso cref="Open.IdentityServer.Services.ICorsPolicyService" />
     public class CorsPolicyService : ICorsPolicyService
     {
         private readonly IHttpContextAccessor _context;

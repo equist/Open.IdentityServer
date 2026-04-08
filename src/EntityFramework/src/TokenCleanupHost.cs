@@ -2,8 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using IdentityServer4.EntityFramework.Options;
-using IdentityServer4.EntityFramework;
+using Open.IdentityServer.EntityFramework.Options;
+using Open.IdentityServer.EntityFramework;
 using Microsoft.Extensions.Hosting;
 using System.Threading;
 using System.Threading.Tasks;
