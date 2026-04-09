@@ -11,6 +11,7 @@ using Open.IdentityServer.Validation;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 
@@ -229,6 +230,7 @@ namespace Open.IdentityServer.ResponseHandling
             {
                 oldAccessToken.CreationTime = Clock.GetUtcNow().UtcDateTime;
                 oldAccessToken.Lifetime = request.ValidatedRequest.AccessTokenLifetime;
+                oldAccessToken.RefreshJti();
 
                 accessTokenString = await TokenService.CreateSecurityTokenAsync(oldAccessToken);
             }

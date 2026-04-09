@@ -154,4 +154,24 @@ public static class TokenExtensions
             throw;
         }
     }
+
+    /// <summary>
+    /// Refreshed JTI claim if exists on <see cref="Token"/>
+    /// </summary>
+    /// <param name="token">token to update claims collection on</param>
+    public static void RefreshJti(this Token token)
+    {
+        var existingJti = token.Claims.Where(x => x.Type == JwtClaimTypes.JwtId).ToList();
+        if (existingJti.Count == 0)
+        {
+            return;
+        }
+        
+        //Should only be one claim matching but remove all if there are multiple
+        foreach (var jti in existingJti)
+        {
+            token.Claims.Remove(jti);
+        }
+        token.Claims.Add(new Claim(JwtClaimTypes.JwtId, CryptoRandom.CreateUniqueId(16, CryptoRandom.OutputFormat.Hex)));
+    }
 }
