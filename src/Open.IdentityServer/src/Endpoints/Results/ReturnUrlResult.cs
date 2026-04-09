@@ -64,11 +64,10 @@ public abstract class ReturnUrlResult: IEndpointResult
     /// Builds a returnUrl using <see cref="IAuthorizationParametersMessageStore"/> if registered, and fallback 
     /// </summary>
     /// <param name="context">The HTTP context.</param>
-    /// <param name="path">path to append to return url</param>
     /// <returns>built return url</returns>
-    protected async Task<string> BuildReturnUrl(HttpContext context, string path)
+    protected async Task<string> BuildReturnUrl(HttpContext context)
     {
-        var returnUrl = context.GetIdentityServerBasePath().EnsureTrailingSlash() + path;
+        var returnUrl = context.GetIdentityServerBasePath().EnsureTrailingSlash() + Constants.ProtocolRoutePaths.AuthorizeCallback;
         if (AuthorizationParametersMessageStore != null)
         {
             var msg = new Message<IDictionary<string, string[]>>(Request.Raw.ToFullDictionary());

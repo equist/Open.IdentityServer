@@ -13,7 +13,6 @@ namespace Open.IdentityServer.UnitTests.Endpoints.Results;
 
 public class LoginPageResultTests : ReturnUrlResultTestBase<LoginPageResult>
 {
-    protected override string ExpectedCallbackPath => Constants.ProtocolRoutePaths.AuthorizeCallback;
     protected override string ExpectedReturnUrlParameterName => Constants.UIConstants.DefaultRoutePathParams.Login;
     protected override string ExpectedRedirectUrlPath => "/sign-in";
 

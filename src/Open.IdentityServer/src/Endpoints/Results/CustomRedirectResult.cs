@@ -55,7 +55,7 @@ namespace Open.IdentityServer.Endpoints.Results
         public override async Task ExecuteAsync(HttpContext context)
         {
             Init(context);
-            var returnUrl = await BuildReturnUrl(context, Constants.ProtocolRoutePaths.Authorize);
+            var returnUrl = await BuildReturnUrl(context);
 
             if (!_url.IsLocalUrl())
             {
