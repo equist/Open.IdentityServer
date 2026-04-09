@@ -1,8 +1,8 @@
 // Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+#nullable enable
 
-using System;
 using System.Text.Json;
 
 namespace Open.IdentityServer.Stores.Serialization
@@ -44,7 +44,7 @@ namespace Open.IdentityServer.Stores.Serialization
         /// <typeparam name="T"></typeparam>
         /// <param name="json">The json.</param>
         /// <returns></returns>
-        public T Deserialize<T>(string json)
+        public T? Deserialize<T>(string json)
         {
             return JsonSerializer.Deserialize<T>(json, _settings);
         }

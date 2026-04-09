@@ -1,6 +1,7 @@
 // Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+#nullable enable
 
 using Open.IdentityServer.Models;
 using Microsoft.Extensions.Logging;
@@ -46,52 +47,44 @@ namespace Open.IdentityServer.Services
 
             try
             {
-                var consents = grants.Where(x => x.Type == IdentityServerConstants.PersistedGrantTypes.UserConsent)
-                    .Select(x => _serializer.Deserialize<Consent>(x.Data))
-                    .Select(x => new Grant 
-                    {
-                        ClientId = x.ClientId,
-                        SubjectId = subjectId,
-                        Scopes = x.Scopes,
-                        CreationTime = x.CreationTime,
-                        Expiration = x.Expiration
-                    });
-
-                var codes = grants.Where(x => x.Type == IdentityServerConstants.PersistedGrantTypes.AuthorizationCode)
-                    .Select(x => _serializer.Deserialize<AuthorizationCode>(x.Data))
-                    .Select(x => new Grant
-                    {
-                        ClientId = x.ClientId,
-                        SubjectId = subjectId,
-                        Description = x.Description,
-                        Scopes = x.RequestedScopes,
-                        CreationTime = x.CreationTime,
-                        Expiration = x.CreationTime.AddSeconds(x.Lifetime)
-                    });
-
-                var refresh = grants.Where(x => x.Type == IdentityServerConstants.PersistedGrantTypes.RefreshToken)
-                    .Select(x => _serializer.Deserialize<RefreshToken>(x.Data))
-                    .Select(x => new Grant
-                    {
-                        ClientId = x.ClientId,
-                        SubjectId = subjectId,
-                        Description = x.Description,
-                        Scopes = x.Scopes,
-                        CreationTime = x.CreationTime,
-                        Expiration = x.CreationTime.AddSeconds(x.Lifetime)
-                    });
-
-                var access = grants.Where(x => x.Type == IdentityServerConstants.PersistedGrantTypes.ReferenceToken)
-                    .Select(x => _serializer.Deserialize<Token>(x.Data))
-                    .Select(x => new Grant
-                    {
-                        ClientId = x.ClientId,
-                        SubjectId = subjectId,
-                        Description = x.Description,
-                        Scopes = x.Scopes,
-                        CreationTime = x.CreationTime,
-                        Expiration = x.CreationTime.AddSeconds(x.Lifetime)
-                    });
+                var consents = RetrieveGrants<Consent>(grants, IdentityServerConstants.PersistedGrantTypes.UserConsent, consent => new Grant
+                {
+                    ClientId = consent.ClientId,
+                    SubjectId = subjectId,
+                    Scopes = consent.Scopes,
+                    CreationTime = consent.CreationTime,
+                    Expiration = consent.Expiration
+                });
+                
+                var codes = RetrieveGrants<AuthorizationCode>(grants, IdentityServerConstants.PersistedGrantTypes.AuthorizationCode, authCode => new Grant
+                {
+                    ClientId = authCode.ClientId,
+                    SubjectId = subjectId,
+                    Description = authCode.Description,
+                    Scopes = authCode.RequestedScopes,
+                    CreationTime = authCode.CreationTime,
+                    Expiration = authCode.CreationTime.AddSeconds(authCode.Lifetime)
+                });
+                
+                var refresh = RetrieveGrants<RefreshToken>(grants, IdentityServerConstants.PersistedGrantTypes.RefreshToken, refreshToken => new Grant
+                {
+                    ClientId = refreshToken.ClientId,
+                    SubjectId = subjectId,
+                    Description = refreshToken.Description,
+                    Scopes = refreshToken.Scopes,
+                    CreationTime = refreshToken.CreationTime,
+                    Expiration = refreshToken.CreationTime.AddSeconds(refreshToken.Lifetime)
+                });
+                
+                var access = RetrieveGrants<Token>(grants, IdentityServerConstants.PersistedGrantTypes.ReferenceToken, accessToken => new Grant
+                {
+                    ClientId = accessToken.ClientId,
+                    SubjectId = subjectId,
+                    Description = accessToken.Description,
+                    Scopes = accessToken.Scopes,
+                    CreationTime = accessToken.CreationTime,
+                    Expiration = accessToken.CreationTime.AddSeconds(accessToken.Lifetime)
+                });
 
                 consents = Join(consents, codes);
                 consents = Join(consents, refresh);
@@ -105,6 +98,25 @@ namespace Open.IdentityServer.Services
             }
 
             return Enumerable.Empty<Grant>();
+        }
+        
+        private IEnumerable<Grant> RetrieveGrants<T>(PersistedGrant[] grants, string type, Func<T, Grant> mapToGrant)
+        {
+            return grants.Where(grant => grant.Type == type)
+                .Select(grant =>
+                {
+                    try
+                    {
+                        return _serializer.Deserialize<T>(grant.Data);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Failed to deserialize persisted grant '{Key}', to '{Type}'", grant.Key, typeof(T));
+                        return default;
+                    }
+                })
+                .Where(deserializedData => deserializedData != null)
+                .Select(deserializedData => mapToGrant(deserializedData!));
         }
 
         private IEnumerable<Grant> Join(IEnumerable<Grant> first, IEnumerable<Grant> second)
