@@ -18,15 +18,15 @@ namespace Open.IdentityServer.Endpoints.Results;
 public abstract class ReturnUrlResult: IEndpointResult
 {
     /// <summary>
-    /// 
+    /// The validated authorize request.
     /// </summary>
     protected readonly ValidatedAuthorizeRequest Request;
     /// <summary>
-    /// 
+    /// The IdentityServer options.
     /// </summary>
     protected IdentityServerOptions Options;
     /// <summary>
-    /// 
+    /// The authorization parameters message store.
     /// </summary>
     protected IAuthorizationParametersMessageStore AuthorizationParametersMessageStore;
 
@@ -39,7 +39,7 @@ public abstract class ReturnUrlResult: IEndpointResult
     {
         Request = request ?? throw new ArgumentNullException(nameof(request));
     }
-        
+    
     internal ReturnUrlResult(
         ValidatedAuthorizeRequest request,
         IdentityServerOptions options,
