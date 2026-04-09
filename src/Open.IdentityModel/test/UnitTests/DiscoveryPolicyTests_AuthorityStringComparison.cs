@@ -47,7 +47,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = input,
                 Policy = policy
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeFalse();
         }
@@ -66,7 +66,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = "http://authority",
                 Policy = policy
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeTrue();
             disco.Json?.ValueKind.Should().Be(JsonValueKind.Undefined);
@@ -88,7 +88,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = "http://authority",
                 Policy = policy
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeFalse();
         }
@@ -110,7 +110,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = input,
                 Policy = policy
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeFalse();
         }
@@ -129,7 +129,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = "https://authority",
                 Policy = policy
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeTrue();
             disco.Json?.ValueKind.Should().Be(JsonValueKind.Undefined);
@@ -163,7 +163,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = "https://authority",
                 Policy = policy
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeFalse();
         }
@@ -183,7 +183,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = "https://authority",
                 Policy = policy
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeFalse();
         }
@@ -204,7 +204,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = "https://authority/TENANTID",
                 Policy = policy
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeFalse();
         }
@@ -226,7 +226,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = "https://authority",
                 Policy = policy
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeTrue();
             disco.Json?.ValueKind.Should().Be(JsonValueKind.Undefined);
@@ -253,7 +253,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = authority,
                 Policy = policy
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeTrue();
             disco.Json?.ValueKind.Should().Be(JsonValueKind.Undefined);
@@ -287,7 +287,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = authority,
                 Policy = policy
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeFalse();
         }
@@ -314,7 +314,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = authority,
                 Policy = policy
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeTrue();
             disco.Json?.ValueKind.Should().Be(JsonValueKind.Undefined);
@@ -349,7 +349,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = authority,
                 Policy = policy
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeFalse();
         }
@@ -371,7 +371,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = "https://authority",
                 Policy = policy
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeFalse();
         }
@@ -393,7 +393,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = "https://authority",
                 Policy = policy
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeTrue();
             disco.Json?.ValueKind.Should().Be(JsonValueKind.Undefined);

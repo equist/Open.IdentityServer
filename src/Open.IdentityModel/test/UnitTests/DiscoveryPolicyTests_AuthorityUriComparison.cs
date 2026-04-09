@@ -12,6 +12,9 @@ namespace Open.IdentityModel.UnitTests
 {
     public class DiscoveryPolicyTests_AuthorityUriComparison : DiscoveryPolicyTestsBase
     {
+        private static Task<DiscoveryDocumentResponse> GetDiscoveryDocumentAsync(HttpClient client, DiscoveryDocumentRequest request) =>
+            client.GetDiscoveryDocumentAsync(request, cancellationToken: TestContext.Current.CancellationToken);
+
         public DiscoveryPolicyTests_AuthorityUriComparison() : base(new AuthorityUrlValidationStrategy())
         {
 
@@ -42,7 +45,7 @@ namespace Open.IdentityModel.UnitTests
             });
 
             var client = new HttpClient(GetHandler(input));
-            var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            var disco = await GetDiscoveryDocumentAsync(client, new DiscoveryDocumentRequest
             {
                 Address = input,
                 Policy = policy
@@ -61,7 +64,7 @@ namespace Open.IdentityModel.UnitTests
             });
 
             var client = new HttpClient();
-            var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            var disco = await GetDiscoveryDocumentAsync(client, new DiscoveryDocumentRequest
             {
                 Address = "http://authority",
                 Policy = policy
@@ -83,7 +86,7 @@ namespace Open.IdentityModel.UnitTests
             });
 
             var client = new HttpClient(GetHandler("http://authority"));
-            var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            var disco = await GetDiscoveryDocumentAsync(client, new DiscoveryDocumentRequest
             {
                 Address = "http://authority",
                 Policy = policy
@@ -105,7 +108,7 @@ namespace Open.IdentityModel.UnitTests
             });
 
             var client = new HttpClient(GetHandler(input));
-            var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            var disco = await GetDiscoveryDocumentAsync(client, new DiscoveryDocumentRequest
             {
                 Address = input,
                 Policy = policy
@@ -124,7 +127,7 @@ namespace Open.IdentityModel.UnitTests
             });
 
             var client = new HttpClient(GetHandler("https://differentissuer"));
-            var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            var disco = await GetDiscoveryDocumentAsync(client, new DiscoveryDocumentRequest
             {
                 Address = "https://authority",
                 Policy = policy
@@ -158,7 +161,7 @@ namespace Open.IdentityModel.UnitTests
             var handler = GetHandler("https://authority", "https://otherserver");
             var client = new HttpClient(handler);
 
-            var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            var disco = await GetDiscoveryDocumentAsync(client, new DiscoveryDocumentRequest
             {
                 Address = "https://authority",
                 Policy = policy
@@ -178,7 +181,7 @@ namespace Open.IdentityModel.UnitTests
             var handler = GetHandler("https://authority");
             var client = new HttpClient(handler);
 
-            var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            var disco = await GetDiscoveryDocumentAsync(client, new DiscoveryDocumentRequest
             {
                 Address = "https://authority",
                 Policy = policy
@@ -199,7 +202,7 @@ namespace Open.IdentityModel.UnitTests
             var handler = GetHandler(issuer: "https://authority:443/tenantid/");
             var client = new HttpClient(handler);
 
-            var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            var disco = await GetDiscoveryDocumentAsync(client, new DiscoveryDocumentRequest
             {
                 Address = "https://authority/tenantid",
                 Policy = policy
@@ -219,7 +222,7 @@ namespace Open.IdentityModel.UnitTests
             var handler = GetHandler(issuer: "https://authority:443/tenantid/");
             var client = new HttpClient(handler);
 
-            var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            var disco = await GetDiscoveryDocumentAsync(client, new DiscoveryDocumentRequest
             {
                 Address = "https://authority/tenantid",
                 Policy = policy
@@ -241,7 +244,7 @@ namespace Open.IdentityModel.UnitTests
             var handler = GetHandler("https://authority", "http://authority");
             var client = new HttpClient(handler);
 
-            var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            var disco = await GetDiscoveryDocumentAsync(client, new DiscoveryDocumentRequest
             {
                 Address = "https://authority",
                 Policy = policy
@@ -268,7 +271,7 @@ namespace Open.IdentityModel.UnitTests
             var handler = GetHandler(authority, endpointBase);
             var client = new HttpClient(handler);
 
-            var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            var disco = await GetDiscoveryDocumentAsync(client, new DiscoveryDocumentRequest
             {
                 Address = authority,
                 Policy = policy
@@ -302,7 +305,7 @@ namespace Open.IdentityModel.UnitTests
             var handler = GetHandler(authority, endpointBase);
             var client = new HttpClient(handler);
 
-            var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            var disco = await GetDiscoveryDocumentAsync(client, new DiscoveryDocumentRequest
             {
                 Address = authority,
                 Policy = policy
@@ -329,7 +332,7 @@ namespace Open.IdentityModel.UnitTests
             var handler = GetHandler(authority, endpointBase);
             var client = new HttpClient(handler);
 
-            var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            var disco = await GetDiscoveryDocumentAsync(client, new DiscoveryDocumentRequest
             {
                 Address = authority,
                 Policy = policy
@@ -364,7 +367,7 @@ namespace Open.IdentityModel.UnitTests
             var handler = GetHandler(authority, endpointBase);
             var client = new HttpClient(handler);
 
-            var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            var disco = await GetDiscoveryDocumentAsync(client, new DiscoveryDocumentRequest
             {
                 Address = authority,
                 Policy = policy
@@ -386,7 +389,7 @@ namespace Open.IdentityModel.UnitTests
             var handler = GetHandler("https://authority", "https://differentauthority");
             var client = new HttpClient(handler);
 
-            var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            var disco = await GetDiscoveryDocumentAsync(client, new DiscoveryDocumentRequest
             {
                 Address = "https://authority",
                 Policy = policy
@@ -408,7 +411,7 @@ namespace Open.IdentityModel.UnitTests
             var handler = GetHandler("https://authority", "http://differentauthority");
             var client = new HttpClient(handler);
 
-            var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            var disco = await GetDiscoveryDocumentAsync(client, new DiscoveryDocumentRequest
             {
                 Address = "https://authority",
                 Policy = policy

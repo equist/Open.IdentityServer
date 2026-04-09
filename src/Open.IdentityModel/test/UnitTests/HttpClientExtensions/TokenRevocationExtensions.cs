@@ -33,7 +33,7 @@ namespace Open.IdentityModel.UnitTests
             request.Headers.Add("custom", "custom");
             request.Properties.Add("custom", "custom");
 
-            var response = await client.RevokeTokenAsync(request);
+            var response = await client.RevokeTokenAsync(request, TestContext.Current.CancellationToken);
 
             var httpRequest = handler.Request;
 
@@ -64,7 +64,7 @@ namespace Open.IdentityModel.UnitTests
                 Address = Endpoint,
                 Token = "token",
                 ClientId = "client"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ErrorType.Should().Be(ResponseErrorType.None);
@@ -84,14 +84,14 @@ namespace Open.IdentityModel.UnitTests
                 ClientId = "client"
             };
 
-            var response = await client.RevokeTokenAsync(request);
+            var response = await client.RevokeTokenAsync(request, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ErrorType.Should().Be(ResponseErrorType.None);
             response.HttpStatusCode.Should().Be(HttpStatusCode.OK);
 
             // repeat
-            response = await client.RevokeTokenAsync(request);
+            response = await client.RevokeTokenAsync(request, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ErrorType.Should().Be(ResponseErrorType.None);
@@ -110,7 +110,7 @@ namespace Open.IdentityModel.UnitTests
                 Address = Endpoint,
                 Token = "token",
                 ClientId = "client"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Protocol);
@@ -130,7 +130,7 @@ namespace Open.IdentityModel.UnitTests
                 Address = Endpoint,
                 Token = "token",
                 ClientId = "client"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Exception);
@@ -149,7 +149,7 @@ namespace Open.IdentityModel.UnitTests
                 Address = Endpoint,
                 Token = "token",
                 ClientId = "client"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Exception);
@@ -168,7 +168,7 @@ namespace Open.IdentityModel.UnitTests
                 Address = Endpoint,
                 Token = "token",
                 ClientId = "client"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Http);
@@ -192,7 +192,7 @@ namespace Open.IdentityModel.UnitTests
                 {
                     { "foo", "bar" }
                 }
-            });
+            }, TestContext.Current.CancellationToken);
 
             // check request
             var fields = QueryHelpers.ParseQuery(handler.Body);

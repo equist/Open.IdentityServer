@@ -52,7 +52,7 @@ namespace Open.IdentityModel.UnitTests
             request.Headers.Add("custom", "custom");
             request.Properties.Add("custom", "custom");
 
-            var response = await client.GetJsonWebKeySetAsync(request);
+            var response = await client.GetJsonWebKeySetAsync(request, TestContext.Current.CancellationToken);
 
             var httpRequest = handler.Request;
 
@@ -80,7 +80,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(_endpoint)
             };
 
-            var jwk = await client.GetJsonWebKeySetAsync();
+            var jwk = await client.GetJsonWebKeySetAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             jwk.IsError.Should().BeFalse();
         }
@@ -90,7 +90,7 @@ namespace Open.IdentityModel.UnitTests
         {
             var client = new HttpClient(_successHandler);
 
-            var jwk = await client.GetJsonWebKeySetAsync(_endpoint);
+            var jwk = await client.GetJsonWebKeySetAsync(_endpoint, TestContext.Current.CancellationToken);
 
             jwk.IsError.Should().BeFalse();
         }
@@ -104,7 +104,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(_endpoint)
             };
 
-            var jwk = await client.GetJsonWebKeySetAsync();
+            var jwk = await client.GetJsonWebKeySetAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             jwk.IsError.Should().BeTrue();
             jwk.ErrorType.Should().Be(ResponseErrorType.Http);
@@ -119,7 +119,7 @@ namespace Open.IdentityModel.UnitTests
             var handler = new NetworkHandler(new Exception("error"));
 
             var client = new HttpClient(handler);
-            var jwk = await client.GetJsonWebKeySetAsync(_endpoint);
+            var jwk = await client.GetJsonWebKeySetAsync(_endpoint, TestContext.Current.CancellationToken);
 
             jwk.IsError.Should().BeTrue();
             jwk.ErrorType.Should().Be(ResponseErrorType.Exception);
@@ -135,7 +135,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(_endpoint)
             };
 
-            var jwk = await client.GetJsonWebKeySetAsync();
+            var jwk = await client.GetJsonWebKeySetAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             jwk.IsError.Should().BeFalse();
             jwk.KeySet.Should().NotBeNull();
@@ -150,7 +150,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(_endpoint)
             };
 
-            var jwk = await client.GetJsonWebKeySetAsync();
+            var jwk = await client.GetJsonWebKeySetAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             jwk.IsError.Should().BeTrue();
             jwk.ErrorType.Should().Be(ResponseErrorType.Http);
@@ -176,7 +176,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(_endpoint)
             };
 
-            var jwk = await client.GetJsonWebKeySetAsync();
+            var jwk = await client.GetJsonWebKeySetAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             jwk.IsError.Should().BeTrue();
             jwk.ErrorType.Should().Be(ResponseErrorType.Http);

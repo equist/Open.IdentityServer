@@ -51,7 +51,7 @@ namespace Open.IdentityModel.UnitTests
             request.Headers.Add("custom", "custom");
             request.Properties.Add("custom", "custom");
 
-            var response = await client.RequestBackchannelAuthenticationAsync(request);
+            var response = await client.RequestBackchannelAuthenticationAsync(request, cancellationToken: TestContext.Current.CancellationToken);
 
             var httpRequest = handler.Request;
 
@@ -139,7 +139,7 @@ namespace Open.IdentityModel.UnitTests
             request.Headers.Add("custom", "custom");
             request.Properties.Add("custom", "custom");
 
-            var response = await client.RequestBackchannelAuthenticationAsync(request);
+            var response = await client.RequestBackchannelAuthenticationAsync(request, cancellationToken: TestContext.Current.CancellationToken);
 
             var httpRequest = handler.Request;
 
@@ -186,7 +186,7 @@ namespace Open.IdentityModel.UnitTests
                 Address = Endpoint,
                 ClientId = "client",
                 Scope = "scope"
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
         
             response.IsError.Should().BeFalse();
             response.ErrorType.Should().Be(ResponseErrorType.None);

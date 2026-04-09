@@ -44,7 +44,7 @@ namespace Open.IdentityModel.UnitTests
             request.Headers.Add("custom", "custom");
             request.Properties.Add("custom", "custom");
 
-            var response = await client.PushAuthorizationAsync(request);
+            var response = await client.PushAuthorizationAsync(request, cancellationToken: TestContext.Current.CancellationToken);
 
             var httpRequest = handler.Request;
 
@@ -78,7 +78,7 @@ namespace Open.IdentityModel.UnitTests
                 Address = Endpoint,
             };
             
-            await client.PushAuthorizationAsync(request);
+            await client.PushAuthorizationAsync(request, cancellationToken: TestContext.Current.CancellationToken);
 
 
             var fields = QueryHelpers.ParseQuery(handler.Body);
@@ -99,7 +99,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(Endpoint)
             };
 
-            var response = await client.PushAuthorizationAsync(Request);
+            var response = await client.PushAuthorizationAsync(Request, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ErrorType.Should().Be(ResponseErrorType.None);
@@ -115,7 +115,7 @@ namespace Open.IdentityModel.UnitTests
             var handler = new NetworkHandler(document, HttpStatusCode.OK);
 
             var client = new HttpClient(handler);
-            var response = await client.PushAuthorizationAsync(Request);
+            var response = await client.PushAuthorizationAsync(Request, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Exception);
@@ -129,7 +129,7 @@ namespace Open.IdentityModel.UnitTests
             var handler = new NetworkHandler(new Exception("exception"));
 
             var client = new HttpClient(handler);
-            var response = await client.PushAuthorizationAsync(Request);
+            var response = await client.PushAuthorizationAsync(Request, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Exception);
@@ -143,7 +143,7 @@ namespace Open.IdentityModel.UnitTests
             var handler = new NetworkHandler(HttpStatusCode.NotFound, "not found");
 
             var client = new HttpClient(handler);
-            var response = await client.PushAuthorizationAsync(Request);
+            var response = await client.PushAuthorizationAsync(Request, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.Error.Should().Be("not found");
@@ -169,7 +169,7 @@ namespace Open.IdentityModel.UnitTests
                 {
                     { "foo", "bar" }
                 }
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             // check request
             var fields = QueryHelpers.ParseQuery(handler.Body);
@@ -196,7 +196,7 @@ namespace Open.IdentityModel.UnitTests
 
             Request.ResponseType = null;
 
-            Func<Task> act = async () => await client.PushAuthorizationAsync(Request);
+            Func<Task> act = async () => await client.PushAuthorizationAsync(Request, cancellationToken: TestContext.Current.CancellationToken);
 
             (await act.Should().ThrowAsync<ArgumentException>()).WithParameterName("response_type");
         }
@@ -211,7 +211,7 @@ namespace Open.IdentityModel.UnitTests
             Request.Parameters.Add(OidcConstants.AuthorizeRequest.RequestUri, "not allowed");
 
 
-            Func<Task> act = async () => await client.PushAuthorizationAsync(Request);
+            Func<Task> act = async () => await client.PushAuthorizationAsync(Request, cancellationToken: TestContext.Current.CancellationToken);
 
             (await act.Should().ThrowAsync<ArgumentException>()).WithParameterName("request_uri");
         }

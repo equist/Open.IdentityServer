@@ -34,7 +34,7 @@ namespace Open.IdentityModel.UnitTests
             request.Headers.Add("custom", "custom");
             request.Properties.Add("custom", "custom");
 
-            _ = await client.IntrospectTokenAsync(request);
+            _ = await client.IntrospectTokenAsync(request, cancellationToken: TestContext.Current.CancellationToken);
 
             var httpRequest = handler.Request;
 
@@ -66,7 +66,7 @@ namespace Open.IdentityModel.UnitTests
             var response = await client.IntrospectTokenAsync(new TokenIntrospectionRequest
             {
                 Token = "token"
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ErrorType.Should().Be(ResponseErrorType.None);
@@ -104,7 +104,7 @@ namespace Open.IdentityModel.UnitTests
             var response = await client.IntrospectTokenAsync(new TokenIntrospectionRequest
             {
                 Token = "token"
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ErrorType.Should().Be(ResponseErrorType.None);
@@ -143,7 +143,7 @@ namespace Open.IdentityModel.UnitTests
                 Token = "token"
             };
 
-            var response = await client.IntrospectTokenAsync(request);
+            var response = await client.IntrospectTokenAsync(request, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ErrorType.Should().Be(ResponseErrorType.None);
@@ -167,7 +167,7 @@ namespace Open.IdentityModel.UnitTests
             });
 
             // repeat
-            response = await client.IntrospectTokenAsync(request);
+            response = await client.IntrospectTokenAsync(request, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ErrorType.Should().Be(ResponseErrorType.None);
@@ -202,7 +202,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(Endpoint)
             };
 
-            Func<Task> act = async () => await client.IntrospectTokenAsync(new TokenIntrospectionRequest());
+            Func<Task> act = async () => await client.IntrospectTokenAsync(new TokenIntrospectionRequest(), cancellationToken: TestContext.Current.CancellationToken);
 
             (await act.Should().ThrowAsync<ArgumentException>()).WithParameterName("token");
         }
@@ -218,7 +218,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = Endpoint,
                 Token = "token"
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Exception);
@@ -237,7 +237,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = Endpoint,
                 Token = "token"
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Exception);
@@ -255,7 +255,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = Endpoint,
                 Token = "token"
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Http);
@@ -274,7 +274,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = Endpoint,
                 Token = "token"
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ErrorType.Should().Be(ResponseErrorType.None);
@@ -316,7 +316,7 @@ namespace Open.IdentityModel.UnitTests
                     { "scope", "scope2" },
                     { "foo", "bar baz" }
                 }
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             // check request
             handler.Body.Should().Be("scope=scope1&scope=scope2&foo=bar+baz&token=token");

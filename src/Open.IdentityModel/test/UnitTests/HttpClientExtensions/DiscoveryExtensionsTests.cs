@@ -53,7 +53,7 @@ namespace Open.IdentityModel.UnitTests
             request.Headers.Add("custom", "custom");
             request.Properties.Add("custom", "custom");
 
-            var response = await client.GetDiscoveryDocumentAsync(request);
+            var response = await client.GetDiscoveryDocumentAsync(request, cancellationToken: TestContext.Current.CancellationToken);
 
             var httpRequest = handler.Request;
 
@@ -82,7 +82,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(_endpoint)
             };
 
-            var disco = await client.GetDiscoveryDocumentAsync();
+            var disco = await client.GetDiscoveryDocumentAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeFalse();
         }
@@ -92,7 +92,7 @@ namespace Open.IdentityModel.UnitTests
         {
             var client = new HttpClient(_successHandler) { BaseAddress = null };
 
-            Func<Task> act = () => client.GetDiscoveryDocumentAsync();
+            Func<Task> act = () => client.GetDiscoveryDocumentAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             await act.Should().ThrowAsync<ArgumentException>().WithMessage("Either the address parameter or the HttpClient BaseAddress must not be null.");
         }
@@ -102,7 +102,7 @@ namespace Open.IdentityModel.UnitTests
         {
             var client = new HttpClient(_successHandler) { BaseAddress = null };
 
-            Func<Task> act = () => client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest());
+            Func<Task> act = () => client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest(), cancellationToken: TestContext.Current.CancellationToken);
 
             await act.Should().ThrowAsync<ArgumentException>().WithMessage("Either the DiscoveryDocumentRequest Address or the HttpClient BaseAddress must not be null.");
         }
@@ -115,7 +115,7 @@ namespace Open.IdentityModel.UnitTests
             var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
                 Address = _endpoint
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeFalse();
         }
@@ -129,7 +129,7 @@ namespace Open.IdentityModel.UnitTests
             var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
                 Address = _authority
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeTrue();
             handler.Request.RequestUri.Should().Be(_endpoint);
@@ -144,7 +144,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(_endpoint)
             };
 
-            var disco = await client.GetDiscoveryDocumentAsync();
+            var disco = await client.GetDiscoveryDocumentAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeTrue();
             disco.ErrorType.Should().Be(ResponseErrorType.Http);
@@ -166,7 +166,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = _endpoint,
                 Policy = policy
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeTrue();
             policy.Authority.Should().Be("https://server:123");
@@ -181,7 +181,7 @@ namespace Open.IdentityModel.UnitTests
             var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
                 Address = _endpoint
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeTrue();
             disco.ErrorType.Should().Be(ResponseErrorType.Exception);
@@ -197,7 +197,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(_endpoint)
             };
 
-            var disco = await client.GetDiscoveryDocumentAsync();
+            var disco = await client.GetDiscoveryDocumentAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeFalse();
 
@@ -216,7 +216,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(_endpoint)
             };
 
-            var disco = await client.GetDiscoveryDocumentAsync();
+            var disco = await client.GetDiscoveryDocumentAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeFalse();
 
@@ -267,7 +267,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(_endpoint)
             };
 
-            var disco = await client.GetDiscoveryDocumentAsync();
+            var disco = await client.GetDiscoveryDocumentAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeFalse();
             disco.MtlsEndpointAliases.Should().NotBeNull();
@@ -289,7 +289,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(_endpoint)
             };
 
-            var disco = await client.GetDiscoveryDocumentAsync();
+            var disco = await client.GetDiscoveryDocumentAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeTrue();
             disco.ErrorType.Should().Be(ResponseErrorType.Http);
@@ -315,7 +315,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(_endpoint)
             };
 
-            var disco = await client.GetDiscoveryDocumentAsync();
+            var disco = await client.GetDiscoveryDocumentAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeTrue();
             disco.ErrorType.Should().Be(ResponseErrorType.Http);
@@ -359,7 +359,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(_endpoint)
             };
 
-            var disco = await client.GetDiscoveryDocumentAsync();
+            var disco = await client.GetDiscoveryDocumentAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeTrue();
             disco.ErrorType.Should().Be(ResponseErrorType.Http);
@@ -408,7 +408,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(_endpoint)
             };
 
-            var disco = await client.GetDiscoveryDocumentAsync();
+            var disco = await client.GetDiscoveryDocumentAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeTrue();
             disco.ErrorType.Should().Be(ResponseErrorType.Http);
@@ -445,7 +445,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(_endpoint)
             };
 
-            var disco = await client.GetDiscoveryDocumentAsync();
+            var disco = await client.GetDiscoveryDocumentAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeTrue();
             disco.ErrorType.Should().Be(ResponseErrorType.Exception);
@@ -483,7 +483,7 @@ namespace Open.IdentityModel.UnitTests
                 BaseAddress = new Uri(_endpoint)
             };
 
-            var disco = await client.GetDiscoveryDocumentAsync();
+            var disco = await client.GetDiscoveryDocumentAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             disco.IsError.Should().BeTrue();
             disco.ErrorType.Should().Be(ResponseErrorType.Http);

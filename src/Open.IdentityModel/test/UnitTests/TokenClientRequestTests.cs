@@ -34,7 +34,7 @@ namespace Open.IdentityModel.UnitTests
         {
             var tokenClient = new TokenClient(_client, new TokenClientOptions { ClientId = "client" });
 
-            var response = await tokenClient.RequestClientCredentialsTokenAsync();
+            var response = await tokenClient.RequestClientCredentialsTokenAsync(cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             _handler.Request.RequestUri.AbsoluteUri.Should().Be(Endpoint);
@@ -45,7 +45,7 @@ namespace Open.IdentityModel.UnitTests
         {
             var tokenClient = new TokenClient(_client, new TokenClientOptions { ClientId = "client" });
 
-            var response = await tokenClient.RequestClientCredentialsTokenAsync(scope: "scope");
+            var response = await tokenClient.RequestClientCredentialsTokenAsync(scope: "scope", cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
 
@@ -62,7 +62,7 @@ namespace Open.IdentityModel.UnitTests
         {
             var tokenClient = new TokenClient(_client, new TokenClientOptions { ClientId = "device" });
 
-            var response = await tokenClient.RequestDeviceTokenAsync(deviceCode: "device_code");
+            var response = await tokenClient.RequestDeviceTokenAsync(deviceCode: "device_code", cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
 
@@ -82,7 +82,7 @@ namespace Open.IdentityModel.UnitTests
         {
             var tokenClient = new TokenClient(_client, new TokenClientOptions { ClientId = "device" });
 
-            Func<Task> act = async () => await tokenClient.RequestDeviceTokenAsync(null);
+            Func<Task> act = async () => await tokenClient.RequestDeviceTokenAsync(null, cancellationToken: TestContext.Current.CancellationToken);
 
             (await act.Should().ThrowAsync<ArgumentException>()).WithParameterName("device_code");
         }
@@ -92,7 +92,7 @@ namespace Open.IdentityModel.UnitTests
         {
             var tokenClient = new TokenClient(_client, new TokenClientOptions { ClientId = "client" });
 
-            var response = await tokenClient.RequestPasswordTokenAsync(userName: "user", password: "password", scope: "scope");
+            var response = await tokenClient.RequestPasswordTokenAsync(userName: "user", password: "password", scope: "scope", cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
 
@@ -115,7 +115,7 @@ namespace Open.IdentityModel.UnitTests
         {
             var tokenClient = new TokenClient(_client, new TokenClientOptions { ClientId = "client" });
 
-            var response = await tokenClient.RequestPasswordTokenAsync(userName: "user");
+            var response = await tokenClient.RequestPasswordTokenAsync(userName: "user", cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
 
@@ -135,7 +135,7 @@ namespace Open.IdentityModel.UnitTests
         {
             var tokenClient = new TokenClient(_client, new TokenClientOptions());
 
-            Func<Task> act = async () => await tokenClient.RequestPasswordTokenAsync(userName: null);
+            Func<Task> act = async () => await tokenClient.RequestPasswordTokenAsync(userName: null, cancellationToken: TestContext.Current.CancellationToken);
 
             (await act.Should().ThrowAsync<ArgumentException>()).WithParameterName("username");
         }
@@ -145,7 +145,7 @@ namespace Open.IdentityModel.UnitTests
         {
             var tokenClient = new TokenClient(_client, new TokenClientOptions { ClientId = "client" });
 
-            var response = await tokenClient.RequestAuthorizationCodeTokenAsync(code: "code", redirectUri: "uri", codeVerifier: "verifier");
+            var response = await tokenClient.RequestAuthorizationCodeTokenAsync(code: "code", redirectUri: "uri", codeVerifier: "verifier", cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
 
@@ -168,7 +168,7 @@ namespace Open.IdentityModel.UnitTests
         {
             var tokenClient = new TokenClient(_client, new TokenClientOptions());
 
-            Func<Task> act = async () => await tokenClient.RequestAuthorizationCodeTokenAsync(code: null, redirectUri: "uri", codeVerifier: "verifier");
+            Func<Task> act = async () => await tokenClient.RequestAuthorizationCodeTokenAsync(code: null, redirectUri: "uri", codeVerifier: "verifier", cancellationToken: TestContext.Current.CancellationToken);
 
             (await act.Should().ThrowAsync<ArgumentException>()).WithParameterName("code");
         }
@@ -178,7 +178,7 @@ namespace Open.IdentityModel.UnitTests
         {
             var tokenClient = new TokenClient(_client, new TokenClientOptions());
 
-            Func<Task> act = async () => await tokenClient.RequestAuthorizationCodeTokenAsync(code: "code", redirectUri: null, codeVerifier: "verifier");
+            Func<Task> act = async () => await tokenClient.RequestAuthorizationCodeTokenAsync(code: "code", redirectUri: null, codeVerifier: "verifier", cancellationToken: TestContext.Current.CancellationToken);
 
             (await act.Should().ThrowAsync<ArgumentException>()).WithParameterName("redirect_uri");
         }
@@ -188,7 +188,7 @@ namespace Open.IdentityModel.UnitTests
         {
             var tokenClient = new TokenClient(_client, new TokenClientOptions { ClientId = "client" });
 
-            var response = await tokenClient.RequestRefreshTokenAsync(refreshToken: "rt", scope: "scope");
+            var response = await tokenClient.RequestRefreshTokenAsync(refreshToken: "rt", scope: "scope", cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
 
@@ -208,7 +208,7 @@ namespace Open.IdentityModel.UnitTests
         {
             var tokenClient = new TokenClient(_client, new TokenClientOptions());
 
-            Func<Task> act = async () => await tokenClient.RequestRefreshTokenAsync(refreshToken: null, scope: "scope");
+            Func<Task> act = async () => await tokenClient.RequestRefreshTokenAsync(refreshToken: null, scope: "scope", cancellationToken: TestContext.Current.CancellationToken);
 
             (await act.Should().ThrowAsync<ArgumentException>()).WithParameterName("refresh_token");
         }
@@ -218,7 +218,7 @@ namespace Open.IdentityModel.UnitTests
         {
             var tokenClient = new TokenClient(_client, new TokenClientOptions());
 
-            Func<Task> act = async () => await tokenClient.RequestTokenAsync(grantType: null);
+            Func<Task> act = async () => await tokenClient.RequestTokenAsync(grantType: null, cancellationToken: TestContext.Current.CancellationToken);
 
             (await act.Should().ThrowAsync<ArgumentException>()).WithParameterName("grant_type");
         }
@@ -235,7 +235,7 @@ namespace Open.IdentityModel.UnitTests
                 { "custom", "custom" }
             };
 
-            var response = await tokenClient.RequestTokenAsync(grantType: "test", parameters: parameters);
+            var response = await tokenClient.RequestTokenAsync(grantType: "test", parameters: parameters, cancellationToken: TestContext.Current.CancellationToken);
 
             var request = _handler.Request;
 
@@ -267,7 +267,7 @@ namespace Open.IdentityModel.UnitTests
                 { "custom", "custom" }
             };
 
-            var response = await tokenClient.RequestTokenAsync(grantType: "test", parameters: parameters);
+            var response = await tokenClient.RequestTokenAsync(grantType: "test", parameters: parameters, cancellationToken: TestContext.Current.CancellationToken);
 
             var request = _handler.Request;
 
@@ -303,7 +303,7 @@ namespace Open.IdentityModel.UnitTests
                 { "custom", "custom" }
             };
             
-            _ = await tokenClient.RequestTokenAsync(grantType: "test", parameters: localParameters);
+            _ = await tokenClient.RequestTokenAsync(grantType: "test", parameters: localParameters, cancellationToken: TestContext.Current.CancellationToken);
 
             globalOptions.Parameters.Should().HaveCount(1);
             var globalValue = globalOptions.Parameters.FirstOrDefault(p => p.Key == "global").Value;
@@ -320,7 +320,7 @@ namespace Open.IdentityModel.UnitTests
                 ClientCredentialStyle = ClientCredentialStyle.AuthorizationHeader
             });
 
-            var response = await tokenClient.RequestTokenAsync(grantType: "test");
+            var response = await tokenClient.RequestTokenAsync(grantType: "test", cancellationToken: TestContext.Current.CancellationToken);
 
             var request = _handler.Request;
 
@@ -339,7 +339,7 @@ namespace Open.IdentityModel.UnitTests
                 ClientCredentialStyle = ClientCredentialStyle.PostBody
             });
 
-            var response = await tokenClient.RequestTokenAsync(grantType: "test");
+            var response = await tokenClient.RequestTokenAsync(grantType: "test", cancellationToken: TestContext.Current.CancellationToken);
 
             var request = _handler.Request;
             request.Headers.Authorization.Should().BeNull();
@@ -359,7 +359,7 @@ namespace Open.IdentityModel.UnitTests
                 ClientCredentialStyle = ClientCredentialStyle.PostBody
             });
 
-            var response = await tokenClient.RequestTokenAsync(grantType: "test");
+            var response = await tokenClient.RequestTokenAsync(grantType: "test", cancellationToken: TestContext.Current.CancellationToken);
 
             var request = _handler.Request;
 
@@ -378,7 +378,7 @@ namespace Open.IdentityModel.UnitTests
                 ClientCredentialStyle = ClientCredentialStyle.AuthorizationHeader
             });
 
-            var response = await tokenClient.RequestTokenAsync(grantType: "test");
+            var response = await tokenClient.RequestTokenAsync(grantType: "test", cancellationToken: TestContext.Current.CancellationToken);
 
             var request = _handler.Request;
 
@@ -400,7 +400,7 @@ namespace Open.IdentityModel.UnitTests
                 ClientAssertion = { Type = "type", Value = "value" }
             });
 
-            var response = await tokenClient.RequestTokenAsync(grantType: "test");
+            var response = await tokenClient.RequestTokenAsync(grantType: "test", cancellationToken: TestContext.Current.CancellationToken);
             var fields = QueryHelpers.ParseQuery(_handler.Body);
 
             fields["grant_type"].First().Should().Be("test");

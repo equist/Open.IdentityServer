@@ -28,7 +28,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = Endpoint,
                 Token = "token"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ErrorType.Should().Be(ResponseErrorType.None);
@@ -51,7 +51,7 @@ namespace Open.IdentityModel.UnitTests
             request.Headers.Add("custom", "custom");
             request.Properties.Add("custom", "custom");
 
-            var response = await client.GetUserInfoAsync(request);
+            var response = await client.GetUserInfoAsync(request, TestContext.Current.CancellationToken);
 
             var httpRequest = handler.Request;
 
@@ -84,7 +84,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = Endpoint,
                 Token = "token"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Exception);
@@ -102,7 +102,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = Endpoint,
                 Token = "token"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Exception);
@@ -120,7 +120,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = Endpoint,
                 Token = "token"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Http);
@@ -139,7 +139,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = Endpoint,
                 Token = "token"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Protocol);
@@ -162,7 +162,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = Endpoint,
                 Token = "token"
-            });
+            }, TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ErrorType.Should().Be(ResponseErrorType.None);

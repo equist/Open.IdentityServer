@@ -6,7 +6,6 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Open.IdentityModel.Internal;
 
 namespace Open.IdentityModel.Client;
 

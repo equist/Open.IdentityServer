@@ -50,7 +50,7 @@ namespace Open.IdentityModel.UnitTests
             request.Headers.Add("custom", "custom");
             request.Properties.Add("custom", "custom");
 
-            var _ = await client.RequestTokenAsync(request);
+            var _ = await client.RequestTokenAsync(request, cancellationToken: TestContext.Current.CancellationToken);
             var httpRequest = handler.Request;
 
             httpRequest.Method.Should().Be(HttpMethod.Post);
@@ -73,7 +73,7 @@ namespace Open.IdentityModel.UnitTests
         public async Task No_explicit_endpoint_address_should_use_base_address()
         {
             var response = await _client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
-                { ClientId = "client" });
+                { ClientId = "client" }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             _handler.Request.RequestUri.AbsoluteUri.Should().Be(Endpoint);
@@ -88,7 +88,7 @@ namespace Open.IdentityModel.UnitTests
                 Scope = "scope"
             };
 
-            var response = await _client.RequestClientCredentialsTokenAsync(request);
+            var response = await _client.RequestClientCredentialsTokenAsync(request, cancellationToken: TestContext.Current.CancellationToken);
             response.IsError.Should().BeFalse();
 
             var fields = QueryHelpers.ParseQuery(_handler.Body);
@@ -98,7 +98,7 @@ namespace Open.IdentityModel.UnitTests
             fields.TryGetValue("scope", out var scope).Should().BeTrue();
             scope.First().Should().Be("scope");
 
-            response = await _client.RequestClientCredentialsTokenAsync(request);
+            response = await _client.RequestClientCredentialsTokenAsync(request, cancellationToken: TestContext.Current.CancellationToken);
             response.IsError.Should().BeFalse();
 
             fields = QueryHelpers.ParseQuery(_handler.Body);
@@ -117,7 +117,7 @@ namespace Open.IdentityModel.UnitTests
                 ClientId = "client",
                 Scope = "scope",
                 Resource = { "resource1", "resource2" }
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
 
@@ -145,7 +145,7 @@ namespace Open.IdentityModel.UnitTests
 
             request.Headers.Add("foo", "bar");
 
-            var response = await _client.RequestClientCredentialsTokenAsync(request);
+            var response = await _client.RequestClientCredentialsTokenAsync(request, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
 
@@ -166,7 +166,7 @@ namespace Open.IdentityModel.UnitTests
 
             request.Properties.Add("foo", "bar");
 
-            var response = await _client.RequestClientCredentialsTokenAsync(request);
+            var response = await _client.RequestClientCredentialsTokenAsync(request, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
 
@@ -186,7 +186,7 @@ namespace Open.IdentityModel.UnitTests
                 DPoPProofToken = "dpop_token"
             };
 
-            var response = await _client.RequestClientCredentialsTokenAsync(request);
+            var response = await _client.RequestClientCredentialsTokenAsync(request, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             _handler.Request.Headers.Single(x => x.Key == "DPoP").Value.First().Should().Be("dpop_token");
@@ -213,7 +213,7 @@ namespace Open.IdentityModel.UnitTests
                 Scope = "scope",
             };
             
-            var response = await _client.RequestClientCredentialsTokenAsync(request);
+            var response = await _client.RequestClientCredentialsTokenAsync(request, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.DPoPNonce.Should().Be("dpop_nonce");
@@ -225,7 +225,7 @@ namespace Open.IdentityModel.UnitTests
         {
             Func<Task> act = async () =>
                 await _client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
-                    { ClientId = "client", Parameters = null });
+                    { ClientId = "client", Parameters = null }, cancellationToken: TestContext.Current.CancellationToken);
 
             await act.Should().NotThrowAsync();
         }
@@ -237,7 +237,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 ClientId = "device",
                 DeviceCode = "device_code"
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
 
@@ -253,7 +253,7 @@ namespace Open.IdentityModel.UnitTests
         public async Task Device_request_without_device_code_should_fail()
         {
             Func<Task> act = async () =>
-                await _client.RequestDeviceTokenAsync(new DeviceTokenRequest { ClientId = "device" });
+                await _client.RequestDeviceTokenAsync(new DeviceTokenRequest { ClientId = "device" }, cancellationToken: TestContext.Current.CancellationToken);
 
             (await act.Should().ThrowAsync<ArgumentException>()).WithParameterName("device_code");
         }
@@ -268,7 +268,7 @@ namespace Open.IdentityModel.UnitTests
                 Password = "password",
                 Scope = "scope",
                 Resource = { "resource1", "resource2" }
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
 
@@ -298,7 +298,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 ClientId = "client",
                 UserName = "user"
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
 
@@ -316,7 +316,7 @@ namespace Open.IdentityModel.UnitTests
         [Fact]
         public async Task Password_request_without_username_should_fail()
         {
-            Func<Task> act = async () => await _client.RequestPasswordTokenAsync(new PasswordTokenRequest());
+            Func<Task> act = async () => await _client.RequestPasswordTokenAsync(new PasswordTokenRequest(), cancellationToken: TestContext.Current.CancellationToken);
 
             (await act.Should().ThrowAsync<ArgumentException>()).WithParameterName("username");
         }
@@ -331,7 +331,7 @@ namespace Open.IdentityModel.UnitTests
                 RedirectUri = "uri",
                 CodeVerifier = "verifier",
                 Resource = { "resource1", "resource2" },
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
 
@@ -361,7 +361,7 @@ namespace Open.IdentityModel.UnitTests
                 new AuthorizationCodeTokenRequest
                 {
                     RedirectUri = "uri"
-                });
+                }, cancellationToken: TestContext.Current.CancellationToken);
 
             (await act.Should().ThrowAsync<ArgumentException>()).WithParameterName("code");
         }
@@ -373,7 +373,7 @@ namespace Open.IdentityModel.UnitTests
                 new AuthorizationCodeTokenRequest
                 {
                     Code = "code"
-                });
+                }, cancellationToken: TestContext.Current.CancellationToken);
 
             (await act.Should().ThrowAsync<ArgumentException>()).WithParameterName("redirect_uri");
         }
@@ -387,7 +387,7 @@ namespace Open.IdentityModel.UnitTests
                 RefreshToken = "rt",
                 Scope = "scope",
                 Resource = { "resource1", "resource2" }
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
 
@@ -410,7 +410,7 @@ namespace Open.IdentityModel.UnitTests
         [Fact]
         public async Task Refresh_request_without_refresh_token_should_fail()
         {
-            Func<Task> act = async () => await _client.RequestRefreshTokenAsync(new RefreshTokenRequest());
+            Func<Task> act = async () => await _client.RequestRefreshTokenAsync(new RefreshTokenRequest(), cancellationToken: TestContext.Current.CancellationToken);
 
             (await act.Should().ThrowAsync<ArgumentException>()).WithParameterName("refresh_token");
         }
@@ -431,7 +431,7 @@ namespace Open.IdentityModel.UnitTests
 
                 ActorToken = "actor_token",
                 ActorTokenType = "actor_token_type"
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
 
@@ -474,7 +474,7 @@ namespace Open.IdentityModel.UnitTests
                     "resource1",
                     "resource2"
                 }
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
 
@@ -494,7 +494,7 @@ namespace Open.IdentityModel.UnitTests
         [Fact]
         public async Task Setting_no_grant_type_should_fail()
         {
-            Func<Task> act = async () => await _client.RequestTokenAsync(new TokenRequest());
+            Func<Task> act = async () => await _client.RequestTokenAsync(new TokenRequest(), cancellationToken: TestContext.Current.CancellationToken);
 
             (await act.Should().ThrowAsync<ArgumentException>()).WithParameterName("grant_type");
         }
@@ -511,7 +511,7 @@ namespace Open.IdentityModel.UnitTests
                     { "client_secret", "custom" },
                     { "custom", "custom" }
                 }
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             var request = _handler.Request;
 
@@ -543,7 +543,7 @@ namespace Open.IdentityModel.UnitTests
                     { "grant_type", "custom" },
                     { "custom", "custom" }
                 }
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             var request = _handler.Request;
 
@@ -564,7 +564,7 @@ namespace Open.IdentityModel.UnitTests
                 { "client_id", "client" },
                 { "client_secret", "secret" },
                 { "scope", "scope" }
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             var request = _handler.Request;
 
@@ -595,7 +595,7 @@ namespace Open.IdentityModel.UnitTests
                 ClientId = "client",
                 ClientSecret = "secret",
                 ClientCredentialStyle = ClientCredentialStyle.AuthorizationHeader
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             var request = _handler.Request;
 
@@ -614,7 +614,7 @@ namespace Open.IdentityModel.UnitTests
                 ClientId = "client",
                 ClientSecret = "secret",
                 ClientCredentialStyle = ClientCredentialStyle.PostBody
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             var request = _handler.Request;
             request.Headers.Authorization.Should().BeNull();
@@ -632,7 +632,7 @@ namespace Open.IdentityModel.UnitTests
                 GrantType = "test",
                 ClientId = "client",
                 ClientCredentialStyle = ClientCredentialStyle.PostBody
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             var request = _handler.Request;
 
@@ -650,7 +650,7 @@ namespace Open.IdentityModel.UnitTests
                 GrantType = "test",
                 ClientId = "client",
                 ClientCredentialStyle = ClientCredentialStyle.AuthorizationHeader
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             var request = _handler.Request;
 
@@ -673,7 +673,7 @@ namespace Open.IdentityModel.UnitTests
                 ClientId = "client",
                 ClientAssertion = { Type = "type", Value = "value" },
                 ClientCredentialStyle = ClientCredentialStyle.AuthorizationHeader
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             await act.Should().ThrowAsync<InvalidOperationException>()
                 .WithMessage("CredentialStyle.AuthorizationHeader and client assertions are not compatible");
@@ -688,7 +688,7 @@ namespace Open.IdentityModel.UnitTests
                 ClientId = "client",
                 ClientAssertion = { Type = "type", Value = "value" },
                 ClientCredentialStyle = ClientCredentialStyle.PostBody
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             var request = _handler.Request;
 
@@ -708,7 +708,7 @@ namespace Open.IdentityModel.UnitTests
                 GrantType = "test",
                 ClientAssertion = { Type = "type", Value = "value" },
                 ClientCredentialStyle = ClientCredentialStyle.AuthorizationHeader
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             var request = _handler.Request;
 
@@ -720,3 +720,5 @@ namespace Open.IdentityModel.UnitTests
         }
     }
 }
+
+

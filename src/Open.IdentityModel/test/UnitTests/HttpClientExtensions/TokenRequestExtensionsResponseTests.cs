@@ -29,7 +29,7 @@ namespace Open.IdentityModel.UnitTests
                 Address = Endpoint,
                 GrantType = "test",
                 ClientId = "client"
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ErrorType.Should().Be(ResponseErrorType.None);
@@ -52,7 +52,7 @@ namespace Open.IdentityModel.UnitTests
                 Address = Endpoint,
                 GrantType = "test",
                 ClientId = "client"
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Protocol);
@@ -74,7 +74,7 @@ namespace Open.IdentityModel.UnitTests
                 Address = Endpoint,
                 GrantType = "test",
                 ClientId = "client"
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Exception);
@@ -93,7 +93,7 @@ namespace Open.IdentityModel.UnitTests
                 Address = Endpoint,
                 GrantType = "test",
                 ClientId = "client"
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Exception);
@@ -111,8 +111,8 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = Endpoint,
                 GrantType = "test",
-                ClientId = "client"
-            });
+                ClientId = "client" 
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Http);
@@ -131,7 +131,7 @@ namespace Open.IdentityModel.UnitTests
                 Address = Endpoint,
                 GrantType = "test",
                 ClientId = "client"
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Http);
@@ -157,7 +157,7 @@ namespace Open.IdentityModel.UnitTests
                 Address = Endpoint,
                 GrantType = "test",
                 ClientId = "client"
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Http);

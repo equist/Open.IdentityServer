@@ -39,7 +39,7 @@ namespace Open.IdentityModel.UnitTests
             request.Headers.Add("custom", "custom");
             request.Properties.Add("custom", "custom");
 
-            var response = await client.RegisterClientAsync(request);
+            var response = await client.RegisterClientAsync(request, cancellationToken: TestContext.Current.CancellationToken);
 
             var httpRequest = handler.Request;
 
@@ -73,7 +73,7 @@ namespace Open.IdentityModel.UnitTests
                 {
                     SoftwareStatement = SoftwareStatement
                 }
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeFalse();
             response.ErrorType.Should().Be(ResponseErrorType.None);
@@ -105,7 +105,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = Endpoint,
                 Document = new DynamicClientRegistrationDocument()
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Exception);
@@ -123,7 +123,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = Endpoint,
                 Document = new DynamicClientRegistrationDocument()
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Exception);
@@ -141,7 +141,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = Endpoint,
                 Document = new DynamicClientRegistrationDocument()
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Http);
@@ -160,7 +160,7 @@ namespace Open.IdentityModel.UnitTests
             {
                 Address = Endpoint,
                 Document = new DynamicClientRegistrationDocument()
-            });
+            }, cancellationToken: TestContext.Current.CancellationToken);
 
             response.IsError.Should().BeTrue();
             response.ErrorType.Should().Be(ResponseErrorType.Protocol);
@@ -185,7 +185,7 @@ namespace Open.IdentityModel.UnitTests
             var handler = new NetworkHandler(document, HttpStatusCode.Created);
 
             var client = new HttpClient(handler);
-            var response = await client.RegisterClientAsync(request);
+            var response = await client.RegisterClientAsync(request, cancellationToken: TestContext.Current.CancellationToken);
             
             // Mostly we just want to make sure that serialization didn't throw
             response.Should().NotBeNull();
