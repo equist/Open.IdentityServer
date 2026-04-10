@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Threading.Tasks;
 using System.Web;
 using AwesomeAssertions;
@@ -10,6 +11,7 @@ using Open.IdentityServer.Models;
 using Open.IdentityServer.Stores;
 using Open.IdentityServer.Validation;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Moq;
 using Xunit;
 
@@ -23,7 +25,7 @@ public abstract class ReturnUrlResultTestBase<TResult> where TResult : ReturnUrl
 {
     protected readonly ValidatedAuthorizeRequest TestAuthorizeRequest = new()
     {
-        Raw = new System.Collections.Specialized.NameValueCollection
+        Raw = new NameValueCollection
         {
             { "client_id", "test_client" },
             { "redirect_uri", "https://client/callback" },
@@ -41,7 +43,7 @@ public abstract class ReturnUrlResultTestBase<TResult> where TResult : ReturnUrl
     /// The protocol route path passed to <see cref="ReturnUrlResult.BuildReturnUrl"/>
     /// (e.g. <c>connect/authorize/callback</c> or <c>connect/authorize</c>).
     /// </summary>
-    protected abstract string ExpectedCallbackPath { get; }
+    private string ExpectedCallbackPath => Constants.ProtocolRoutePaths.AuthorizeCallback;
 
     /// <summary>
     /// The return-URL query-string parameter name used by the concrete result.
@@ -96,7 +98,12 @@ public abstract class ReturnUrlResultTestBase<TResult> where TResult : ReturnUrl
 
         await sut.ExecuteAsync(Context);
 
-        DecodeLocation().Should().Contain(ExpectedCallbackPath);
+        var urlDecoded = DecodeLocation();
+        Uri uri = new Uri(urlDecoded);
+        string queryString = uri.Query;
+        NameValueCollection parameters = HttpUtility.ParseQueryString(queryString);
+        
+        parameters.GetValues("returnUrl").Should().Contain($"{ExpectedCallbackPath}?client_id=test_client");
     }
 
     [Fact]
@@ -164,8 +171,12 @@ public abstract class ReturnUrlResultTestBase<TResult> where TResult : ReturnUrl
         await sut.ExecuteAsync(Context);
 
         var urlDecoded = DecodeLocation();
-        urlDecoded.Should().Contain("/custom/base/");
-        urlDecoded.Should().Contain(ExpectedCallbackPath);
+        
+        Uri uri = new Uri(urlDecoded);
+        string queryString = uri.Query;
+        NameValueCollection parameters = HttpUtility.ParseQueryString(queryString);
+        
+        parameters.GetValues("returnUrl").Should().Contain($"/custom/base/{ExpectedCallbackPath}?client_id=test_client");
     }
 
     [Fact]

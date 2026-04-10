@@ -13,7 +13,6 @@ namespace Open.IdentityServer.UnitTests.Endpoints.Results;
 
 public class ConsentPageResultTests : ReturnUrlResultTestBase<ConsentPageResult>
 {
-    protected override string ExpectedCallbackPath => Constants.ProtocolRoutePaths.AuthorizeCallback;
     protected override string ExpectedReturnUrlParameterName => Constants.UIConstants.DefaultRoutePathParams.Consent;
     protected override string ExpectedRedirectUrlPath => "/consent";
 

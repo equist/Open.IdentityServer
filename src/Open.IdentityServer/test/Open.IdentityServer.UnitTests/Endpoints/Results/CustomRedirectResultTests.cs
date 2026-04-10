@@ -16,7 +16,6 @@ public class CustomRedirectResultTests : ReturnUrlResultTestBase<CustomRedirectR
 {
     private const string CustomRedirectUrl = "/custom-redirect";
 
-    protected override string ExpectedCallbackPath => Constants.ProtocolRoutePaths.Authorize;
     protected override string ExpectedReturnUrlParameterName => Constants.UIConstants.DefaultRoutePathParams.Custom;
     protected override string ExpectedRedirectUrlPath => CustomRedirectUrl;
 

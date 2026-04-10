@@ -39,7 +39,7 @@ namespace Open.IdentityServer.Endpoints.Results
         public override async Task ExecuteAsync(HttpContext context)
         {
             Init(context);
-            var returnUrl = await BuildReturnUrl(context, Constants.ProtocolRoutePaths.AuthorizeCallback);
+            var returnUrl = await BuildReturnUrl(context);
 
             var consentUrl = Options.UserInteraction.ConsentUrl;
             if (!consentUrl.IsLocalUrl())
