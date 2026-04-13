@@ -2,7 +2,7 @@ using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AwesomeAssertions;
-using IdentityModel;
+using Open.IdentityModel;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Time.Testing;
