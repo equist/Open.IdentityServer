@@ -74,9 +74,10 @@ namespace Open.IdentityServer.Stores
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        protected virtual string GetHashedKey(string value)
-        {
-            return (value + KeySeparator + GrantType).Sha256();
+        protected virtual string GetHashedKey(string value) {
+            string key = $"{value}{KeySeparator}{GrantType}";
+            bool hexEncode = value.EndsWith("-1");
+            return key.Sha256(hexEncode);
         }
 
         /// <summary>
