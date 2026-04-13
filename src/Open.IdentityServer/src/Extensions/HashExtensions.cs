@@ -18,18 +18,21 @@ namespace Open.IdentityServer.Models
         /// Creates a SHA256 hash of the specified input.
         /// </summary>
         /// <param name="input">The input.</param>
+        /// <param name="hexEncode">Specifies if it should hex encode the hash, defaults to false and uses Base64</param>
         /// <returns>A hash</returns>
-        public static string Sha256(this string input)
+        public static string Sha256(this string input, bool hexEncode = false)
         {
             if (input.IsMissing()) return string.Empty;
+            
+            var bytes = Encoding.UTF8.GetBytes(input);
+            var hash = SHA256.HashData(bytes);
 
-            using (var sha = SHA256.Create())
+            if (hexEncode)
             {
-                var bytes = Encoding.UTF8.GetBytes(input);
-                var hash = sha.ComputeHash(bytes);
-
-                return Convert.ToBase64String(hash);
+                return BitConverter.ToString(hash).Replace("-", "");
             }
+
+            return Convert.ToBase64String(hash);
         }
 
         /// <summary>
@@ -43,11 +46,8 @@ namespace Open.IdentityServer.Models
             {
                 return null;
             }
-
-            using (var sha = SHA256.Create())
-            {
-                return sha.ComputeHash(input);
-            }
+            
+            return SHA256.HashData(input);
         }
 
         /// <summary>
@@ -59,13 +59,10 @@ namespace Open.IdentityServer.Models
         {
             if (input.IsMissing()) return string.Empty;
 
-            using (var sha = SHA512.Create())
-            {
-                var bytes = Encoding.UTF8.GetBytes(input);
-                var hash = sha.ComputeHash(bytes);
+            var bytes = Encoding.UTF8.GetBytes(input);
+            var hash = SHA512.HashData(bytes);
 
-                return Convert.ToBase64String(hash);
-            }
+            return Convert.ToBase64String(hash);
         }
     }
 }
