@@ -17,6 +17,8 @@ using Open.IdentityServer.ResponseHandling;
 using Open.IdentityServer.Validation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.DependencyInjection;
+using Moq;
 using Xunit;
 
 namespace IdentityServer.UnitTests.Endpoints.Results
@@ -31,12 +33,23 @@ namespace IdentityServer.UnitTests.Endpoints.Results
         private MockMessageStore<Open.IdentityServer.Models.ErrorMessage> _mockErrorMessageStore = new MockMessageStore<Open.IdentityServer.Models.ErrorMessage>();
 
         private DefaultHttpContext _context = new DefaultHttpContext();
+        private IServiceProvider _serviceProvider = Mock.Of<IServiceProvider>();
+
+        private IdentityServerOptions _fakeOptions = new IdentityServerOptions
+        {
+            IssuerUri = "https://issuer.uri",
+        };
 
         public AuthorizeResultTests()
         {
             _context.SetIdentityServerOrigin("https://server");
             _context.SetIdentityServerBasePath("/");
             _context.Response.Body = new MemoryStream();
+            _context.RequestServices = _serviceProvider;
+
+            Mock.Get(_serviceProvider)
+                .Setup(x => x.GetService(typeof(IdentityServerOptions)))
+                .Returns(_fakeOptions);
 
             _options.UserInteraction.ErrorUrl = "~/error";
             _options.UserInteraction.ErrorIdParameter = "errorId";
@@ -103,7 +116,9 @@ namespace IdentityServer.UnitTests.Endpoints.Results
             _mockUserSession.Clients.Count.Should().Be(0);
             _context.Response.StatusCode.Should().Be(302);
             var location = _context.Response.Headers["Location"].First();
-            location.Should().Contain("session_state=some_session_state");
+            var query = QueryHelpers.ParseQuery(new Uri(location).Query);
+            query["session_state"].First().Should().Be(_response.SessionState);
+            query["iss"].First().Should().Be(_fakeOptions.IssuerUri);
         }
 
         [Fact]
@@ -131,6 +146,7 @@ namespace IdentityServer.UnitTests.Endpoints.Results
 
             queryParams["error"].Should().Equal(OidcConstants.AuthorizeErrors.AccessDenied);
             queryParams["error_description"].Should().Equal(errorDescription);
+            queryParams["iss"].First().Should().Be(_fakeOptions.IssuerUri);
         }
 
         [Fact]
@@ -167,7 +183,9 @@ namespace IdentityServer.UnitTests.Endpoints.Results
             _context.Response.Headers["Cache-Control"].First().Should().Contain("max-age=0");
             var location = _context.Response.Headers["Location"].First();
             location.Should().StartWith("http://client/callback");
-            location.Should().Contain("?state=state");
+            var query = QueryHelpers.ParseQuery(new Uri(location).Query);
+            query["state"].First().Should().Be(_response.Request.State);
+            query["iss"].First().Should().Be(_fakeOptions.IssuerUri);
         }
 
         [Fact]
@@ -189,9 +207,12 @@ namespace IdentityServer.UnitTests.Endpoints.Results
             _context.Response.Headers["Cache-Control"].First().Should().Contain("max-age=0");
             var location = _context.Response.Headers["Location"].First();
             location.Should().StartWith("http://client/callback");
-            location.Should().Contain("#state=state");
+            var fragment = new Uri(location).Fragment;
+            fragment.Should().Contain("state=state");
+            fragment.Should().Contain($"iss={Uri.EscapeDataString(_fakeOptions.IssuerUri)}");
         }
-
+s
+    
         [Fact]
         public async Task form_post_mode_should_pass_results_in_body()
         {
@@ -221,6 +242,7 @@ namespace IdentityServer.UnitTests.Endpoints.Results
                 html.Should().Contain("<base target='_self'/>");
                 html.Should().Contain("<form method='post' action='http://client/callback'>");
                 html.Should().Contain("<input type='hidden' name='state' value='state' />");
+                html.Should().Contain($"<input type='hidden' name='iss' value='{_fakeOptions.IssuerUri}' />");
             }
         }
 

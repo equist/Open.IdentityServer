@@ -50,6 +50,11 @@ namespace Open.IdentityServer.Models
                 }
             }
 
+            if (response.Issuer.IsPresent())
+            {
+                collection.Add("iss", response.Issuer);
+            }
+
             if (response.State.IsPresent())
             {
                 collection.Add("state", response.State);

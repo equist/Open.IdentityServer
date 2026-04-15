@@ -96,7 +96,8 @@ namespace Open.IdentityServer.ResponseHandling
         {
             var entries = new Dictionary<string, object>
             {
-                { OidcConstants.Discovery.Issuer, issuerUri }
+                { OidcConstants.Discovery.Issuer, issuerUri },
+                // { OidcConstants.Discovery.AuthorizationResponseIssParameterSupported, true },
             };
 
             // jwks
