@@ -211,7 +211,6 @@ namespace IdentityServer.UnitTests.Endpoints.Results
             fragment.Should().Contain("state=state");
             fragment.Should().Contain($"iss={Uri.EscapeDataString(_fakeOptions.IssuerUri)}");
         }
-s
     
         [Fact]
         public async Task form_post_mode_should_pass_results_in_body()

@@ -97,7 +97,6 @@ namespace Open.IdentityServer.ResponseHandling
             var entries = new Dictionary<string, object>
             {
                 { OidcConstants.Discovery.Issuer, issuerUri },
-                // { OidcConstants.Discovery.AuthorizationResponseIssParameterSupported, true },
             };
 
             // jwks
@@ -322,6 +321,7 @@ namespace Open.IdentityServer.ResponseHandling
             if (Options.Endpoints.EnableAuthorizeEndpoint)
             {
                 entries.Add(OidcConstants.Discovery.RequestParameterSupported, true);
+                entries.Add(OidcConstants.Discovery.AuthorizationResponseIssParameterSupported, true);
 
                 if (Options.Endpoints.EnableJwtRequestUri)
                 {
