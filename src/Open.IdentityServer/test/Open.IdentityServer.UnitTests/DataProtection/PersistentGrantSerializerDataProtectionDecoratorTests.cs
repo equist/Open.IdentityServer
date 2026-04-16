@@ -7,8 +7,6 @@ using Open.IdentityServer.Configuration;
 using Open.IdentityServer.DataProtection;
 using Open.IdentityServer.Stores.Serialization;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Moq;
 using Xunit;
 
@@ -74,7 +72,7 @@ public class PersistentGrantSerializerDataProtectionDecoratorTests
         var sut = CreateSut();
         Action act = () => sut.Deserialize<FakeData>(input);
 
-        act.Should().Throw<Exception>();
+        act.Should().ThrowExactly<JsonException>();
     }
 
     [Fact]
@@ -144,18 +142,10 @@ public class PersistentGrantSerializerDataProtectionDecoratorTests
     }
 
     [Fact]
-    public void Deserialize_WhenUnprotectedDataOutsideOfDataProtectionContainer_ShouldReturnData()
+    public void Deserialize_WhenRawDataNotWrappedInDataProtectionContainer_ShouldReturnDataDeserializedToObjectTargetObject()
     {
         FakeData payload = new() { Value1 = "someVal" };
         var serialisedPayload = "{ \"value1\": \"someVal\" }";
-
-        // var input = """
-        //             {
-        //                 "PersistentGrantDataContainerVersion": 1,
-        //                 "DataProtected": false,
-        //                 "Payload": "{ \u0022value1\u0022 = \u0022someVal\u0022 }"
-        //             }
-        //             """;
 
         Mock.Get(decoratedSerializer)
             .Setup(x => x.Deserialize<FakeData>(serialisedPayload))

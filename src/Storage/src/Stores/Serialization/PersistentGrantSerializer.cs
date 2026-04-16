@@ -3,9 +3,7 @@
 
 #nullable enable
 
-using System.Linq;
 using System.Text.Json;
-using Open.IdentityModel;
 using Open.IdentityServer.Models;
 
 namespace Open.IdentityServer.Stores.Serialization
@@ -14,7 +12,7 @@ namespace Open.IdentityServer.Stores.Serialization
     /// JSON-based persisted grant serializer
     /// </summary>
     /// <seealso cref="Open.IdentityServer.Stores.Serialization.IPersistentGrantSerializer" />
-    public class PersistentGrantSerializer : IPersistentGrantSerializer
+    public class PersistentGrantSerializer: IPersistentGrantSerializer
     {
         private static readonly JsonSerializerOptions _settings;
 
@@ -63,7 +61,7 @@ namespace Open.IdentityServer.Stores.Serialization
         {
             if (refreshToken.Version != 4)
             {
-                throw new UnsupportedReferenceTokenException(refreshToken.Version);
+                throw new UnsupportedRefreshTokenException(refreshToken.Version);
             }
 
             var user = new IdentityServerUser(refreshToken.AccessToken.SubjectId);

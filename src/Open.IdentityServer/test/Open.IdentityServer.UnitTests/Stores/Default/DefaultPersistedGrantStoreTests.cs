@@ -9,7 +9,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AwesomeAssertions;
 using IdentityServer.UnitTests.Common;
-using Open.IdentityModel;
+using Microsoft.Extensions.Logging;
+using Moq;
 using Open.IdentityServer;
 using Open.IdentityServer.Extensions;
 using Open.IdentityServer.Models;
@@ -29,6 +30,8 @@ namespace IdentityServer.UnitTests.Stores.Default
         private StubHandleGenerationService _stubHandleGenerationService = new StubHandleGenerationService();
 
         private ClaimsPrincipal _user = new IdentityServerUser("123").CreatePrincipal();
+        
+        private ILogger<DefaultRefreshTokenStore> refreshTokenStoreLogger = Mock.Of<ILogger<DefaultRefreshTokenStore>>();
 
         public DefaultPersistedGrantStoreTests()
         {
@@ -39,7 +42,7 @@ namespace IdentityServer.UnitTests.Stores.Default
             _refreshTokens = new DefaultRefreshTokenStore(_store,
                 new PersistentGrantSerializer(),
                 _stubHandleGenerationService,
-                TestLogger.Create<DefaultRefreshTokenStore>());
+                refreshTokenStoreLogger);
             _referenceTokens = new DefaultReferenceTokenStore(_store,
                 new PersistentGrantSerializer(),
                 _stubHandleGenerationService,
@@ -105,7 +108,7 @@ namespace IdentityServer.UnitTests.Stores.Default
         [InlineData(3)]
         [InlineData(6)]
         [InlineData(7)]
-        public async Task GetRefreshTokenAsync_when_unsupported_token_stored_should_retrieve_mapped_grant(int unsupportedVersion)
+        public async Task GetRefreshTokenAsync_when_unsupported_token_stored_should_return_null_and_log_error(int unsupportedVersion)
         {
             var token1 = new RefreshToken()
             {
@@ -118,6 +121,9 @@ namespace IdentityServer.UnitTests.Stores.Default
             var token2 = await _refreshTokens.GetRefreshTokenAsync(handle);
 
             token2.Should().BeNull();
+            
+            Mock.Get(refreshTokenStoreLogger)
+                .Verify(x => x.Log(LogLevel.Error, It.IsAny<EventId>(), It.IsAny<It.IsAnyType>(), It.IsAny<UnsupportedRefreshTokenException>(), It.IsAny<Func<It.IsAnyType,Exception?,string>>()));
         }
         
         [Fact]
