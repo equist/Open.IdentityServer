@@ -22,9 +22,8 @@ public class ResourceValidationRequest
     /// </summary>
     public IEnumerable<string> Scopes { get; set; }
 
-    // /// <summary>
-    // /// The requested resource indicators.
-    // /// </summary>
-    //  todo: add back when we support resource indicators
-    // public IEnumerable<string> ResourceIndicators { get; set; }
+    /// <summary>
+    /// The requested resource indicators.
+    /// </summary>
+    public IEnumerable<string> ResourceIndicators { get; set; }
 }

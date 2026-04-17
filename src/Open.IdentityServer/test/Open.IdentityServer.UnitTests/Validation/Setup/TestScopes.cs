@@ -11,29 +11,44 @@ internal class TestScopes
 {
     public static IEnumerable<IdentityResource> GetIdentity()
     {
-        return new IdentityResource[]
-        {
+        return
+        [
             new IdentityResources.OpenId(),
             new IdentityResources.Profile()
-        };
+        ];
     }
 
     public static IEnumerable<ApiResource> GetApis()
     {
-        return new ApiResource[]
-        {
+        return
+        [
             new ApiResource
             {
                 Name = "api",
-                Scopes =  { "resource", "resource2" }
-            }
-        };
+                Scopes = { "resource", "resource2" }
+            },
+            new ApiResource
+            {
+                Name = "urn:valid.resource",
+                Scopes = ["urn:valid.resource:Read", "urn:valid.resource:Write", "urn:valid.resource:All", "All"],
+            },
+            new ApiResource
+            {
+                Name = "https://valid.resource.com",
+                Scopes = ["valid:Read", "valid:Write", "valid:All", "All"],
+            },
+            new ApiResource
+            {
+                Name = "urn:unauth.resource",
+                Scopes = ["unauth:Read", "unauth:Write", "unauth:All"],
+            },
+        ];
     }
 
     public static IEnumerable<ApiScope> GetScopes()
     {
-        return new ApiScope[]
-        {
+        return
+        [
             new ApiScope
             {
                 Name = "resource",
@@ -43,7 +58,57 @@ internal class TestScopes
             {
                 Name = "resource2",
                 Description = "resource scope"
+            },
+            new ApiScope
+            {
+                Name = "urn:valid.resource:Read",
+                Description = "Valid Resource 'urn:' prefixed, Read scope"
+            },
+            new ApiScope
+            {
+                Name = "urn:valid.resource:Write",
+                Description = "Valid Resource 'urn:' prefixed, Write scope"
+            },
+            new ApiScope
+            {
+                Name = "urn:valid.resource:All",
+                Description = "Valid Resource 'urn:' prefixed, All scope"
+            },
+            new ApiScope
+            {
+                Name = "valid:Read",
+                Description = "Valid Resource 'https:' prefixed, Read scope"
+            },
+            new ApiScope
+            {
+                Name = "valid:Write",
+                Description = "Valid Resource 'https:' prefixed, Write scope"
+            },
+            new ApiScope
+            {
+                Name = "valid:All",
+                Description = "Valid Resource 'https:' prefixed, All scope"
+            },
+            new ApiScope
+            {
+                Name = "unauth:Read",
+                Description = "Unauth Resource 'urn:' prefixed, Read scope"
+            },
+            new ApiScope
+            {
+                Name = "unauth:Write",
+                Description = "Unauth Resource 'urn:' prefixed, Write scope"
+            },
+            new ApiScope
+            {
+                Name = "unauth:All",
+                Description = "Unauth Resource 'urn:' prefixed, All scope"
+            },
+            new ApiScope
+            {
+                Name = "All",
+                Description = "Shared All scope"
             }
-        };
+        ];
     }
 }

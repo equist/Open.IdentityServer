@@ -564,33 +564,73 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
             request.IsOpenIdRequest = true;
         }
 
-        //////////////////////////////////////////////////////////
-        // check scope vs response_type plausability
-        //////////////////////////////////////////////////////////
-        var requirement = Constants.ResponseTypeToScopeRequirement[request.ResponseType];
-        if (requirement == Constants.ScopeRequirement.Identity ||
-            requirement == Constants.ScopeRequirement.IdentityOnly)
-        {
-            if (request.IsOpenIdRequest == false)
+            //////////////////////////////////////////////////////////
+            // check scope vs response_type plausability
+            //////////////////////////////////////////////////////////
+            var requirement = Constants.ResponseTypeToScopeRequirement[request.ResponseType];
+            if (requirement == Constants.ScopeRequirement.Identity ||
+                requirement == Constants.ScopeRequirement.IdentityOnly)
             {
-                LogError("response_type requires the openid scope", request);
-                return Invalid(request, description: "Missing openid scope");
+                if (request.IsOpenIdRequest == false)
+                {
+                    LogError("response_type requires the openid scope", request);
+                    return Invalid(request, description: "Missing openid scope");
+                }
             }
-        }
+            
+            //////////////////////////////////////////////////////////
+            // validate resource indicators are valid
+            //////////////////////////////////////////////////////////
+            var resourceRaw = request.Raw.Get(OidcConstants.AuthorizeRequest.Resource);
+            if (!resourceRaw.IsMissing())
+            {
+                var resources = resourceRaw.FromSeparatedString().Distinct().ToList();
 
-        //////////////////////////////////////////////////////////
-        // check if scopes are valid/supported and check for resource scopes
-        //////////////////////////////////////////////////////////
-        var validatedResources = await _resourceValidator.ValidateRequestedResourcesAsync(new ResourceValidationRequest
-        {
-            Client = request.Client,
-            Scopes = request.RequestedScopes
-        });
+                if (resources.Count != 0)
+                {
+                    if (request.GrantType == OidcConstants.GrantTypes.Implicit)
+                    {
+                        return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget, "The requested resource is invalid, missing, unknown, or malformed.");
+                    }
+                    
+                    foreach (var resource in resources)
+                    {
+                        if (!Uri.IsWellFormedUriString(resource, UriKind.Absolute))
+                        {
+                            return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget, "The requested resource is invalid, missing, unknown, or malformed.");
+                        }
 
-        if (!validatedResources.Succeeded)
-        {
-            return Invalid(request, OidcConstants.AuthorizeErrors.InvalidScope, "Invalid scope");
-        }
+                        Uri resourceUri = new Uri(resource);
+                        if (!string.IsNullOrWhiteSpace(resourceUri.Query) ||
+                            !string.IsNullOrWhiteSpace(resourceUri.Fragment))
+                        {
+                            return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget, "The requested resource is invalid, missing, unknown, or malformed.");
+                        }
+
+                        request.RequestedResourceIndicators = resources;
+                    }
+                }
+            }
+            
+            //////////////////////////////////////////////////////////
+            // check if scopes are valid/supported and check for resource scopes
+            //////////////////////////////////////////////////////////
+            var validatedResources = await _resourceValidator.ValidateRequestedResourcesAsync(new ResourceValidationRequest
+            {
+                Client = request.Client,
+                Scopes = request.RequestedScopes,
+                ResourceIndicators = request.RequestedResourceIndicators,
+            });
+
+            if (!validatedResources.Succeeded)
+            {
+                if (validatedResources.InvalidResourceIndicators.Count > 0)
+                {
+                    return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget, "The requested resource is invalid, missing, unknown, or malformed.");
+                }
+                
+                return Invalid(request, OidcConstants.AuthorizeErrors.InvalidScope, "Invalid scope");
+            }
 
         if (validatedResources.Resources.IdentityResources.Any() && !request.IsOpenIdRequest)
         {

@@ -55,6 +55,14 @@ public class ValidatedAuthorizeRequest : ValidatedRequest
     public List<string> RequestedScopes { get; set; }
 
     /// <summary>
+    /// Gets or sets the requested resource indicators
+    /// </summary>
+    /// <value>
+    /// The request resource indicators
+    /// </value>
+    public List<string> RequestedResourceIndicators { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether consent was shown.
     /// </summary>
     /// <value>
@@ -181,7 +189,7 @@ public class ValidatedAuthorizeRequest : ValidatedRequest
     /// The request object
     /// </value>
     public string RequestObject { get; set; }
-        
+
     /// <summary>
     /// Gets a value indicating whether an access token was requested.
     /// </summary>
@@ -195,13 +203,13 @@ public class ValidatedAuthorizeRequest : ValidatedRequest
                                         ResponseType == OidcConstants.ResponseTypes.CodeIdTokenToken;
 
 
-
     /// <summary>
     /// Initializes a new instance of the <see cref="ValidatedAuthorizeRequest"/> class.
     /// </summary>
     public ValidatedAuthorizeRequest()
     {
-        RequestedScopes = new List<string>();
-        AuthenticationContextReferenceClasses = new List<string>();
+        RequestedScopes = [];
+        RequestedResourceIndicators = [];
+        AuthenticationContextReferenceClasses = [];
     }
 }

@@ -66,14 +66,19 @@ public class ResourceValidationResult
     /// </summary>
     public ICollection<string> InvalidScopes { get; set; } = new HashSet<string>();
 
-    /// <summary>
-    /// Returns new result filted by the scope values.
-    /// </summary>
-    /// <param name="scopeValues"></param>
-    /// <returns></returns>
-    public ResourceValidationResult Filter(IEnumerable<string> scopeValues)
-    {
-        scopeValues ??= Enumerable.Empty<string>();
+        /// <summary>
+        /// The requested resource indicators that are invalid.
+        /// </summary>
+        public ICollection<string> InvalidResourceIndicators { get; set; } = new HashSet<string>();
+
+        /// <summary>
+        /// Returns new result filted by the scope values.
+        /// </summary>
+        /// <param name="scopeValues"></param>
+        /// <returns></returns>
+        public ResourceValidationResult Filter(IEnumerable<string> scopeValues)
+        {
+            scopeValues ??= Enumerable.Empty<string>();
 
         var offline = scopeValues.Contains(IdentityServerConstants.StandardScopes.OfflineAccess);
 

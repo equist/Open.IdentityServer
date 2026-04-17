@@ -25,7 +25,12 @@ internal class TestClients
                 },
 
                 AllowedGrantTypes = GrantTypes.Code,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
+                AllowedScopes =
+                [
+                    "openid", "profile", "resource", "resource2",
+                    "urn:valid.resource:Read", "urn:valid.resource:Write", "urn:valid.resource:All",
+                    "valid:Read", "valid:Write", "valid:All", "All",
+                ],
 
                 RequireConsent = false,
                 RequirePkce = false,
@@ -35,7 +40,7 @@ internal class TestClients
                     "https://server/cb"
                 },
 
-                AuthorizationCodeLifetime = 60
+                AuthorizationCodeLifetime = 60,
             },
             new Client
             {
@@ -118,7 +123,12 @@ internal class TestClients
                 },
 
                 AllowedGrantTypes = GrantTypes.Hybrid,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
+                AllowedScopes =
+                [
+                    "openid", "profile", "resource", "resource2",
+                    "urn:valid.resource:Read", "urn:valid.resource:Write", "urn:valid.resource:All",
+                    "valid:Read", "valid:Write", "valid:All", "All",
+                ],
                 AllowAccessTokensViaBrowser = true,
 
                 RequireConsent = false,
@@ -185,7 +195,12 @@ internal class TestClients
                 ClientId = "implicitclient",
 
                 AllowedGrantTypes = GrantTypes.Implicit,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
+                AllowedScopes =
+                [
+                    "openid", "profile", "resource", "resource2",
+                    "urn:valid.resource:Read", "urn:valid.resource:Write", "urn:valid.resource:All",
+                    "valid:Read", "valid:Write", "valid:All", "All",
+                ],
                 AllowAccessTokensViaBrowser = true,
 
                 RequireConsent = false,
@@ -470,7 +485,7 @@ internal class TestClients
                 AllowedGrantTypes = GrantTypes.Implicit,
                 Enabled = true,
                 AllowedScopes = { "openid", "profile", "resource", "resource2" },
-                RedirectUris = { "http://wsfed/callback"  }
+                RedirectUris = { "http://wsfed/callback" }
             },
             new Client
             {
@@ -496,7 +511,7 @@ internal class TestClients
                 ClientId = "implicit_and_client_creds",
                 AllowedGrantTypes = GrantTypes.ImplicitAndClientCredentials,
                 RedirectUris = { "https://notused" },
-                AllowedScopes = {"api1"}
+                AllowedScopes = { "api1" }
             },
             new Client
             {

@@ -6,6 +6,7 @@ using Open.IdentityServer.Models;
 using Open.IdentityServer.Stores;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -61,67 +62,89 @@ public class DefaultResourceValidator : IResourceValidator
             await ValidateScopeAsync(request.Client, resourcesFromStore, scope, result);
         }
 
-        if (result.InvalidScopes.Count > 0)
-        {
-            result.Resources.IdentityResources.Clear();
-            result.Resources.ApiResources.Clear();
-            result.Resources.ApiScopes.Clear();
-            result.ParsedScopes.Clear();
-        }
+            if (request.ResourceIndicators != null && request.ResourceIndicators.Any())
+            {
+                await ValidateResourceIndicators(request.ResourceIndicators, resourcesFromStore, result);
+            }
+
+            if (result.InvalidScopes.Count > 0 || result.InvalidResourceIndicators.Count > 0)
+            {
+                result.Resources.IdentityResources.Clear();
+                result.Resources.ApiResources.Clear();
+                result.Resources.ApiScopes.Clear();
+                result.ParsedScopes.Clear();
+            }
 
         return result;
     }
 
-    /// <summary>
-    /// Validates that the requested scopes is contained in the store, and the client is allowed to request it.
-    /// </summary>
-    /// <param name="client"></param>
-    /// <param name="resourcesFromStore"></param>
-    /// <param name="requestedScope"></param>
-    /// <param name="result"></param>
-    /// <returns></returns>
-    protected virtual async Task ValidateScopeAsync(
-        Client client, 
-        Resources resourcesFromStore, 
-        ParsedScopeValue requestedScope, 
-        ResourceValidationResult result)
-    {
-        if (requestedScope.ParsedName == IdentityServerConstants.StandardScopes.OfflineAccess)
+        /// <summary>
+        /// Validates that the requested resource indicators exist and are accessible to the client.
+        /// </summary>
+        /// <param name="resourceIndicators"></param>
+        /// <param name="resources"></param>
+        /// <param name="result"></param>
+        protected virtual async Task ValidateResourceIndicators(IEnumerable<string> resourceIndicators, Resources resources, ResourceValidationResult result)
         {
-            if (await IsClientAllowedOfflineAccessAsync(client))
+            foreach (var resourceIndicator in resourceIndicators)
             {
-                result.Resources.OfflineAccess = true;
-                result.ParsedScopes.Add(new ParsedScopeValue(IdentityServerConstants.StandardScopes.OfflineAccess));
-            }
-            else
-            {
-                result.InvalidScopes.Add(IdentityServerConstants.StandardScopes.OfflineAccess);
+                if (resources.ApiResources.All(x => x.Name != resourceIndicator))
+                {
+                    result.InvalidResourceIndicators.Add(resourceIndicator);
+                }
             }
         }
-        else
+
+        /// <summary>
+        /// Validates that the requested scopes is contained in the store, and the client is allowed to request it.
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="resourcesFromStore"></param>
+        /// <param name="requestedScope"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        protected virtual async Task ValidateScopeAsync(
+            Client client, 
+            Resources resourcesFromStore, 
+            ParsedScopeValue requestedScope, 
+            ResourceValidationResult result)
         {
-            var identity = resourcesFromStore.FindIdentityResourcesByScope(requestedScope.ParsedName);
-            if (identity != null)
+            if (requestedScope.ParsedName == IdentityServerConstants.StandardScopes.OfflineAccess)
             {
-                if (await IsClientAllowedIdentityResourceAsync(client, identity))
+                if (await IsClientAllowedOfflineAccessAsync(client))
                 {
-                    result.ParsedScopes.Add(requestedScope);
-                    result.Resources.IdentityResources.Add(identity);
+                    result.Resources.OfflineAccess = true;
+                    result.ParsedScopes.Add(new ParsedScopeValue(IdentityServerConstants.StandardScopes.OfflineAccess));
                 }
                 else
                 {
-                    result.InvalidScopes.Add(requestedScope.RawValue);
+                    result.InvalidScopes.Add(IdentityServerConstants.StandardScopes.OfflineAccess);
                 }
             }
             else
             {
-                var apiScope = resourcesFromStore.FindApiScope(requestedScope.ParsedName);
-                if (apiScope != null)
+                var identity = resourcesFromStore.FindIdentityResourcesByScope(requestedScope.ParsedName);
+                if (identity != null)
                 {
-                    if (await IsClientAllowedApiScopeAsync(client, apiScope))
+                    if (await IsClientAllowedIdentityResourceAsync(client, identity))
                     {
                         result.ParsedScopes.Add(requestedScope);
-                        result.Resources.ApiScopes.Add(apiScope);
+                        result.Resources.IdentityResources.Add(identity);
+                    }
+                    else
+                    {
+                        result.InvalidScopes.Add(requestedScope.RawValue);
+                    }
+                }
+                else
+                {
+                    var apiScope = resourcesFromStore.FindApiScope(requestedScope.ParsedName);
+                    if (apiScope != null)
+                    {
+                        if (await IsClientAllowedApiScopeAsync(client, apiScope))
+                        {
+                            result.ParsedScopes.Add(requestedScope);
+                            result.Resources.ApiScopes.Add(apiScope);
 
                         var apis = resourcesFromStore.FindApiResourcesByScope(apiScope.Name);
                         foreach (var api in apis)

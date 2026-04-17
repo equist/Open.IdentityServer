@@ -165,8 +165,8 @@ public class AuthorizeResponseGenerator : IAuthorizeResponseGenerator
                 Subject = request.Subject,
                 ValidatedResources = request.ValidatedResources,
 
-                ValidatedRequest = request
-            };
+                    ValidatedRequest = request,
+                };
 
             var accessToken = await TokenService.CreateAccessTokenAsync(tokenRequest);
             accessTokenLifetime = accessToken.Lifetime;
@@ -190,17 +190,17 @@ public class AuthorizeResponseGenerator : IAuthorizeResponseGenerator
                 stateHash = CryptoHelper.CreateHashClaimValue(request.State, algorithm);
             }
 
-            var tokenRequest = new TokenCreationRequest
-            {
-                ValidatedRequest = request,
-                Subject = request.Subject,
-                ValidatedResources = request.ValidatedResources,
-                Nonce = request.Raw.Get(OidcConstants.AuthorizeRequest.Nonce),
-                IncludeAllIdentityClaims = !request.AccessTokenRequested,
-                AccessTokenToHash = accessTokenValue,
-                AuthorizationCodeToHash = authorizationCode,
-                StateHash = stateHash
-            };
+                var tokenRequest = new TokenCreationRequest
+                {
+                    ValidatedRequest = request,
+                    Subject = request.Subject,
+                    ValidatedResources = request.ValidatedResources,
+                    Nonce = request.Raw.Get(OidcConstants.AuthorizeRequest.Nonce),
+                    IncludeAllIdentityClaims = !request.AccessTokenRequested,
+                    AccessTokenToHash = accessTokenValue,
+                    AuthorizationCodeToHash = authorizationCode,
+                    StateHash = stateHash,
+                };
 
             var idToken = await TokenService.CreateIdentityTokenAsync(tokenRequest);
             jwt = await TokenService.CreateSecurityTokenAsync(idToken);
@@ -255,8 +255,10 @@ public class AuthorizeResponseGenerator : IAuthorizeResponseGenerator
             Nonce = request.Nonce,
             StateHash = stateHash,
 
-            WasConsentShown = request.WasConsentShown
-        };
+                WasConsentShown = request.WasConsentShown,
+                
+                RequestedResourceIndicators = request.RequestedResourceIndicators,
+            };
 
         return code;
     }
