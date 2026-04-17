@@ -71,7 +71,7 @@ namespace Open.IdentityServer.Services
                     ClientId = refreshToken.ClientId,
                     SubjectId = subjectId,
                     Description = refreshToken.Description,
-                    Scopes = refreshToken.Scopes,
+                    Scopes = refreshToken.AuthorizedScopes,
                     CreationTime = refreshToken.CreationTime,
                     Expiration = refreshToken.CreationTime.AddSeconds(refreshToken.Lifetime)
                 });
@@ -101,6 +101,7 @@ namespace Open.IdentityServer.Services
         }
         
         private IEnumerable<Grant> RetrieveGrants<T>(PersistedGrant[] grants, string type, Func<T, Grant> mapToGrant)
+            where T: class
         {
             return grants.Where(grant => grant.Type == type)
                 .Select(grant =>
@@ -112,7 +113,7 @@ namespace Open.IdentityServer.Services
                     catch (Exception ex)
                     {
                         _logger.LogError(ex, "Failed to deserialize persisted grant '{Key}', to '{Type}'", grant.Key, typeof(T));
-                        return default;
+                        return null;
                     }
                 })
                 .Where(deserializedData => deserializedData != null)
@@ -159,7 +160,7 @@ namespace Open.IdentityServer.Services
         }
 
         /// <inheritdoc/>
-        public Task RemoveAllGrantsAsync(string subjectId, string clientId = null, string sessionId = null)
+        public Task RemoveAllGrantsAsync(string subjectId, string? clientId = null, string? sessionId = null)
         {
             if (String.IsNullOrWhiteSpace(subjectId)) throw new ArgumentNullException(nameof(subjectId));
 

@@ -18,7 +18,13 @@ public class PersistentGrantSerializerDataProtectionDecorator(
 {
     private IDataProtector dataProtector = dataProtectionProvider.CreateProtector(nameof(PersistentGrantSerializer));
 
-    private JsonSerializerOptions serializerOptions = new();
+    private JsonSerializerOptions serializerOptions = new()
+    {
+        Converters =
+        {
+            new DataProtectedGrantDataConverter(),
+        }
+    };
 
     /// <summary>
     /// Serializes the specified value. And protects the data using Data Protection
@@ -51,7 +57,7 @@ public class PersistentGrantSerializerDataProtectionDecorator(
 
         if (wrappedData == null)
         {
-            throw new Exception("Failed to deserialize protected grant data from store");
+            return decoratedSerializer.Deserialize<TGrant>(json);
         }
         
         var data = wrappedData.Payload;

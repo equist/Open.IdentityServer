@@ -203,7 +203,7 @@ namespace Open.IdentityServer.ResponseHandling
         {
             Logger.LogTrace("Creating response for refresh token request");
 
-            var oldAccessToken = request.ValidatedRequest.RefreshToken.AccessToken;
+            var oldAccessToken = request.ValidatedRequest.RefreshToken.AccessTokens[string.Empty];
             string accessTokenString;
 
             if (request.ValidatedRequest.Client.UpdateAccessTokenClaimsOnRefresh)
@@ -244,7 +244,7 @@ namespace Open.IdentityServer.ResponseHandling
                 AccessTokenLifetime = request.ValidatedRequest.AccessTokenLifetime,
                 RefreshToken = handle,
                 Custom = request.CustomResponse,
-                Scope = request.ValidatedRequest.RefreshToken.Scopes.ToSpaceSeparatedString()
+                Scope = request.ValidatedRequest.RefreshToken.AuthorizedScopes.ToSpaceSeparatedString()
             };
         }
 
@@ -442,30 +442,26 @@ namespace Open.IdentityServer.ResponseHandling
         /// <returns></returns>
         protected virtual async Task<string> CreateIdTokenFromRefreshTokenRequestAsync(ValidatedTokenRequest request, string newAccessToken)
         {
-            // todo: can we just check for "openid" scope?
-            //var identityResources = await Resources.FindEnabledIdentityResourcesByScopeAsync(request.RefreshToken.Scopes);
-            //if (identityResources.Any())
-            
-            if (request.RefreshToken.Scopes.Contains(OidcConstants.StandardScopes.OpenId))
+            if (!request.RefreshToken.AuthorizedScopes.Contains(OidcConstants.StandardScopes.OpenId))
             {
-                var oldAccessToken = request.RefreshToken.AccessToken;
-
-                var parsedScopesResult = ScopeParser.ParseScopeValues(oldAccessToken.Scopes);
-                var validatedResources = await Resources.CreateResourceValidationResult(parsedScopesResult);
-
-                var tokenRequest = new TokenCreationRequest
-                {
-                    Subject = request.RefreshToken.Subject,
-                    ValidatedResources = validatedResources,
-                    ValidatedRequest = request,
-                    AccessTokenToHash = newAccessToken
-                };
-
-                var idToken = await TokenService.CreateIdentityTokenAsync(tokenRequest);
-                return await TokenService.CreateSecurityTokenAsync(idToken);
+                return null;
             }
 
-            return null;
+            var oldAccessToken = request.RefreshToken.AccessTokens[string.Empty];
+
+            var parsedScopesResult = ScopeParser.ParseScopeValues(oldAccessToken.Scopes);
+            var validatedResources = await Resources.CreateResourceValidationResult(parsedScopesResult);
+
+            var tokenRequest = new TokenCreationRequest
+            {
+                Subject = request.RefreshToken.Subject,
+                ValidatedResources = validatedResources,
+                ValidatedRequest = request,
+                AccessTokenToHash = newAccessToken
+            };
+
+            var idToken = await TokenService.CreateIdentityTokenAsync(tokenRequest);
+            return await TokenService.CreateSecurityTokenAsync(idToken);
         }
     }
 }
