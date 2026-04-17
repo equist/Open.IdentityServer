@@ -90,4 +90,9 @@ public class ApiResource : Resource
     /// Signing algorithm for access token. If empty, will use the server default signing algorithm.
     /// </summary>
     public ICollection<string> AllowedAccessTokenSigningAlgorithms { get; set; } = new HashSet<string>();
+
+    /// <summary>
+    /// Setting indicating if the resource indicator is needed to be present in 'aud' claim
+    /// </summary>
+    public bool RequireResourceIndicator { get; set; } 
 }

@@ -25,4 +25,5 @@ public class ApiResource
     public DateTime? Updated { get; set; }
     public DateTime? LastAccessed { get; set; }
     public bool NonEditable { get; set; }
+    public bool RequireResourceIndicator { get; set; }
 }
