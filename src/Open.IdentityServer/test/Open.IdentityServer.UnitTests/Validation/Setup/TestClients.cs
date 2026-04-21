@@ -24,507 +24,519 @@ internal class TestClients
                     new Secret("secret".Sha256())
                 },
 
-                AllowedGrantTypes = GrantTypes.Code,
-                AllowedScopes =
-                [
-                    "openid", "profile", "resource", "resource2",
-                    "urn:valid.resource:Read", "urn:valid.resource:Write", "urn:valid.resource:All",
-                    "valid:Read", "valid:Write", "valid:All", "All",
-                ],
+                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedScopes = [
+                        "openid", "profile", "resource", "resource2",
+                        "urn:valid.resource:Read", "urn:valid.resource:Write", "urn:valid.resource:All",
+                        "valid:Read", "valid:Write", "valid:All", 
+                        "All",
+                    ],
 
-                RequireConsent = false,
-                RequirePkce = false,
+                    RequireConsent = false,
+                    RequirePkce = false,
 
-                RedirectUris = new List<string>
-                {
-                    "https://server/cb"
+                    RedirectUris = new List<string>
+                    {
+                        "https://server/cb"
+                    },
+
+                    AuthorizationCodeLifetime = 60,
                 },
-
-                AuthorizationCodeLifetime = 60,
-            },
-            new Client
-            {
-                ClientName = "Code Client (allows plain text PKCE)",
-                Enabled = true,
-                ClientId = "codeclient.plain",
-                ClientSecrets = new List<Secret>
+                new Client
                 {
-                    new Secret("secret".Sha256())
+                    ClientName = "Code Client (allows plain text PKCE)",
+                    Enabled = true,
+                    ClientId = "codeclient.plain",
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("secret".Sha256())
+                    },
+
+                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedScopes = { "openid", "profile", "resource", "resource2" },
+                    AllowPlainTextPkce = true,
+
+                    RequireConsent = false,
+
+                    RedirectUris = new List<string>
+                    {
+                        "https://server/cb"
+                    },
+
+                    AuthorizationCodeLifetime = 60
                 },
-
-                AllowedGrantTypes = GrantTypes.Code,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
-                AllowPlainTextPkce = true,
-
-                RequireConsent = false,
-
-                RedirectUris = new List<string>
+                new Client
                 {
-                    "https://server/cb"
+                    ClientName = "Code Client with PKCE",
+                    Enabled = true,
+                    ClientId = "codeclient.pkce",
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("secret".Sha256())
+                    },
+
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    AllowedScopes = { "openid", "profile", "resource", "resource2" },
+
+                    RequireConsent = false,
+
+                    RedirectUris = new List<string>
+                    {
+                        "https://server/cb"
+                    },
+
+                    AuthorizationCodeLifetime = 60
                 },
-
-                AuthorizationCodeLifetime = 60
-            },
-            new Client
-            {
-                ClientName = "Code Client with PKCE",
-                Enabled = true,
-                ClientId = "codeclient.pkce",
-                ClientSecrets = new List<Secret>
+                new Client
                 {
-                    new Secret("secret".Sha256())
+                    ClientName = "Code Client with PKCE and plain allowed",
+                    Enabled = true,
+                    ClientId = "codeclient.pkce.plain",
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("secret".Sha256())
+                    },
+
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    AllowPlainTextPkce = true,
+                    AllowedScopes = { "openid", "profile", "resource", "resource2" },
+
+                    RequireConsent = false,
+
+                    RedirectUris = new List<string>
+                    {
+                        "https://server/cb"
+                    },
+
+                    AuthorizationCodeLifetime = 60
                 },
-
-                AllowedGrantTypes = GrantTypes.Code,
-                RequirePkce = true,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
-
-                RequireConsent = false,
-
-                RedirectUris = new List<string>
+                new Client
                 {
-                    "https://server/cb"
-                },
+                        ClientName = "Hybrid Client",
+                        Enabled = true,
+                        ClientId = "hybridclient",
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("secret".Sha256())
+                        },
 
-                AuthorizationCodeLifetime = 60
-            },
-            new Client
-            {
-                ClientName = "Code Client with PKCE and plain allowed",
-                Enabled = true,
-                ClientId = "codeclient.pkce.plain",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
+                        AllowedGrantTypes = GrantTypes.Hybrid,
+                        AllowedScopes = [
+                            "openid", "profile", "resource", "resource2",
+                            "urn:valid.resource:Read", "urn:valid.resource:Write", "urn:valid.resource:All",
+                            "valid:Read", "valid:Write", "valid:All", "All", 
+                        ],
+                        AllowAccessTokensViaBrowser = true,
 
-                AllowedGrantTypes = GrantTypes.Code,
-                RequirePkce = true,
-                AllowPlainTextPkce = true,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
+                        RequireConsent = false,
+                        RequirePkce = false,
 
-                RequireConsent = false,
+                        RedirectUris = new List<string>
+                        {
+                            "https://server/cb"
+                        },
 
-                RedirectUris = new List<string>
-                {
-                    "https://server/cb"
-                },
+                        AuthorizationCodeLifetime = 60
+                    },
+                    new Client
+                    {
+                        ClientName = "Hybrid Client with PKCE",
+                        Enabled = true,
+                        ClientId = "hybridclient.pkce",
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("secret".Sha256())
+                        },
 
-                AuthorizationCodeLifetime = 60
-            },
-            new Client
-            {
-                ClientName = "Hybrid Client",
-                Enabled = true,
-                ClientId = "hybridclient",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
+                        AllowedGrantTypes = GrantTypes.Hybrid,
+                        RequirePkce = true,
+                        AllowedScopes = { "openid", "profile", "resource", "resource2" },
+                        AllowAccessTokensViaBrowser = true,
 
-                AllowedGrantTypes = GrantTypes.Hybrid,
-                AllowedScopes =
-                [
-                    "openid", "profile", "resource", "resource2",
-                    "urn:valid.resource:Read", "urn:valid.resource:Write", "urn:valid.resource:All",
-                    "valid:Read", "valid:Write", "valid:All", "All",
-                ],
-                AllowAccessTokensViaBrowser = true,
+                        RequireConsent = false,
 
-                RequireConsent = false,
-                RequirePkce = false,
+                        RedirectUris = new List<string>
+                        {
+                            "https://server/cb"
+                        },
 
-                RedirectUris = new List<string>
-                {
-                    "https://server/cb"
-                },
+                        AuthorizationCodeLifetime = 60
+                    },
+                    new Client
+                    {
+                        ClientName = "Hybrid Client",
+                        Enabled = true,
+                        ClientId = "hybridclient_no_aavb",
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("secret".Sha256())
+                        },
 
-                AuthorizationCodeLifetime = 60
-            },
-            new Client
-            {
-                ClientName = "Hybrid Client with PKCE",
-                Enabled = true,
-                ClientId = "hybridclient.pkce",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
+                        AllowedGrantTypes = GrantTypes.Hybrid,
+                        AllowedScopes = { "openid", "profile", "resource", "resource2" },
+                        AllowAccessTokensViaBrowser = false,
 
-                AllowedGrantTypes = GrantTypes.Hybrid,
-                RequirePkce = true,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
-                AllowAccessTokensViaBrowser = true,
+                        RequireConsent = false,
+                        RequirePkce = false,
 
-                RequireConsent = false,
+                        RedirectUris = new List<string>
+                        {
+                            "https://server/cb"
+                        },
 
-                RedirectUris = new List<string>
-                {
-                    "https://server/cb"
-                },
+                        AuthorizationCodeLifetime = 60
+                    },
+                    new Client
+                    {
+                        ClientName = "Implicit Client",
+                        ClientId = "implicitclient",
 
-                AuthorizationCodeLifetime = 60
-            },
-            new Client
-            {
-                ClientName = "Hybrid Client",
-                Enabled = true,
-                ClientId = "hybridclient_no_aavb",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
+                        AllowedGrantTypes = GrantTypes.Implicit,
+                        AllowedScopes = [
+                            "openid", "profile", "resource", "resource2",
+                            "urn:valid.resource:Read", "urn:valid.resource:Write", "urn:valid.resource:All",
+                            "valid:Read", "valid:Write", "valid:All", "All", 
+                        ],
+                        AllowAccessTokensViaBrowser = true,
 
-                AllowedGrantTypes = GrantTypes.Hybrid,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
-                AllowAccessTokensViaBrowser = false,
+                        RequireConsent = false,
 
-                RequireConsent = false,
-                RequirePkce = false,
+                        RedirectUris = new List<string>
+                        {
+                            "oob://implicit/cb"
+                        }
+                    },
+                    new Client
+                    {
+                        ClientName = "Implicit Client",
+                        ClientId = "implicitclient_no_aavb",
 
-                RedirectUris = new List<string>
-                {
-                    "https://server/cb"
-                },
+                        AllowedGrantTypes = GrantTypes.Implicit,
+                        AllowedScopes = { "openid", "profile", "resource", "resource2" },
+                        AllowAccessTokensViaBrowser = false,
 
-                AuthorizationCodeLifetime = 60
-            },
-            new Client
-            {
-                ClientName = "Implicit Client",
-                ClientId = "implicitclient",
+                        RequireConsent = false,
 
-                AllowedGrantTypes = GrantTypes.Implicit,
-                AllowedScopes =
-                [
-                    "openid", "profile", "resource", "resource2",
-                    "urn:valid.resource:Read", "urn:valid.resource:Write", "urn:valid.resource:All",
-                    "valid:Read", "valid:Write", "valid:All", "All",
-                ],
-                AllowAccessTokensViaBrowser = true,
+                        RedirectUris = new List<string>
+                        {
+                            "oob://implicit/cb"
+                        }
+                    },
+                    new Client
+                    {
+                        ClientName = "Implicit and Client Credentials Client",
+                        Enabled = true,
+                        ClientId = "implicit_and_client_creds_client",
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("secret".Sha256())
+                        },
 
-                RequireConsent = false,
+                        AllowedGrantTypes = GrantTypes.ImplicitAndClientCredentials,
+                        AllowedScopes = { "openid", "profile", "resource", "resource2" },
+                        RequireConsent = false,
 
-                RedirectUris = new List<string>
-                {
-                    "oob://implicit/cb"
-                }
-            },
-            new Client
-            {
-                ClientName = "Implicit Client",
-                ClientId = "implicitclient_no_aavb",
+                        RedirectUris = new List<string>
+                        {
+                            "oob://implicit/cb"
+                        }
+                    },
+                    new Client
+                    {
+                        ClientName = "Code Client with Scope Restrictions",
+                        Enabled = true,
+                        ClientId = "codeclient_restricted",
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("secret".Sha256())
+                        },
 
-                AllowedGrantTypes = GrantTypes.Implicit,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
-                AllowAccessTokensViaBrowser = false,
+                        AllowedGrantTypes = GrantTypes.Code,
+                        RequireConsent = false,
+                        RequirePkce = false,
 
-                RequireConsent = false,
+                        AllowedScopes = new List<string>
+                        {
+                            "openid"
+                        },
 
-                RedirectUris = new List<string>
-                {
-                    "oob://implicit/cb"
-                }
-            },
-            new Client
-            {
-                ClientName = "Implicit and Client Credentials Client",
-                Enabled = true,
-                ClientId = "implicit_and_client_creds_client",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
+                        RedirectUris = new List<string>
+                        {
+                            "https://server/cb"
+                        }
+                    },
+                    new Client
+                    {
+                        ClientName = "Client Credentials Client",
+                        Enabled = true,
+                        ClientId = "client",
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("secret".Sha256())
+                        },
 
-                AllowedGrantTypes = GrantTypes.ImplicitAndClientCredentials,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
-                RequireConsent = false,
+                        AllowedGrantTypes = GrantTypes.ClientCredentials,
+                        AllowedScopes = [ 
+                            "openid", "profile", "resource", "resource2",
+                            "urn:valid.resource:Read", "urn:valid.resource:Write", "urn:valid.resource:All",
+                            "valid:Read", "valid:Write", "valid:All",
+                            "All",
+                        ],
 
-                RedirectUris = new List<string>
-                {
-                    "oob://implicit/cb"
-                }
-            },
-            new Client
-            {
-                ClientName = "Code Client with Scope Restrictions",
-                Enabled = true,
-                ClientId = "codeclient_restricted",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
+                        AllowOfflineAccess = true,
 
-                AllowedGrantTypes = GrantTypes.Code,
-                RequireConsent = false,
-                RequirePkce = false,
+                        AccessTokenType = AccessTokenType.Jwt
+                    },
+                    new Client
+                    {
+                        ClientName = "Client Credentials Client (restricted)",
+                        Enabled = true,
+                        ClientId = "client_restricted",
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("secret".Sha256())
+                        },
 
-                AllowedScopes = new List<string>
-                {
-                    "openid"
-                },
+                        AllowedGrantTypes = GrantTypes.ClientCredentials,
 
-                RedirectUris = new List<string>
-                {
-                    "https://server/cb"
-                }
-            },
-            new Client
-            {
-                ClientName = "Client Credentials Client",
-                Enabled = true,
-                ClientId = "client",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
+                        AllowedScopes = new List<string>
+                        {
+                            "resource"
+                        }
+                    },
+                    new Client
+                    {
+                        ClientName = "Resource Owner Client",
+                        Enabled = true,
+                        ClientId = "roclient",
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("secret".Sha256())
+                        },
 
-                AllowedGrantTypes = GrantTypes.ClientCredentials,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
+                        AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                        AllowedScopes = [ 
+                            "openid", "profile", "resource", "resource2",
+                            "urn:valid.resource:Read", "urn:valid.resource:Write", "urn:valid.resource:All",
+                            "valid:Read", "valid:Write", "valid:All",
+                            "All",
+                        ],
+                        AllowOfflineAccess = true
+                    },
+                    new Client
+                    {
+                        ClientName = "Resource Owner Client - Public",
+                        Enabled = true,
+                        ClientId = "roclient.public",
+                        RequireClientSecret = false,
 
-                AllowOfflineAccess = true,
+                        AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                        AllowedScopes = { "openid", "profile", "resource", "resource2" }
+                    },
+                    new Client
+                    {
+                        ClientName = "Resource Owner Client",
+                        Enabled = true,
+                        ClientId = "roclient_absolute_refresh_expiration_one_time_only",
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("secret".Sha256())
+                        },
 
-                AccessTokenType = AccessTokenType.Jwt
-            },
-            new Client
-            {
-                ClientName = "Client Credentials Client (restricted)",
-                Enabled = true,
-                ClientId = "client_restricted",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
+                        AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                        AllowedScopes = { "openid", "profile", "resource", "resource2" },
 
-                AllowedGrantTypes = GrantTypes.ClientCredentials,
+                        RefreshTokenExpiration = TokenExpiration.Absolute,
+                        RefreshTokenUsage = TokenUsage.OneTimeOnly,
+                        AbsoluteRefreshTokenLifetime = 200
+                    },
+                    new Client
+                    {
+                        ClientName = "Resource Owner Client",
+                        Enabled = true,
+                        ClientId = "roclient_absolute_refresh_expiration_reuse",
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("secret".Sha256())
+                        },
 
-                AllowedScopes = new List<string>
-                {
-                    "resource"
-                }
-            },
-            new Client
-            {
-                ClientName = "Resource Owner Client",
-                Enabled = true,
-                ClientId = "roclient",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
+                        AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                        AllowedScopes = { "openid", "profile", "resource", "resource2" },
 
-                AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
-                AllowOfflineAccess = true
-            },
-            new Client
-            {
-                ClientName = "Resource Owner Client - Public",
-                Enabled = true,
-                ClientId = "roclient.public",
-                RequireClientSecret = false,
+                        RefreshTokenExpiration = TokenExpiration.Absolute,
+                        RefreshTokenUsage = TokenUsage.ReUse,
+                        AbsoluteRefreshTokenLifetime = 200
+                    },
+                    new Client
+                    {
+                        ClientName = "Resource Owner Client",
+                        Enabled = true,
+                        ClientId = "roclient_sliding_refresh_expiration_one_time_only",
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("secret".Sha256())
+                        },
 
-                AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" }
-            },
-            new Client
-            {
-                ClientName = "Resource Owner Client",
-                Enabled = true,
-                ClientId = "roclient_absolute_refresh_expiration_one_time_only",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
+                        AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                        AllowedScopes = { "openid", "profile", "resource", "resource2" },
 
-                AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
+                        RefreshTokenExpiration = TokenExpiration.Sliding,
+                        RefreshTokenUsage = TokenUsage.OneTimeOnly,
+                        AbsoluteRefreshTokenLifetime = 10,
+                        SlidingRefreshTokenLifetime = 4
+                    },
+                    new Client
+                    {
+                        ClientName = "Resource Owner Client",
+                        Enabled = true,
+                        ClientId = "roclient_sliding_refresh_expiration_reuse",
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("secret".Sha256())
+                        },
 
-                RefreshTokenExpiration = TokenExpiration.Absolute,
-                RefreshTokenUsage = TokenUsage.OneTimeOnly,
-                AbsoluteRefreshTokenLifetime = 200
-            },
-            new Client
-            {
-                ClientName = "Resource Owner Client",
-                Enabled = true,
-                ClientId = "roclient_absolute_refresh_expiration_reuse",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
+                        AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                        AllowedScopes = { "openid", "profile", "resource", "resource2" },
 
-                AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
+                        RefreshTokenExpiration = TokenExpiration.Sliding,
+                        RefreshTokenUsage = TokenUsage.ReUse,
+                        AbsoluteRefreshTokenLifetime = 200,
+                        SlidingRefreshTokenLifetime = 100
+                    },
+                    new Client
+                    {
+                        ClientName = "Resource Owner Client (restricted)",
+                        Enabled = true,
+                        ClientId = "roclient_restricted",
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("secret".Sha256())
+                        },
 
-                RefreshTokenExpiration = TokenExpiration.Absolute,
-                RefreshTokenUsage = TokenUsage.ReUse,
-                AbsoluteRefreshTokenLifetime = 200
-            },
-            new Client
-            {
-                ClientName = "Resource Owner Client",
-                Enabled = true,
-                ClientId = "roclient_sliding_refresh_expiration_one_time_only",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
+                        AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
 
-                AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
+                        AllowedScopes = new List<string>
+                        {
+                            "resource"
+                        }
+                    },
+                    new Client
+                    {
+                        ClientName = "Resource Owner Client (restricted with refresh)",
+                        Enabled = true,
+                        ClientId = "roclient_restricted_refresh",
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("secret".Sha256())
+                        },
 
-                RefreshTokenExpiration = TokenExpiration.Sliding,
-                RefreshTokenUsage = TokenUsage.OneTimeOnly,
-                AbsoluteRefreshTokenLifetime = 10,
-                SlidingRefreshTokenLifetime = 4
-            },
-            new Client
-            {
-                ClientName = "Resource Owner Client",
-                Enabled = true,
-                ClientId = "roclient_sliding_refresh_expiration_reuse",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
+                        AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
 
-                AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
+                        AllowOfflineAccess = true,
+                        AllowedScopes = new List<string>
+                        {
+                            "resource"
+                        }
+                    },
 
-                RefreshTokenExpiration = TokenExpiration.Sliding,
-                RefreshTokenUsage = TokenUsage.ReUse,
-                AbsoluteRefreshTokenLifetime = 200,
-                SlidingRefreshTokenLifetime = 100
-            },
-            new Client
-            {
-                ClientName = "Resource Owner Client (restricted)",
-                Enabled = true,
-                ClientId = "roclient_restricted",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
+                    new Client
+                    {
+                        ClientName = "Custom Grant Client",
+                        Enabled = true,
+                        ClientId = "customgrantclient",
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("secret".Sha256())
+                        },
 
-                AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                        AllowedGrantTypes = { "custom_grant" },
+                        AllowedScopes = { "openid", "profile", "resource", "resource2" }
+                    },
 
-                AllowedScopes = new List<string>
-                {
-                    "resource"
-                }
-            },
-            new Client
-            {
-                ClientName = "Resource Owner Client (restricted with refresh)",
-                Enabled = true,
-                ClientId = "roclient_restricted_refresh",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
+                    new Client
+                    {
+                        ClientName = "Disabled Client",
+                        Enabled = false,
+                        ClientId = "disabled",
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("invalid".Sha256())
+                        },
 
-                AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                        AllowedGrantTypes = GrantTypes.ClientCredentials,
+                        AllowedScopes = { "openid", "profile", "resource", "resource2" }
+                    },
+                    new Client
+                    {
+                        ClientName = "Reference Token Client",
 
-                AllowOfflineAccess = true,
-                AllowedScopes = new List<string>
-                {
-                    "resource"
-                }
-            },
+                        Enabled = true,
+                        ClientId = "referencetokenclient",
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("secret".Sha256())
+                        },
 
-            new Client
-            {
-                ClientName = "Custom Grant Client",
-                Enabled = true,
-                ClientId = "customgrantclient",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
+                        AllowedGrantTypes = GrantTypes.Implicit,
+                        RedirectUris = { "https://notused" },
+                        AllowedScopes = { "openid", "profile", "resource", "resource2" },
 
-                AllowedGrantTypes = { "custom_grant" },
-                AllowedScopes = { "openid", "profile", "resource", "resource2" }
-            },
+                        AccessTokenType = AccessTokenType.Reference
+                    },
+                    new Client
+                    {
+                        ClientId = "wsfed",
+                        ClientName = "WS-Fed Client",
+                        ProtocolType = IdentityServerConstants.ProtocolTypes.WsFederation,
+                        AllowedGrantTypes = GrantTypes.Implicit,
+                        Enabled = true,
+                        AllowedScopes = { "openid", "profile", "resource", "resource2" },
+                        RedirectUris = { "http://wsfed/callback"  }
+                    },
+                    new Client
+                    {
+                        ClientId = "client.cred.wsfed",
+                        ClientName = "WS-Fed Client",
+                        ProtocolType = IdentityServerConstants.ProtocolTypes.WsFederation,
+                        AllowedGrantTypes = GrantTypes.ClientCredentials,
+                        ClientSecrets = { new Secret("secret".Sha256()) },
 
-            new Client
-            {
-                ClientName = "Disabled Client",
-                Enabled = false,
-                ClientId = "disabled",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("invalid".Sha256())
-                },
-
-                AllowedGrantTypes = GrantTypes.ClientCredentials,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" }
-            },
-            new Client
-            {
-                ClientName = "Reference Token Client",
-
-                Enabled = true,
-                ClientId = "referencetokenclient",
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
-
-                AllowedGrantTypes = GrantTypes.Implicit,
-                RedirectUris = { "https://notused" },
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
-
-                AccessTokenType = AccessTokenType.Reference
-            },
-            new Client
-            {
-                ClientId = "wsfed",
-                ClientName = "WS-Fed Client",
-                ProtocolType = IdentityServerConstants.ProtocolTypes.WsFederation,
-                AllowedGrantTypes = GrantTypes.Implicit,
-                Enabled = true,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" },
-                RedirectUris = { "http://wsfed/callback" }
-            },
-            new Client
-            {
-                ClientId = "client.cred.wsfed",
-                ClientName = "WS-Fed Client",
-                ProtocolType = IdentityServerConstants.ProtocolTypes.WsFederation,
-                AllowedGrantTypes = GrantTypes.ClientCredentials,
-                ClientSecrets = { new Secret("secret".Sha256()) },
-
-                Enabled = true,
-                AllowedScopes = { "openid", "profile", "resource", "resource2" }
-            },
-            new Client
-            {
-                ClientId = "client.implicit",
-                ClientName = "Implicit Client",
-                AllowedGrantTypes = GrantTypes.Implicit,
-                RedirectUris = { "https://notused" },
-                AllowedScopes = { "openid", "profile", "resource", "resource2" }
-            },
-            new Client
-            {
-                ClientId = "implicit_and_client_creds",
-                AllowedGrantTypes = GrantTypes.ImplicitAndClientCredentials,
-                RedirectUris = { "https://notused" },
-                AllowedScopes = { "api1" }
-            },
-            new Client
-            {
-                ClientId = "device_flow",
-                ClientName = "Device Flow Client",
-                AllowedGrantTypes = GrantTypes.DeviceFlow,
-                AllowedScopes = { "openid", "profile", "resource" },
-                AllowOfflineAccess = true,
-                ClientSecrets = new List<Secret>
-                {
-                    new Secret("secret".Sha256())
-                },
-            }
-        };
+                        Enabled = true,
+                        AllowedScopes = { "openid", "profile", "resource", "resource2" }
+                    },
+                    new Client
+                    {
+                        ClientId = "client.implicit",
+                        ClientName = "Implicit Client",
+                        AllowedGrantTypes = GrantTypes.Implicit,
+                        RedirectUris = { "https://notused" },
+                        AllowedScopes = { "openid", "profile", "resource", "resource2" }
+                    },
+                    new Client
+                    {
+                        ClientId = "implicit_and_client_creds",
+                        AllowedGrantTypes = GrantTypes.ImplicitAndClientCredentials,
+                        RedirectUris = { "https://notused" },
+                        AllowedScopes = {"api1"}
+                    },
+                    new Client
+                    {
+                        ClientId = "device_flow",
+                        ClientName = "Device Flow Client",
+                        AllowedGrantTypes = GrantTypes.DeviceFlow,
+                        AllowedScopes = [
+                            "openid", "profile", "resource",
+                            "urn:valid.resource:Read", "urn:valid.resource:Write",
+                        ],
+                        AllowOfflineAccess = true,
+                        ClientSecrets = new List<Secret>
+                        {
+                            new Secret("secret".Sha256())
+                        },
+                    }
+            };
+        }
     }
 }

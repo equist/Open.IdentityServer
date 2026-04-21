@@ -55,7 +55,8 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
         _logger = logger;
     }
 
-    public async Task<AuthorizeRequestValidationResult> ValidateAsync(NameValueCollection parameters, ClaimsPrincipal subject = null)
+    public async Task<AuthorizeRequestValidationResult> ValidateAsync(NameValueCollection parameters,
+        ClaimsPrincipal subject = null)
     {
         _logger.LogDebug("Start authorize request protocol validation");
 
@@ -65,7 +66,7 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
             Subject = subject ?? Principal.Anonymous,
             Raw = parameters ?? throw new ArgumentNullException(nameof(parameters))
         };
-            
+
         // load client_id
         // client_id must always be present on the request
         var loadClientResult = await LoadClientAsync(request);
@@ -155,14 +156,16 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
                 if (jwtRequestUri.Length > 512)
                 {
                     LogError("request_uri is too long", request);
-                    return Invalid(request, error: OidcConstants.AuthorizeErrors.InvalidRequestUri, description: "request_uri is too long");
+                    return Invalid(request, error: OidcConstants.AuthorizeErrors.InvalidRequestUri,
+                        description: "request_uri is too long");
                 }
 
                 var jwt = await _jwtRequestUriHttpClient.GetJwtAsync(jwtRequestUri, request.Client);
                 if (jwt.IsMissing())
                 {
                     LogError("no value returned from request_uri", request);
-                    return Invalid(request, error: OidcConstants.AuthorizeErrors.InvalidRequestUri, description: "no value returned from request_uri");
+                    return Invalid(request, error: OidcConstants.AuthorizeErrors.InvalidRequestUri,
+                        description: "no value returned from request_uri");
                 }
 
                 jwtRequest = jwt;
@@ -180,7 +183,8 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
             if (jwtRequest.Length >= _options.InputLengthRestrictions.Jwt)
             {
                 LogError("request value is too long", request);
-                return Invalid(request, error: OidcConstants.AuthorizeErrors.InvalidRequestObject, description: "Invalid request value");
+                return Invalid(request, error: OidcConstants.AuthorizeErrors.InvalidRequestObject,
+                    description: "Invalid request value");
             }
         }
 
@@ -210,7 +214,8 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
         if (client == null)
         {
             LogError("Unknown client or not enabled", request.ClientId, request);
-            return Invalid(request, OidcConstants.AuthorizeErrors.UnauthorizedClient, "Unknown client or client not enabled");
+            return Invalid(request, OidcConstants.AuthorizeErrors.UnauthorizedClient,
+                "Unknown client or client not enabled");
         }
 
         request.SetClient(client);
@@ -226,18 +231,21 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
         if (request.RequestObject.IsPresent())
         {
             // validate the request JWT for this client
-            var jwtRequestValidationResult = await _jwtRequestValidator.ValidateAsync(request.Client, request.RequestObject);
+            var jwtRequestValidationResult =
+                await _jwtRequestValidator.ValidateAsync(request.Client, request.RequestObject);
             if (jwtRequestValidationResult.IsError)
             {
                 LogError("request JWT validation failure", request);
-                return Invalid(request, error: OidcConstants.AuthorizeErrors.InvalidRequestObject, description: "Invalid JWT request");
+                return Invalid(request, error: OidcConstants.AuthorizeErrors.InvalidRequestObject,
+                    description: "Invalid JWT request");
             }
 
             // validate response_type match
             var responseType = request.Raw.Get(OidcConstants.AuthorizeRequest.ResponseType);
             if (responseType != null)
             {
-                if (jwtRequestValidationResult.Payload.TryGetValue(OidcConstants.AuthorizeRequest.ResponseType, out var payloadResponseType))
+                if (jwtRequestValidationResult.Payload.TryGetValue(OidcConstants.AuthorizeRequest.ResponseType,
+                        out var payloadResponseType))
                 {
                     if (payloadResponseType != responseType)
                     {
@@ -248,7 +256,8 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
             }
 
             // validate client_id mismatch
-            if (jwtRequestValidationResult.Payload.TryGetValue(OidcConstants.AuthorizeRequest.ClientId, out var payloadClientId))
+            if (jwtRequestValidationResult.Payload.TryGetValue(OidcConstants.AuthorizeRequest.ClientId,
+                    out var payloadClientId))
             {
                 if (!string.Equals(request.Client.ClientId, payloadClientId, StringComparison.Ordinal))
                 {
@@ -259,7 +268,8 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
             else
             {
                 LogError("client_id is missing in JWT payload", request);
-                return Invalid(request, error: OidcConstants.AuthorizeErrors.InvalidRequestObject, description: "Invalid JWT request");
+                return Invalid(request, error: OidcConstants.AuthorizeErrors.InvalidRequestObject,
+                    description: "Invalid JWT request");
             }
 
             var ignoreKeys = new[]
@@ -272,9 +282,9 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
             foreach (var key in jwtRequestValidationResult.Payload.Keys)
             {
                 if (ignoreKeys.Contains(key)) continue;
-                    
+
                 var value = jwtRequestValidationResult.Payload[key];
-                    
+
                 var qsValue = request.Raw.Get(key);
                 if (qsValue != null)
                 {
@@ -303,7 +313,8 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
         {
             if (!request.RequestObjectValues.Any())
             {
-                return Invalid(request, description: "Client must use request object, but no request or request_uri parameter present");
+                return Invalid(request,
+                    description: "Client must use request object, but no request or request_uri parameter present");
             }
         }
 
@@ -380,14 +391,15 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
         if (!Constants.SupportedResponseTypes.Contains(responseType, _responseTypeEqualityComparer))
         {
             LogError("Response type not supported", responseType, request);
-            return Invalid(request, OidcConstants.AuthorizeErrors.UnsupportedResponseType, "Response type not supported");
+            return Invalid(request, OidcConstants.AuthorizeErrors.UnsupportedResponseType,
+                "Response type not supported");
         }
 
         // Even though the responseType may have come in in an unconventional order,
         // we still need the request's ResponseType property to be set to the
         // conventional, supported response type.
-        request.ResponseType = Constants.SupportedResponseTypes.First(
-            supportedResponseType => _responseTypeEqualityComparer.Equals(supportedResponseType, responseType));
+        request.ResponseType = Constants.SupportedResponseTypes.First(supportedResponseType =>
+            _responseTypeEqualityComparer.Equals(supportedResponseType, responseType));
 
         //////////////////////////////////////////////////////////
         // match response_type to grant type
@@ -441,13 +453,15 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
                 else
                 {
                     LogError("Invalid response_mode for response_type", responseMode, request);
-                    return Invalid(request, OidcConstants.AuthorizeErrors.InvalidRequest, description: "Invalid response_mode for response_type");
+                    return Invalid(request, OidcConstants.AuthorizeErrors.InvalidRequest,
+                        description: "Invalid response_mode for response_type");
                 }
             }
             else
             {
                 LogError("Unsupported response_mode", responseMode, request);
-                return Invalid(request, OidcConstants.AuthorizeErrors.UnsupportedResponseType, description: "Invalid response_mode");
+                return Invalid(request, OidcConstants.AuthorizeErrors.UnsupportedResponseType,
+                    description: "Invalid response_mode");
             }
         }
 
@@ -470,7 +484,9 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
         {
             if (!request.Client.AllowAccessTokensViaBrowser)
             {
-                LogError("Client requested access token - but client is not configured to receive access tokens via browser", request);
+                LogError(
+                    "Client requested access token - but client is not configured to receive access tokens via browser",
+                    request);
                 return Invalid(request, description: "Client not configured to receive access tokens via browser");
             }
         }
@@ -564,78 +580,82 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
             request.IsOpenIdRequest = true;
         }
 
-            //////////////////////////////////////////////////////////
-            // check scope vs response_type plausability
-            //////////////////////////////////////////////////////////
-            var requirement = Constants.ResponseTypeToScopeRequirement[request.ResponseType];
-            if (requirement == Constants.ScopeRequirement.Identity ||
-                requirement == Constants.ScopeRequirement.IdentityOnly)
+        //////////////////////////////////////////////////////////
+        // check scope vs response_type plausability
+        //////////////////////////////////////////////////////////
+        var requirement = Constants.ResponseTypeToScopeRequirement[request.ResponseType];
+        if (requirement == Constants.ScopeRequirement.Identity ||
+            requirement == Constants.ScopeRequirement.IdentityOnly)
+        {
+            if (request.IsOpenIdRequest == false)
             {
-                if (request.IsOpenIdRequest == false)
-                {
-                    LogError("response_type requires the openid scope", request);
-                    return Invalid(request, description: "Missing openid scope");
-                }
+                LogError("response_type requires the openid scope", request);
+                return Invalid(request, description: "Missing openid scope");
             }
-            
-            //////////////////////////////////////////////////////////
-            // validate resource indicators are valid
-            //////////////////////////////////////////////////////////
-            var resourceRaw = request.Raw.Get(OidcConstants.AuthorizeRequest.Resource);
-            if (!resourceRaw.IsMissing())
+        }
+
+        //////////////////////////////////////////////////////////
+        // validate resource indicators are valid
+        //////////////////////////////////////////////////////////
+        // var resourceRaw = request.Raw.Get(OidcConstants.AuthorizeRequest.Resource);
+        // if (!resourceRaw.IsMissing())
+        // {
+        // var resources = resourceRaw.FromSeparatedString().Distinct().ToList();
+
+        var resources = request.GetResourceIndicators();
+        if (resources.Count != 0)
+        {
+            if (request.GrantType == OidcConstants.GrantTypes.Implicit ||
+                resources.Any(x => x.InValidResourceIndicatorString()))
             {
-                var resources = resourceRaw.FromSeparatedString().Distinct().ToList();
-
-                if (resources.Count != 0)
-                {
-                    if (request.GrantType == OidcConstants.GrantTypes.Implicit)
-                    {
-                        return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget, "The requested resource is invalid, missing, unknown, or malformed.");
-                    }
-                    
-                    foreach (var resource in resources)
-                    {
-                        if (!Uri.IsWellFormedUriString(resource, UriKind.Absolute))
-                        {
-                            return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget, "The requested resource is invalid, missing, unknown, or malformed.");
-                        }
-
-                        Uri resourceUri = new Uri(resource);
-                        if (!string.IsNullOrWhiteSpace(resourceUri.Query) ||
-                            !string.IsNullOrWhiteSpace(resourceUri.Fragment))
-                        {
-                            return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget, "The requested resource is invalid, missing, unknown, or malformed.");
-                        }
-
-                        request.RequestedResourceIndicators = resources;
-                    }
-                }
+                return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget,
+                    "The requested resource is invalid, missing, unknown, or malformed.");
             }
-            
-            //////////////////////////////////////////////////////////
-            // check if scopes are valid/supported and check for resource scopes
-            //////////////////////////////////////////////////////////
-            var validatedResources = await _resourceValidator.ValidateRequestedResourcesAsync(new ResourceValidationRequest
-            {
-                Client = request.Client,
-                Scopes = request.RequestedScopes,
-                ResourceIndicators = request.RequestedResourceIndicators,
-            });
 
-            if (!validatedResources.Succeeded)
+            // foreach (var resource in resources)
+            // {
+            //     if (!Uri.IsWellFormedUriString(resource, UriKind.Absolute))
+            //     {
+            //         return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget, "The requested resource is invalid, missing, unknown, or malformed.");
+            //     }
+            //
+            //     Uri resourceUri = new Uri(resource);
+            //     if (resourceUri.Query.IsPresent() || resourceUri.Fragment.IsPresent())
+            //     {
+            //         return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget, "The requested resource is invalid, missing, unknown, or malformed.");
+            //     }
+            // }
+
+            request.RequestedResourceIndicators = resources;
+        }
+        // }
+
+        //////////////////////////////////////////////////////////
+        // check if scopes are valid/supported and check for resource scopes
+        //////////////////////////////////////////////////////////
+        var validatedResources = await _resourceValidator.ValidateRequestedResourcesAsync(new ResourceValidationRequest
+        {
+            Client = request.Client,
+            Scopes = request.RequestedScopes,
+            ResourceIndicators = request.RequestedResourceIndicators,
+        });
+
+        if (!validatedResources.Succeeded)
+        {
+            if (validatedResources.InvalidResourceIndicators.Count > 0)
             {
-                if (validatedResources.InvalidResourceIndicators.Count > 0)
-                {
-                    return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget, "The requested resource is invalid, missing, unknown, or malformed.");
-                }
-                
-                return Invalid(request, OidcConstants.AuthorizeErrors.InvalidScope, "Invalid scope");
+                return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget,
+                    "The requested resource is invalid, missing, unknown, or malformed.");
             }
+
+            return Invalid(request, OidcConstants.AuthorizeErrors.InvalidScope, "Invalid scope");
+        }
 
         if (validatedResources.Resources.IdentityResources.Any() && !request.IsOpenIdRequest)
         {
             LogError("Identity related scope requests, but no openid scope", request);
-            return Invalid(request, OidcConstants.AuthorizeErrors.InvalidScope, "Identity scopes requested, but openid scope is missing");
+            return Invalid(request, OidcConstants.AuthorizeErrors.InvalidScope,
+                "Identity scopes requested, but openid scope is missing");
         }
 
         if (validatedResources.Resources.ApiScopes.Any())
@@ -655,20 +675,26 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
                     _logger.LogError("Requests for id_token response type must include identity scopes");
                     responseTypeValidationCheck = false;
                 }
+
                 break;
             case Constants.ScopeRequirement.IdentityOnly:
-                if (!validatedResources.Resources.IdentityResources.Any() || validatedResources.Resources.ApiScopes.Any())
+                if (!validatedResources.Resources.IdentityResources.Any() ||
+                    validatedResources.Resources.ApiScopes.Any())
                 {
                     _logger.LogError("Requests for id_token response type only must not include resource scopes");
                     responseTypeValidationCheck = false;
                 }
+
                 break;
             case Constants.ScopeRequirement.ResourceOnly:
-                if (validatedResources.Resources.IdentityResources.Any() || !validatedResources.Resources.ApiScopes.Any())
+                if (validatedResources.Resources.IdentityResources.Any() ||
+                    !validatedResources.Resources.ApiScopes.Any())
                 {
-                    _logger.LogError("Requests for token response type only must include resource scopes, but no identity scopes.");
+                    _logger.LogError(
+                        "Requests for token response type only must include resource scopes, but no identity scopes.");
                     responseTypeValidationCheck = false;
                 }
+
                 break;
         }
 
@@ -682,7 +708,8 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
         return Valid(request);
     }
 
-    private async Task<AuthorizeRequestValidationResult> ValidateOptionalParametersAsync(ValidatedAuthorizeRequest request)
+    private async Task<AuthorizeRequestValidationResult> ValidateOptionalParametersAsync(
+        ValidatedAuthorizeRequest request)
     {
         //////////////////////////////////////////////////////////
         // check nonce
@@ -822,7 +849,8 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
         if (idp.IsPresent())
         {
             // if idp is present but client does not allow it, strip it from the request message
-            if (request.Client.IdentityProviderRestrictions != null && request.Client.IdentityProviderRestrictions.Any())
+            if (request.Client.IdentityProviderRestrictions != null &&
+                request.Client.IdentityProviderRestrictions.Any())
             {
                 if (!request.Client.IdentityProviderRestrictions.Contains(idp))
                 {
@@ -858,7 +886,8 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
         return Valid(request);
     }
 
-    private AuthorizeRequestValidationResult Invalid(ValidatedAuthorizeRequest request, string error = OidcConstants.AuthorizeErrors.InvalidRequest, string description = null)
+    private AuthorizeRequestValidationResult Invalid(ValidatedAuthorizeRequest request,
+        string error = OidcConstants.AuthorizeErrors.InvalidRequest, string description = null)
     {
         return new AuthorizeRequestValidationResult(request, error, description);
     }
@@ -870,13 +899,15 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
 
     private void LogError(string message, ValidatedAuthorizeRequest request)
     {
-        var requestDetails = new AuthorizeRequestValidationLog(request, _options.Logging.AuthorizeRequestSensitiveValuesFilter);
+        var requestDetails =
+            new AuthorizeRequestValidationLog(request, _options.Logging.AuthorizeRequestSensitiveValuesFilter);
         _logger.LogError(message + "\n{@requestDetails}", requestDetails);
     }
 
     private void LogError(string message, string detail, ValidatedAuthorizeRequest request)
     {
-        var requestDetails = new AuthorizeRequestValidationLog(request, _options.Logging.AuthorizeRequestSensitiveValuesFilter);
+        var requestDetails =
+            new AuthorizeRequestValidationLog(request, _options.Logging.AuthorizeRequestSensitiveValuesFilter);
         _logger.LogError(message + ": {detail}\n{@requestDetails}", detail, requestDetails);
     }
 }
