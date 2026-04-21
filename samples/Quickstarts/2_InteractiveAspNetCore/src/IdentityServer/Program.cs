@@ -9,6 +9,7 @@ using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 using System;
 using Microsoft.Extensions.Hosting;
+using Open.IdentityServer;
 
 namespace IdentityServer
 {

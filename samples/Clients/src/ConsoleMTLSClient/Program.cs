@@ -1,11 +1,12 @@
 ﻿using Clients;
-using IdentityModel;
-using IdentityModel.Client;
-using Newtonsoft.Json.Linq;
+using Open.IdentityModel;
+using Open.IdentityModel.Client;
 using System;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace ConsoleMTLSClient
@@ -32,7 +33,7 @@ namespace ConsoleMTLSClient
 
             var endpoint = disco
                     .TryGetValue(OidcConstants.Discovery.MtlsEndpointAliases)
-                    .Value<string>(OidcConstants.Discovery.TokenEndpoint)
+                    ?.TryGetValue(OidcConstants.Discovery.TokenEndpoint)
                     .ToString();
             
             var response = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
@@ -58,7 +59,7 @@ namespace ConsoleMTLSClient
             var response = await client.GetStringAsync("identity");
 
             "\n\nService claims:".ConsoleGreen();
-            Console.WriteLine(JArray.Parse(response));
+            Console.WriteLine(JsonArray.Parse(response));
         }
 
         static SocketsHttpHandler GetHandler()
