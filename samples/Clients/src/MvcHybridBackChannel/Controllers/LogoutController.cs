@@ -1,16 +1,16 @@
 ﻿using Clients;
-using IdentityModel;
-using IdentityModel.Client;
+using Open.IdentityModel;
+using Open.IdentityModel.Client;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace MvcHybrid.Controllers
@@ -59,9 +59,10 @@ namespace MvcHybrid.Controllers
 
             var eventsJson = claims.FindFirst("events")?.Value;
             if (String.IsNullOrWhiteSpace(eventsJson)) throw new Exception("Invalid logout token");
-
-            var events = JObject.Parse(eventsJson);
-            var logoutEvent = events.TryGetValue("http://schemas.openid.net/event/backchannel-logout");
+            
+            var events = JsonObject.Parse(eventsJson);
+            events.AsObject().TryGetPropertyValue("http://schemas.openid.net/event/backchannel-logout", out var logoutEvent);
+            
             if (logoutEvent == null) throw new Exception("Invalid logout token");
 
             return claims;

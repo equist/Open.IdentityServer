@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
 using Clients;
-using Newtonsoft.Json.Linq;
-using IdentityModel.Client;
+using Open.IdentityModel.Client;
 using System.Globalization;
+using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Http;
 
 namespace MvcHybrid.Controllers
@@ -43,7 +43,7 @@ namespace MvcHybrid.Controllers
             client.SetBearerToken(token);
 
             var response = await client.GetStringAsync(Constants.SampleApi + "identity");
-            ViewBag.Json = JArray.Parse(response).ToString();
+            ViewBag.Json = JsonArray.Parse(response).ToString();
 
             return View();
         }
