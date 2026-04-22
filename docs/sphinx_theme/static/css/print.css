@@ -5,12 +5,4 @@ table thead td,table thead th{color:#666;font-size:12px;font-weight:400;letter-s
 .text-left{text-align:left}.text-center{text-align:center}.print-grid{font-size:0;margin:0 0 0 -2rem;text-align:left}.print-grid-center{text-align:center}[class*=print-grid__col],[class^=print-grid__col]{box-sizing:border-box;display:inline-block;font-size:16px;line-height:20px;padding:0 0 2rem 2rem;text-align:left;vertical-align:top;width:100%}
 .print-grid__col-1\/4{width:25%}.print-grid__col-1\/3{width:33.3333%}.print-grid__col-1\/2{width:50%}.print-grid__col-2\/3{width:66.6666%}.print-grid__col-3\/4{width:75%}body>header{border-bottom:1px solid #ccc;font-size:20px;font-weight:700;margin-bottom:15px;padding-bottom:15px;text-align:left}body>footer{color:#666;font-size:12px;line-height:16px;padding-top:15px}
 body>footer a:after{content:" - www.rocksolidknowledge.com"}.cms blockquote{border-left:4px solid #000;font-size:18px;font-weight:700;line-height:22px;margin:0 10% 15px;padding:10px 15px}.cms .cms-quote-author{display:block;font-weight:400;margin-top:10px}.cms .cms-quote-author,[itemtype="http://schema.org/Article"] [itemprop=author]{color:#888;font-size:14px;line-height:18px}
-[itemtype="http://schema.org/Article"] [itemprop=author] [itemprop=name]{color:#000}.row-block{border-bottom:1px solid #ccc;clear:both;margin-bottom:2rem;padding-bottom:2rem}
-
-.shadow-lg {
-    box-shadow: none;
-}
-
-main > section {
-    padding: 0;
-}
+[itemtype="http://schema.org/Article"] [itemprop=author] [itemprop=name]{color:#000}.row-block{border-bottom:1px solid #ccc;clear:both;margin-bottom:2rem;padding-bottom:2rem}.shadow-lg {box-shadow: none;}main>section {padding: 0;}

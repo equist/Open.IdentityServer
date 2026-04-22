@@ -6,18 +6,8 @@
     <meta charset="utf-8">
 
     {% if theme_analytics and theme_gtm_key %}
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', '{{ theme_gtm_key }}');
-    </script>
+
+    <script src="{{ pathto('_static/js/sphinx-analytics.js', 1) }}"></script>
     {% endif %}
 
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -78,12 +68,8 @@
     {% block extra_scripts %}{% endblock %}
 
     {% if theme_load_menu_expanded and theme_load_menu_expanded != 'false' %}
-    <script>
-        window.addEventListener('load', function() {
-            var expandBtn = document.querySelector('.js-expand-all');
-            if (expandBtn) { expandBtn.click(); }
-        });
-    </script>
+
+    <script src="{{ pathto('_static/js/sphinx-layout.js', 1) }}"></script>
     {% endif %}
 </body>
 </html>
