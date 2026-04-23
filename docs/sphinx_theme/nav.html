@@ -1,0 +1,9 @@
+{# Recursive navigation renderer for Sphinx toctree output.
+   Wraps toctree() HTML with CSS classes that theme.js expects for expand/collapse.
+   titles_only=True ensures only document pages appear as nodes — section headings
+   within a document are excluded, matching MkDocs navigation behaviour. #}
+<div class="sphinx-nav-tree">
+    {{ toctree(maxdepth=-1, collapse=False, includehidden=True, titles_only=True) }}
+</div>
+
+<script src="{{ pathto('_static/js/sphinx-nav.js', 1) }}"></script>
