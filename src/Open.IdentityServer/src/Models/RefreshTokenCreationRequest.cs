@@ -56,5 +56,5 @@ public class RefreshTokenCreationRequest
     /// <value>
     /// the requested resource indicator
     /// </value>
-    public string RequestedResourceIndicator { get; set; }
+    public string? RequestedResourceIndicator { get; set; }
 }

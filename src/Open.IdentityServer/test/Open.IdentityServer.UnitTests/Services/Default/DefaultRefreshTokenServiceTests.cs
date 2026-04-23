@@ -51,6 +51,28 @@ public class DefaultRefreshTokenServiceTests
     }
 
     [Fact]
+    public async Task CreateRefreshToken_WithResourceIndicatorProperties_ShouldStoreResourceIndicators()
+    {
+        var client = new Client();
+        var accessToken = new Token();
+
+        var request = new RefreshTokenCreationRequest
+        {
+            Subject = _user, AccessToken = accessToken, Client = client, AuthorisedScopes = [],
+            AuthorisedResourceIndicators = ["urn:some_resource", "https://some.resource"],
+            RequestedResourceIndicator = "urn:some_resource",
+        };
+
+        var handle = await _subject.CreateRefreshTokenAsync(request);
+        var actual = await _store.GetRefreshTokenAsync(handle);
+
+        actual.Should().NotBeNull();
+        actual.AuthorizedResourceIndicators.Should().BeEquivalentTo(request.AuthorisedResourceIndicators);
+        actual.AccessTokens.Should().ContainKey(request.RequestedResourceIndicator)
+            .WhoseValue.Should().BeEquivalentTo(request.AccessToken);
+    }
+
+    [Fact]
     public async Task CreateRefreshToken_should_match_absolute_lifetime()
     {
         var client = new Client

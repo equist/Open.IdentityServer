@@ -110,20 +110,6 @@ public class RefreshToken
     public Dictionary<string, Token> AccessTokens { get; set; } = new();
 
     /// <summary>
-    /// Gets access token in dictionary with resourceId as key
-    /// </summary>
-    /// <param name="resourceId">resource identifier to use as key, defaults to string.Empty</param>
-    /// <returns></returns>
-    public Token? GetAccessToken(string? resourceId) => AccessTokens.GetValueOrDefault(resourceId ?? string.Empty);
-
-    /// <summary>
-    /// Sets access token in dictionary with resourceId as key
-    /// </summary>
-    /// <param name="token">token to store</param>
-    /// <param name="resourceId">resource identifier to use as key, defaults to string.Empty</param>
-    public void SetAccessToken(Token token, string? resourceId) => AccessTokens[resourceId ?? string.Empty] = token;
-
-    /// <summary>
     /// List of authorized resource indicators, null means no restrictions, while having a value restricts usage to
     /// resource indicators present in list
     /// </summary>

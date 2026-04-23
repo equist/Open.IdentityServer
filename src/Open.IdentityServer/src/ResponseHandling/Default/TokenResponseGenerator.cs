@@ -210,7 +210,8 @@ public class TokenResponseGenerator : ITokenResponseGenerator
         Logger.LogTrace("Creating response for refresh token request");
 
         var oldAccessToken =
-            request.ValidatedRequest.RefreshToken.GetAccessToken(request.ValidatedRequest.RequestedResourceIndicator);
+            request.ValidatedRequest.RefreshToken.AccessTokens.GetValueOrDefault(
+                request.ValidatedRequest.RequestedResourceIndicator ?? string.Empty);
         string accessTokenString;
 
         var parsedScopesResult = ScopeParser.ParseScopeValues(request.ValidatedRequest.RefreshToken.AuthorizedScopes);
@@ -237,8 +238,8 @@ public class TokenResponseGenerator : ITokenResponseGenerator
             var newAccessToken = await TokenService.CreateAccessTokenAsync(creationRequest);
             accessTokenString = await TokenService.CreateSecurityTokenAsync(newAccessToken);
 
-            request.ValidatedRequest.RefreshToken.SetAccessToken(newAccessToken,
-                request.ValidatedRequest.RequestedResourceIndicator);
+            request.ValidatedRequest.RefreshToken.AccessTokens[
+                request.ValidatedRequest.RequestedResourceIndicator ?? string.Empty] = newAccessToken;
         }
         else
         {
