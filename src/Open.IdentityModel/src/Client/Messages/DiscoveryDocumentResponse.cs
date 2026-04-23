@@ -18,8 +18,16 @@ namespace Open.IdentityModel.Client;
 /// </summary>
 public class DiscoveryDocumentResponse : ProtocolResponse
 {
+    /// <summary>
+    /// Gets or sets the discovery policy used to validate this response.
+    /// </summary>
     public DiscoveryPolicy Policy { get; set; } = default!;
-
+    
+    /// <summary>
+    /// Validates the discovery document against the policy and populates endpoint aliases.
+    /// </summary>
+    /// <param name="initializationData">A <see cref="DiscoveryPolicy"/> to validate against, or a <see cref="string"/> error message on non-success responses.</param>
+    /// <returns>A task that completes when validation is finished and <see cref="MtlsEndpointAliases"/> has been populated.</returns>
     protected override Task InitializeAsync(object? initializationData = null)
     {
         if (HttpResponse?.IsSuccessStatusCode != true)
@@ -58,7 +66,7 @@ public class DiscoveryDocumentResponse : ProtocolResponse
     /// Gets the MTLS endpoint aliases
     /// </summary>
     /// <value>
-    /// The key set.
+    /// The MTLS endpoint aliases discovered from the discovery document.
     /// </value>
     public MtlsEndpointAliases? MtlsEndpointAliases { get; internal set; }
         
@@ -92,9 +100,32 @@ public class DiscoveryDocumentResponse : ProtocolResponse
     public bool? RequirePushedAuthorizationRequests => TryGetBoolean(OidcConstants.Discovery.RequirePushedAuthorizationRequests);
 
     // generic
+    /// <summary>
+    /// Tries to get a raw JSON element value from the discovery document by name.
+    /// </summary>
+    /// <param name="name">The property name to look up.</param>
+    /// <returns>The <see cref="JsonElement"/> for the property, or <see langword="null"/> if not present.</returns>
     public JsonElement? TryGetValue(string name) => Json?.TryGetValue(name);
+    
+    /// <summary>
+    /// Tries to get a string value from the discovery document by name.
+    /// </summary>
+    /// <param name="name">The property name to look up.</param>
+    /// <returns>The string value, or <see langword="null"/> if not present.</returns>
     public string? TryGetString(string name) => Json?.TryGetString(name);
+    
+    /// <summary>
+    /// Tries to get a boolean value from the discovery document by name.
+    /// </summary>
+    /// <param name="name">The property name to look up.</param>
+    /// <returns>The boolean value, or <see langword="null"/> if not present.</returns>
     public bool? TryGetBoolean(string name) => Json?.TryGetBoolean(name);
+    
+    /// <summary>
+    /// Tries to get a string array from the discovery document by name.
+    /// </summary>
+    /// <param name="name">The property name to look up.</param>
+    /// <returns>The array of strings, or an empty array if not present.</returns>
     public IEnumerable<string> TryGetStringArray(string name) => Json?.TryGetStringArray(name) ?? Array.Empty<string>();
 
     private string Validate(DiscoveryPolicy policy)
@@ -125,7 +156,7 @@ public class DiscoveryDocumentResponse : ProtocolResponse
     /// </summary>
     /// <param name="issuer">The issuer.</param>
     /// <param name="authority">The authority.</param>
-    /// <returns></returns>
+    /// <returns><see langword="true"/> if the issuer name is valid for the given authority using the default validation strategy; otherwise, <see langword="false"/>.</returns>
     public bool ValidateIssuerName(string issuer, string authority)
     {
         return DiscoveryPolicy.DefaultAuthorityValidationStrategy.IsIssuerNameValid(issuer, authority).Success;
@@ -137,7 +168,7 @@ public class DiscoveryDocumentResponse : ProtocolResponse
     /// <param name="issuer">The issuer.</param>
     /// <param name="authority">The authority.</param>
     /// <param name="nameComparison">The comparison mechanism that should be used when performing the match.</param>
-    /// <returns></returns>
+    /// <returns><see langword="true"/> if the issuer name matches the authority using the specified string comparison; otherwise, <see langword="false"/>.</returns>
     public bool ValidateIssuerName(string issuer, string authority, StringComparison nameComparison)
     {
         return new StringComparisonAuthorityValidationStrategy(nameComparison).IsIssuerNameValid(issuer, authority).Success;
@@ -149,7 +180,7 @@ public class DiscoveryDocumentResponse : ProtocolResponse
     /// <param name="issuer">The issuer.</param>
     /// <param name="authority">The authority.</param>
     /// <param name="validationStrategy">The strategy to use.</param>
-    /// <returns></returns>
+    /// <returns><see langword="true"/> if the issuer name is valid for the given authority; otherwise, <see langword="false"/>.</returns>
     private bool ValidateIssuerName(string issuer, string authority, IAuthorityValidationStrategy validationStrategy)
     {
         return validationStrategy.IsIssuerNameValid(issuer, authority).Success;
@@ -160,7 +191,7 @@ public class DiscoveryDocumentResponse : ProtocolResponse
     /// </summary>
     /// <param name="json">The json.</param>
     /// <param name="policy">The policy.</param>
-    /// <returns></returns>
+    /// <returns>An error message string if any endpoint fails validation; otherwise, an empty string.</returns>
     public string ValidateEndpoints(JsonElement? json, DiscoveryPolicy policy)
     {
         if(json == null)
