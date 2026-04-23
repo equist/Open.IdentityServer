@@ -30,14 +30,14 @@ internal static class StringExtensions
             sb.Append(element + " ");
         }
 
-        [DebuggerStepThrough]
-        public static IEnumerable<string> FromSeparatedString(this string input)
-        {
-            input = input.Trim();
-            return input.Split([' ', ','], StringSplitOptions.RemoveEmptyEntries).ToList();
-        }
-
         return sb.ToString().Trim();
+    }
+
+    [DebuggerStepThrough]
+    public static IEnumerable<string> FromSeparatedString(this string input)
+    {
+        input = input.Trim();
+        return input.Split([' ', ','], StringSplitOptions.RemoveEmptyEntries).ToList();
     }
 
     [DebuggerStepThrough]
