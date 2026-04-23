@@ -597,38 +597,25 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
         //////////////////////////////////////////////////////////
         // validate resource indicators are valid
         //////////////////////////////////////////////////////////
-        // var resourceRaw = request.Raw.Get(OidcConstants.AuthorizeRequest.Resource);
-        // if (!resourceRaw.IsMissing())
-        // {
-        // var resources = resourceRaw.FromSeparatedString().Distinct().ToList();
-
         var resources = request.GetResourceIndicators();
         if (resources.Count != 0)
         {
-            if (request.GrantType == OidcConstants.GrantTypes.Implicit ||
-                resources.Any(x => x.InValidResourceIndicatorString()))
+            if (request.GrantType == OidcConstants.GrantTypes.Implicit)
             {
+                LogError("resource(s) provided with Implicit grant_type", request);
                 return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget,
                     "The requested resource is invalid, missing, unknown, or malformed.");
             }
 
-            // foreach (var resource in resources)
-            // {
-            //     if (!Uri.IsWellFormedUriString(resource, UriKind.Absolute))
-            //     {
-            //         return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget, "The requested resource is invalid, missing, unknown, or malformed.");
-            //     }
-            //
-            //     Uri resourceUri = new Uri(resource);
-            //     if (resourceUri.Query.IsPresent() || resourceUri.Fragment.IsPresent())
-            //     {
-            //         return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget, "The requested resource is invalid, missing, unknown, or malformed.");
-            //     }
-            // }
+            if (resources.Any(x => x.InValidResourceIndicatorString()))
+            {
+                LogError("resource(s) invalid", request);
+                return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget,
+                    "The requested resource is invalid, missing, unknown, or malformed.");
+            }
 
             request.RequestedResourceIndicators = resources;
         }
-        // }
 
         //////////////////////////////////////////////////////////
         // check if scopes are valid/supported and check for resource scopes
@@ -644,6 +631,7 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
         {
             if (validatedResources.InvalidResourceIndicators.Count > 0)
             {
+                LogError("resource(s) don't match any resources", request);
                 return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget,
                     "The requested resource is invalid, missing, unknown, or malformed.");
             }

@@ -219,6 +219,45 @@ public class TokenRequestValidation_ResourceIndicators
 
     [Fact]
     [Trait("Category", Category)]
+    public async Task Valid_Code_WithoutResourceIndicator_ButResourcesAuthorisedInAuthCode()
+    {
+        var client = await _clients.FindEnabledClientByIdAsync("codeclient");
+        var grants = Factory.CreateAuthorizationCodeStore();
+
+        var code = new AuthorizationCode
+        {
+            CreationTime = DateTime.UtcNow,
+            Subject = new IdentityServerUser("123").CreatePrincipal(),
+            ClientId = client.ClientId,
+            Lifetime = client.AuthorizationCodeLifetime,
+            RedirectUri = "https://server/cb",
+            RequestedScopes = new List<string>
+            {
+                "openid"
+            },
+            RequestedResourceIndicators = [
+                "https://valid.resource.com", "urn:valid.resource"
+            ]
+        };
+
+        var handle = await grants.StoreAuthorizationCodeAsync(code);
+
+        var validator = Factory.CreateTokenRequestValidator(authorizationCodeStore: grants);
+
+        var parameters = new NameValueCollection
+        {
+            { OidcConstants.TokenRequest.GrantType, OidcConstants.GrantTypes.AuthorizationCode },
+            { OidcConstants.TokenRequest.Code, handle },
+            { OidcConstants.TokenRequest.RedirectUri, "https://server/cb" },
+        };
+
+        var result = await validator.ValidateRequestAsync(parameters, client.ToValidationResult());
+
+        result.IsError.Should().BeFalse();
+    }
+
+    [Fact]
+    [Trait("Category", Category)]
     public async Task Valid_Code_WithResourceIndicator_AndOriginalResourceIndicatorEmpty()
     {
         var client = await _clients.FindEnabledClientByIdAsync("codeclient");
@@ -329,6 +368,45 @@ public class TokenRequestValidation_ResourceIndicators
             { OidcConstants.TokenRequest.GrantType, "refresh_token" },
             { OidcConstants.TokenRequest.RefreshToken, handle },
             { OidcConstants.TokenRequest.Resource, "urn:valid.resource" },
+        };
+
+        var result = await validator.ValidateRequestAsync(parameters, client.ToValidationResult());
+
+        result.IsError.Should().BeFalse();
+    }
+    
+    [Fact]
+    [Trait("Category", Category)]
+    public async Task Valid_RefreshToken_WithoutResourceIndicator_ButResourcesAuthorisedInRefreshToken()
+    {
+        var refreshToken = new RefreshToken
+        {
+            Subject = new IdentityServerUser("foo").CreatePrincipal(),
+            ClientId = "roclient",
+            AuthorizedScopes = [
+                "urn:valid.resource:Read", "urn:valid.resource:Write",
+                "valid:Read", "valid:Write",
+            ],
+                
+            Lifetime = 600,
+            CreationTime = DateTime.UtcNow,
+            AuthorizedResourceIndicators = [
+                "https://valid.resource.com", "urn:valid.resource"
+            ]
+        };
+
+        var grants = Factory.CreateRefreshTokenStore();
+        var handle = await grants.StoreRefreshTokenAsync(refreshToken);
+
+        var client = await _clients.FindEnabledClientByIdAsync("roclient");
+
+        var validator = Factory.CreateTokenRequestValidator(
+            refreshTokenStore: grants);
+
+        var parameters = new NameValueCollection
+        {
+            { OidcConstants.TokenRequest.GrantType, "refresh_token" },
+            { OidcConstants.TokenRequest.RefreshToken, handle },
         };
 
         var result = await validator.ValidateRequestAsync(parameters, client.ToValidationResult());

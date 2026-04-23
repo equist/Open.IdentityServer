@@ -155,10 +155,23 @@ internal class TokenRequestValidator : ITokenRequestValidator
         var resources = _validatedRequest.GetResourceIndicators();
         if (resources.Count != 0)
         {
-            if (_validatedRequest.GrantType == OidcConstants.GrantTypes.DeviceCode ||
-                resources.Any(x => x.InValidResourceIndicatorString()) ||
-                resources.Count > 1)
+            if (_validatedRequest.GrantType == OidcConstants.GrantTypes.DeviceCode)
             {
+                LogError("resource provided with DeviceCode grant type");
+                return Invalid(OidcConstants.AuthorizeErrors.InvalidTarget,
+                    "The requested resource is invalid, missing, unknown, or malformed.");
+            }
+
+            if (resources.Any(x => x.InValidResourceIndicatorString()))
+            {
+                LogError("resource is invalid string");
+                return Invalid(OidcConstants.AuthorizeErrors.InvalidTarget,
+                    "The requested resource is invalid, missing, unknown, or malformed.");
+            }
+
+            if (resources.Count > 1)
+            {
+                LogError("more than one resource provided");
                 return Invalid(OidcConstants.AuthorizeErrors.InvalidTarget,
                     "The requested resource is invalid, missing, unknown, or malformed.");
             }
@@ -260,10 +273,13 @@ internal class TokenRequestValidator : ITokenRequestValidator
         /////////////////////////////////////////////
         // validate resource indicators
         /////////////////////////////////////////////
-        if (authCode.RequestedResourceIndicators != null && authCode.RequestedResourceIndicators.Any())
+        if (_validatedRequest.RequestedResourceIndicator.IsPresent() &&
+            authCode.RequestedResourceIndicators != null &&
+            authCode.RequestedResourceIndicators.Any())
         {
             if (!authCode.RequestedResourceIndicators.Contains(_validatedRequest.RequestedResourceIndicator))
             {
+                LogError("code not valid for requested resource");
                 return Invalid(OidcConstants.TokenErrors.InvalidTarget);
             }
         }
@@ -306,8 +322,8 @@ internal class TokenRequestValidator : ITokenRequestValidator
             return Invalid(OidcConstants.TokenErrors.InvalidGrant);
         }
 
-        _validatedRequest.AuthorizationCode = authZcode;
-        _validatedRequest.Subject = authZcode.Subject;
+        _validatedRequest.AuthorizationCode = authCode;
+        _validatedRequest.Subject = authCode.Subject;
 
         /////////////////////////////////////////////
         // validate redirect_uri
@@ -429,6 +445,7 @@ internal class TokenRequestValidator : ITokenRequestValidator
                 !string.Equals(x.Name, _validatedRequest.RequestedResourceIndicator,
                     StringComparison.OrdinalIgnoreCase)))
         {
+            LogError("no scopes from resource requested");
             return Invalid(OidcConstants.TokenErrors.InvalidTarget);
         }
 
@@ -590,12 +607,14 @@ internal class TokenRequestValidator : ITokenRequestValidator
         /////////////////////////////////////////////
         // validate resource indicators
         /////////////////////////////////////////////
-        if (result.RefreshToken.AuthorizedResourceIndicators != null &&
+        if (_validatedRequest.RequestedResourceIndicator.IsPresent() &&
+            result.RefreshToken.AuthorizedResourceIndicators != null &&
             result.RefreshToken.AuthorizedResourceIndicators.Any())
         {
             if (!result.RefreshToken.AuthorizedResourceIndicators.Contains(_validatedRequest
                     .RequestedResourceIndicator))
             {
+                LogError("refresh token not authorized for resource");
                 return Invalid(OidcConstants.TokenErrors.InvalidTarget);
             }
         }
