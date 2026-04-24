@@ -60,7 +60,7 @@ public class TokenResponseGeneratorTests_Code : TokenResponseGeneratorTests
             {
                 ClientId = "codeclient",
                 Subject = CreateSubject(),
-                RequestedScopes = ["urn:valid.resource:Read", "urn:valid.resource:Write", "valid:Read"],
+                RequestedScopes = ["urn:valid.resource:Read", "urn:valid.resource:Write", "valid:Read", "resource"],
                 IsOpenId = false,
                 RequestedResourceIndicators = ["urn:valid.resource", "https://valid.resource.com"],
             },
@@ -71,16 +71,17 @@ public class TokenResponseGeneratorTests_Code : TokenResponseGeneratorTests
 
         response.AccessToken.Should().Be("auth_code_token");
         response.AccessTokenLifetime.Should().Be(3600);
-        response.Scope.Should().Be("urn:valid.resource:Read urn:valid.resource:Write valid:Read");
+        response.Scope.Should().Be("urn:valid.resource:Read urn:valid.resource:Write valid:Read resource");
 
         capturedRequest.Value.Should().NotBeNull();
         capturedRequest.Value!.Subject.Should().BeEquivalentTo(request.AuthorizationCode.Subject);
         capturedRequest.Value.ValidatedResources.Resources.ApiResources
             .Should().ContainSingle(x => x.Name == "urn:valid.resource")
             .And.ContainSingle(x => x.Name == "https://valid.resource.com")
-            .And.HaveCount(2);
+            .And.ContainSingle(x => x.Name == "api")
+            .And.HaveCount(3);
 
-        capturedRequest.Value.ValidatedResources.RawScopeValues.Should().BeEquivalentTo("urn:valid.resource:Read", "urn:valid.resource:Write", "valid:Read");
+        capturedRequest.Value.ValidatedResources.RawScopeValues.Should().BeEquivalentTo("urn:valid.resource:Read", "urn:valid.resource:Write", "valid:Read", "resource");
     }
 
     [Fact]

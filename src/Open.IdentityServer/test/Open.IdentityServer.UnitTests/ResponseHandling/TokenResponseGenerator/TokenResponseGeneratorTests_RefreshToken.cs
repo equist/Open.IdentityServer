@@ -291,7 +291,7 @@ public class TokenResponseGeneratorTests_RefreshToken : TokenResponseGeneratorTe
             RefreshToken = new RefreshToken
             {
                 Subject = CreateSubject(),
-                AuthorizedScopes = ["urn:valid.resource:Read", "valid:Read", "valid:Write"],
+                AuthorizedScopes = ["urn:valid.resource:Read", "valid:Read", "valid:Write", "resource"],
                 AuthorizedResourceIndicators = ["urn:valid.resource", "https://valid.resource.com"],
                 AccessTokens = new Dictionary<string, Token>
                 {
@@ -306,15 +306,16 @@ public class TokenResponseGeneratorTests_RefreshToken : TokenResponseGeneratorTe
 
         response.AccessToken.Should().Be("new_access_token");
         response.AccessTokenLifetime.Should().Be(2500);
-        response.Scope.Should().BeEquivalentTo("urn:valid.resource:Read valid:Read valid:Write");
+        response.Scope.Should().BeEquivalentTo("urn:valid.resource:Read valid:Read valid:Write resource");
 
         capturedTokenRequest.Value.Should().NotBeNull();
         capturedTokenRequest.Value!.Subject.Should().BeEquivalentTo(request.RefreshToken.Subject);
         capturedTokenRequest.Value.ValidatedResources.Resources.ApiResources
             .Should().ContainSingle(x => x.Name == "urn:valid.resource")
             .And.ContainSingle(x => x.Name == "https://valid.resource.com")
-            .And.HaveCount(2);
-        capturedTokenRequest.Value.ValidatedResources.RawScopeValues.Should().BeEquivalentTo("urn:valid.resource:Read", "valid:Read", "valid:Write");
+            .And.ContainSingle(x => x.Name == "api")
+            .And.HaveCount(3);
+        capturedTokenRequest.Value.ValidatedResources.RawScopeValues.Should().BeEquivalentTo("urn:valid.resource:Read", "valid:Read", "valid:Write", "resource");
 
         capturedTokenRequest.TokenValue.Should().BeEquivalentTo(newAccessToken);
 

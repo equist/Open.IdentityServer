@@ -7,14 +7,27 @@ using Open.IdentityServer.Validation;
 
 namespace Open.IdentityServer.Extensions;
 
+/// <summary>
+/// Extensions for <see cref="ResourceValidationResult"/>
+/// </summary>
 public static class ResourceValidationResultExtensions
 {
     extension(ResourceValidationResult resourceValidationResult)
     {
+        /// <summary>
+        /// Function to apply downscoping to <see cref="ResourceValidationResult"/> using a <see cref="ValidatedTokenRequest"/>
+        /// if resource indicator is provided.
+        /// </summary>
+        /// <param name="tokenRequest"></param>
         public void DownscopeWhenResourceIndicators(ValidatedTokenRequest tokenRequest)
         {
-            List<string> allowedResourceIndicators = [];
+            if (!tokenRequest.RequestedResourceIndicator.IsPresent())
+            {
+                return;
+            }
             
+            List<string> allowedResourceIndicators = [];
+
             if (tokenRequest.AuthorizationCode != null)
             {
                 allowedResourceIndicators = tokenRequest.AuthorizationCode.RequestedResourceIndicators?.ToList() ?? [];
@@ -25,24 +38,19 @@ public static class ResourceValidationResultExtensions
                 allowedResourceIndicators = tokenRequest.RefreshToken.AuthorizedResourceIndicators?.ToList() ?? [];
             }
             
-            if (tokenRequest.RequestedResourceIndicator.IsPresent())
+            if (!allowedResourceIndicators.Any())
             {
-                if (!allowedResourceIndicators.Any())
-                {
-                    allowedResourceIndicators.Add(tokenRequest.RequestedResourceIndicator);
-                }
-                else
-                {
-                    var foundResourceIndicator = allowedResourceIndicators.FirstOrDefault(x => x == tokenRequest.RequestedResourceIndicator);
-                    
-                    if (foundResourceIndicator == null)
-                        throw new Exception("Requested Resource not allowed");
-
-                    allowedResourceIndicators = [foundResourceIndicator];
-                }
-                
-                resourceValidationResult.FilterUsingResourceIndicators(allowedResourceIndicators);
+                allowedResourceIndicators.Add(tokenRequest.RequestedResourceIndicator);
             }
+            else
+            {
+                var foundResourceIndicator = allowedResourceIndicators
+                    .First(x => x == tokenRequest.RequestedResourceIndicator);
+
+                allowedResourceIndicators = [foundResourceIndicator];
+            }
+                
+            resourceValidationResult.FilterUsingResourceIndicators(allowedResourceIndicators);
         }
     }
 }
