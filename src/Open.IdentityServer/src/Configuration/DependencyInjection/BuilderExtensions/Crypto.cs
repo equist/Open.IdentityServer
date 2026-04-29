@@ -1,6 +1,6 @@
 // Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Modified by Rock Solid Knowledge Ltd. Copyright in modifications 2026, Rock Solid Knowledge Ltd.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
 
 using Open.IdentityServer;
 using Open.IdentityServer.Configuration;
@@ -12,7 +12,6 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Open.IdentityServer.DataProtection;
 using JsonWebKey = Microsoft.IdentityModel.Tokens.JsonWebKey;
 

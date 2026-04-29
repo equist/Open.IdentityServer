@@ -1,10 +1,12 @@
+// Copyright (c) 2026, Rock Solid Knowledge Ltd
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
 using System;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using Microsoft.IdentityModel.Tokens;
 using Open.IdentityServer.DataProtection;
-using Open.IdentityServer.Models;
 
 namespace IdentityServer.UnitTests.Stores.Compatibility;
 

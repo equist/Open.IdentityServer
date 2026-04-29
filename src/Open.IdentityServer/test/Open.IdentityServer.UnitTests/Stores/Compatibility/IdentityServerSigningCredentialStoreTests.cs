@@ -1,11 +1,11 @@
-#nullable enable
+// Copyright (c) 2026, Rock Solid Knowledge Ltd
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using AwesomeAssertions;
 using Microsoft.AspNetCore.DataProtection;
