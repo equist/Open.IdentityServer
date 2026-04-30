@@ -33,6 +33,29 @@ public class AuthorizeResponseGeneratorTests_Implicit : AuthorizeResponseGenerat
         response.Code.Should().BeNull();
         response.IdentityToken.Should().BeNull();
     }
+    
+    [Fact]
+    public async Task CreateResponseAsync_ImplicitFlow_WithTokenResponseType_AndResourceIndicators_ReturnsAccessToken()
+    {
+        var request = CreateImplicitRequest(OidcConstants.ResponseTypes.Token);
+        request.RequestedResourceIndicators = ["urn:fake.resource.one", "https://other.resource"];
+
+        var token = new Token { Lifetime = 3600 };
+        Mock.Get(tokenService)
+            .Setup(x => x.CreateAccessTokenAsync(It.IsAny<TokenCreationRequest>()))
+            .ReturnsAsync(token);
+        Mock.Get(tokenService)
+            .Setup(x => x.CreateSecurityTokenAsync(token))
+            .ReturnsAsync("access_token_value");
+
+        var sut = CreateSut();
+        var response = await sut.CreateResponseAsync(request);
+
+        response.AccessToken.Should().Be("access_token_value");
+        response.AccessTokenLifetime.Should().Be(3600);
+        response.Code.Should().BeNull();
+        response.IdentityToken.Should().BeNull();
+    }
 
     [Fact]
     public async Task CreateResponseAsync_ImplicitFlow_WithIdTokenResponseType_ReturnsIdentityToken()

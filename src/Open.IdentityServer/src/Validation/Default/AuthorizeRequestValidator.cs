@@ -1,4 +1,5 @@
 // Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Modified by Rock Solid Knowledge Ltd. Copyright in modifications 2026, Rock Solid Knowledge Ltd.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
@@ -600,13 +601,6 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
         var resources = request.GetResourceIndicators();
         if (resources.Count != 0)
         {
-            if (request.GrantType == OidcConstants.GrantTypes.Implicit)
-            {
-                LogError("resource(s) provided with Implicit grant_type", request);
-                return Invalid(request, OidcConstants.AuthorizeErrors.InvalidTarget,
-                    "The requested resource is invalid, missing, unknown, or malformed.");
-            }
-
             if (resources.Any(x => x.InValidResourceIndicatorString()))
             {
                 LogError("resource(s) invalid", request);

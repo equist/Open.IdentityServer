@@ -1,4 +1,5 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Modified by Rock Solid Knowledge Ltd. Copyright in modifications 2026, Rock Solid Knowledge Ltd.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
@@ -90,10 +91,12 @@ public class AuthorizeResponseGenerator : IAuthorizeResponseGenerator
         {
             return await CreateCodeFlowResponseAsync(request);
         }
+
         if (request.GrantType == GrantType.Implicit)
         {
             return await CreateImplicitFlowResponseAsync(request);
         }
+
         if (request.GrantType == GrantType.Hybrid)
         {
             return await CreateHybridFlowResponseAsync(request);
@@ -149,7 +152,8 @@ public class AuthorizeResponseGenerator : IAuthorizeResponseGenerator
     /// <param name="request"></param>
     /// <param name="authorizationCode"></param>
     /// <returns></returns>
-    protected virtual async Task<AuthorizeResponse> CreateImplicitFlowResponseAsync(ValidatedAuthorizeRequest request, string authorizationCode = null)
+    protected virtual async Task<AuthorizeResponse> CreateImplicitFlowResponseAsync(ValidatedAuthorizeRequest request,
+        string authorizationCode = null)
     {
         Logger.LogDebug("Creating Implicit Flow response.");
 
@@ -160,13 +164,15 @@ public class AuthorizeResponseGenerator : IAuthorizeResponseGenerator
 
         if (responseTypes.Contains(OidcConstants.ResponseTypes.Token))
         {
+            request.ValidatedResources.DownscopeWhenResourceIndicators(request);
+            
             var tokenRequest = new TokenCreationRequest
             {
                 Subject = request.Subject,
                 ValidatedResources = request.ValidatedResources,
 
-                    ValidatedRequest = request,
-                };
+                ValidatedRequest = request,
+            };
 
             var accessToken = await TokenService.CreateAccessTokenAsync(tokenRequest);
             accessTokenLifetime = accessToken.Lifetime;
@@ -180,7 +186,9 @@ public class AuthorizeResponseGenerator : IAuthorizeResponseGenerator
             string stateHash = null;
             if (request.State.IsPresent())
             {
-                var credential = await KeyMaterialService.GetSigningCredentialsAsync(request.Client.AllowedIdentityTokenSigningAlgorithms);
+                var credential =
+                    await KeyMaterialService.GetSigningCredentialsAsync(request.Client
+                        .AllowedIdentityTokenSigningAlgorithms);
                 if (credential == null)
                 {
                     throw new InvalidOperationException("No signing credential is configured.");
@@ -190,17 +198,17 @@ public class AuthorizeResponseGenerator : IAuthorizeResponseGenerator
                 stateHash = CryptoHelper.CreateHashClaimValue(request.State, algorithm);
             }
 
-                var tokenRequest = new TokenCreationRequest
-                {
-                    ValidatedRequest = request,
-                    Subject = request.Subject,
-                    ValidatedResources = request.ValidatedResources,
-                    Nonce = request.Raw.Get(OidcConstants.AuthorizeRequest.Nonce),
-                    IncludeAllIdentityClaims = !request.AccessTokenRequested,
-                    AccessTokenToHash = accessTokenValue,
-                    AuthorizationCodeToHash = authorizationCode,
-                    StateHash = stateHash,
-                };
+            var tokenRequest = new TokenCreationRequest
+            {
+                ValidatedRequest = request,
+                Subject = request.Subject,
+                ValidatedResources = request.ValidatedResources,
+                Nonce = request.Raw.Get(OidcConstants.AuthorizeRequest.Nonce),
+                IncludeAllIdentityClaims = !request.AccessTokenRequested,
+                AccessTokenToHash = accessTokenValue,
+                AuthorizationCodeToHash = authorizationCode,
+                StateHash = stateHash,
+            };
 
             var idToken = await TokenService.CreateIdentityTokenAsync(tokenRequest);
             jwt = await TokenService.CreateSecurityTokenAsync(idToken);
@@ -228,7 +236,9 @@ public class AuthorizeResponseGenerator : IAuthorizeResponseGenerator
         string stateHash = null;
         if (request.State.IsPresent())
         {
-            var credential = await KeyMaterialService.GetSigningCredentialsAsync(request.Client.AllowedIdentityTokenSigningAlgorithms);
+            var credential =
+                await KeyMaterialService.GetSigningCredentialsAsync(
+                    request.Client.AllowedIdentityTokenSigningAlgorithms);
             if (credential == null)
             {
                 throw new InvalidOperationException("No signing credential is configured.");
@@ -255,10 +265,10 @@ public class AuthorizeResponseGenerator : IAuthorizeResponseGenerator
             Nonce = request.Nonce,
             StateHash = stateHash,
 
-                WasConsentShown = request.WasConsentShown,
-                
-                RequestedResourceIndicators = request.RequestedResourceIndicators,
-            };
+            WasConsentShown = request.WasConsentShown,
+
+            RequestedResourceIndicators = request.RequestedResourceIndicators,
+        };
 
         return code;
     }

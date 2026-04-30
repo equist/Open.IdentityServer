@@ -49,4 +49,23 @@ public class Authorize_ResourceIndicators_Valid
 
         result.IsError.Should().BeFalse();
     }
+    
+    [Fact]
+    [Trait("Category", Category)]
+    public async Task Valid_ResourceIndicators_WithImplicitFlow()
+    {
+        var parameters = new NameValueCollection();
+        parameters.Add(OidcConstants.AuthorizeRequest.ClientId, "implicitclient");
+        parameters.Add(OidcConstants.AuthorizeRequest.Scope, "urn:valid.resource:Read valid:All");
+        parameters.Add(OidcConstants.AuthorizeRequest.RedirectUri, "oob://implicit/cb");
+        parameters.Add(OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.Token);
+            
+        parameters.Add(OidcConstants.AuthorizeRequest.Resource, "urn:valid.resource");
+        parameters.Add(OidcConstants.AuthorizeRequest.Resource, "https://valid.resource.com");
+
+        var validator = Factory.CreateAuthorizeRequestValidator();
+        var result = await validator.ValidateAsync(parameters);
+
+        result.IsError.Should().BeFalse();
+    }
 }

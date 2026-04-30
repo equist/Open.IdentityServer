@@ -1,4 +1,5 @@
 // Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Modified by Rock Solid Knowledge Ltd. Copyright in modifications 2026, Rock Solid Knowledge Ltd.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
@@ -104,9 +105,9 @@ public class ResourceValidationResult
     }
 
     /// <summary>
-    /// 
+    /// Filters resource validation result based on a list of resource indicators
     /// </summary>
-    /// <param name="resourceIndicators"></param>
+    /// <param name="resourceIndicators">The resource indicators</param>
     public void FilterUsingResourceIndicators(IEnumerable<string> resourceIndicators)
     {
         resourceIndicators ??= [];

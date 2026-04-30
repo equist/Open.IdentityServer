@@ -1,11 +1,15 @@
-// Copyright (c) 2026, Rock Solid Knowledge Ltd
+// Copyright (c) 2026, Rock Solid Knowledge 
+// Modified by Rock Solid Knowledge Ltd. Copyright in modifications 2026, Rock Solid Knowledge Ltd.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AwesomeAssertions;
+using Microsoft.AspNetCore.Http;
 using Open.IdentityModel;
 using Open.IdentityModel.Client;
 using Open.IdentityServer.IntegrationTests.Endpoints;
@@ -298,6 +302,61 @@ public class AuthorizeResourceIndicatorTests: ResourceIndicatorTests
         response.StatusCode.Should().Be(HttpStatusCode.Redirect);
         response.Headers.Location.Should().NotBeNull();
         response.Headers.Location!.ToString().Should().StartWith("oob://implicit/cb");
+
+        var fragments = response.Headers.Location.Fragment.Replace("#", "")
+            .Split("&")
+            .Select(x =>
+            {
+                var split = x.Split("=");
+                if (split.Length != 2) throw new Exception("Failed to Parse Result Fragment");
+                return new KeyValuePair<string, string>(split[0], split[1]);
+            })
+            .ToList();
+
+        fragments.Should().ContainKey("access_token");
+        fragments.Should().ContainKey("scope")
+            .WhoseValue.Should().Contain("openid")
+            .And.Contain("urn%3Avalid.resource%3ARead");
+    }
+
+    [Fact]
+    [Trait("Category", Category)]
+    public async Task ImplicitFlow_WithResourceIndicator_AndScopesOutsideResourceRequested_AuthenticatedUser_ShouldSucceed_WithDownscopedResponse()
+    {
+        await mockPipeline.LoginAsync("bob");
+        mockPipeline.BrowserClient!.AllowAutoRedirect = false;
+
+        var url = mockPipeline.CreateAuthorizeUrl(
+            clientId: ImplicitClient.ClientId,
+            responseType: "id_token token",
+            scope: "openid urn:valid.resource:Read valid:Read",
+            redirectUri: "oob://implicit/cb",
+            nonce: "123_nonce",
+            extra: new Parameters([
+                new KeyValuePair<string, string>("resource", "urn:valid.resource")
+            ]));
+
+        var response = await mockPipeline.BrowserClient.GetAsync(url, TestContext.Current.CancellationToken);
+
+        response.StatusCode.Should().Be(HttpStatusCode.Redirect);
+        response.Headers.Location.Should().NotBeNull();
+        response.Headers.Location!.ToString().Should().StartWith("oob://implicit/cb");
+
+        var fragments = response.Headers.Location.Fragment.Replace("#", "")
+            .Split("&")
+            .Select(x =>
+            {
+                var split = x.Split("=");
+                if (split.Length != 2) throw new Exception("Failed to Parse Result Fragment");
+                return new KeyValuePair<string, string>(split[0], split[1]);
+            })
+            .ToList();
+
+        fragments.Should().ContainKey("access_token");
+        fragments.Should().ContainKey("scope")
+            .WhoseValue.Should().Contain("openid")
+            .And.Contain("urn%3Avalid.resource%3ARead")
+            .And.NotContain("valid%3ARead");
     }
 
     [Fact]
