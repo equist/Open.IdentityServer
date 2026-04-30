@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -76,7 +74,7 @@ public class AuthorizationCode
     /// <value>
     /// The nonce.
     /// </value>
-    public string? Nonce { get; set; }
+    public string Nonce { get; set; }
 
     /// <summary>
     /// Gets or sets the hashed state (to output s_hash claim).
@@ -84,7 +82,7 @@ public class AuthorizationCode
     /// <value>
     /// The hashed state.
     /// </value>
-    public string? StateHash { get; set; }
+    public string StateHash { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether consent was shown.
@@ -108,7 +106,7 @@ public class AuthorizationCode
     /// <value>
     /// The code challenge.
     /// </value>
-    public string? CodeChallenge { get; set; }
+    public string CodeChallenge { get; set; }
 
     /// <summary>
     /// Gets or sets the code challenge method.
@@ -116,7 +114,7 @@ public class AuthorizationCode
     /// <value>
     /// The code challenge method
     /// </value>
-    public string? CodeChallengeMethod { get; set; }
+    public string CodeChallengeMethod { get; set; }
 
     /// <summary>
     /// Gets the description the user assigned to the device being authorized.
@@ -124,7 +122,7 @@ public class AuthorizationCode
     /// <value>
     /// The description.
     /// </value>
-    public string? Description { get; set; }
+    public string Description { get; set; }
 
     /// <summary>
     /// Gets or sets properties
@@ -140,5 +138,5 @@ public class AuthorizationCode
     /// <value>
     /// Requested resource indicators
     /// </value>
-    public IEnumerable<string>? RequestedResourceIndicators { get; set; }
+    public IEnumerable<string> RequestedResourceIndicators { get; set; }
 }

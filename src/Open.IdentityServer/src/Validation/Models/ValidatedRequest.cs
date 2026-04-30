@@ -1,7 +1,6 @@
 // Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-
 using System.Collections.Generic;
 using Open.IdentityServer.Configuration;
 using Open.IdentityServer.Models;
@@ -127,7 +126,11 @@ public class ValidatedRequest
         AccessTokenType = client.AccessTokenType;
         ClientClaims = client.Claims.Select(c => new Claim(c.Type, c.Value, c.ValueType)).ToList();
     }
-
+    
+    /// <summary>
+    /// Gets the list of resource indicators provided in the raw request.
+    /// </summary>
+    /// <returns>list of resource indicators, empty if missing</returns>
     public List<string> GetResourceIndicators()
     {
         var resourceRaw = Raw.Get(OidcConstants.AuthorizeRequest.Resource);

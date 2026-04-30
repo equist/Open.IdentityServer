@@ -1,10 +1,7 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-
-using System.Collections.Generic;
 using Open.IdentityServer.Models;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Open.IdentityServer.Validation;
 
@@ -22,15 +19,15 @@ public interface IRefreshTokenService
     /// <param name="client">The client.</param>
     /// <returns></returns>
     Task<TokenValidationResult> ValidateRefreshTokenAsync(string token, Client client);
-        
-        /// <summary>
-        /// Creates the refresh token.
-        /// </summary>
-        /// <param name="request">The refresh token creation request</param>
-        /// <returns>
-        /// The refresh token handle
-        /// </returns>
-        Task<string> CreateRefreshTokenAsync(RefreshTokenCreationRequest request);
+
+    /// <summary>
+    /// Creates the refresh token.
+    /// </summary>
+    /// <param name="request">The refresh token creation request</param>
+    /// <returns>
+    /// The refresh token handle
+    /// </returns>
+    Task<string> CreateRefreshTokenAsync(RefreshTokenCreationRequest request);
 
     /// <summary>
     /// Updates the refresh token.

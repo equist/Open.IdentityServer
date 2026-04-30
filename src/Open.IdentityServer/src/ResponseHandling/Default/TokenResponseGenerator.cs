@@ -1,7 +1,6 @@
 // Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-
 using Open.IdentityModel;
 using Open.IdentityServer.Extensions;
 using Open.IdentityServer.Models;
@@ -213,6 +212,8 @@ public class TokenResponseGenerator : ITokenResponseGenerator
                 .GetValueOrDefault(request.ValidatedRequest.RequestedResourceIndicator ?? string.Empty);
         string accessTokenString;
 
+        // todo: do we want to just parse here and build up validated result
+        // or do we want to fully re-run validation here.
         var parsedScopesResult = ScopeParser.ParseScopeValues(request.ValidatedRequest.RefreshToken.AuthorizedScopes);
         var validatedResources = await Resources.CreateResourceValidationResult(parsedScopesResult);
         validatedResources.DownscopeWhenResourceIndicators(request.ValidatedRequest);
@@ -220,11 +221,6 @@ public class TokenResponseGenerator : ITokenResponseGenerator
         if (request.ValidatedRequest.Client.UpdateAccessTokenClaimsOnRefresh || oldAccessToken == null)
         {
             var subject = request.ValidatedRequest.RefreshToken.Subject;
-
-            // todo: do we want to just parse here and build up validated result
-            // or do we want to fully re-run validation here.
-            // var parsedScopesResult = ScopeParser.ParseScopeValues(oldAccessToken.Scopes);
-            // var validatedResources = await Resources.CreateResourceValidationResult(parsedScopesResult);
 
             var creationRequest = new TokenCreationRequest
             {
@@ -454,8 +450,6 @@ public class TokenResponseGenerator : ITokenResponseGenerator
 
         if (createRefreshToken)
         {
-            // request.AuthorizationCode.RequestedResourceIndicators
-
             var refreshToken = await RefreshTokenService.CreateRefreshTokenAsync(new RefreshTokenCreationRequest
             {
                 Subject = tokenRequest.Subject,

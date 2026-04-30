@@ -152,8 +152,7 @@ public class AuthorizeResponseGenerator : IAuthorizeResponseGenerator
     /// <param name="request"></param>
     /// <param name="authorizationCode"></param>
     /// <returns></returns>
-    protected virtual async Task<AuthorizeResponse> CreateImplicitFlowResponseAsync(ValidatedAuthorizeRequest request,
-        string authorizationCode = null)
+    protected virtual async Task<AuthorizeResponse> CreateImplicitFlowResponseAsync(ValidatedAuthorizeRequest request, string authorizationCode = null)
     {
         Logger.LogDebug("Creating Implicit Flow response.");
 
@@ -186,9 +185,7 @@ public class AuthorizeResponseGenerator : IAuthorizeResponseGenerator
             string stateHash = null;
             if (request.State.IsPresent())
             {
-                var credential =
-                    await KeyMaterialService.GetSigningCredentialsAsync(request.Client
-                        .AllowedIdentityTokenSigningAlgorithms);
+                var credential = await KeyMaterialService.GetSigningCredentialsAsync(request.Client.AllowedIdentityTokenSigningAlgorithms);
                 if (credential == null)
                 {
                     throw new InvalidOperationException("No signing credential is configured.");
@@ -236,9 +233,7 @@ public class AuthorizeResponseGenerator : IAuthorizeResponseGenerator
         string stateHash = null;
         if (request.State.IsPresent())
         {
-            var credential =
-                await KeyMaterialService.GetSigningCredentialsAsync(
-                    request.Client.AllowedIdentityTokenSigningAlgorithms);
+            var credential = await KeyMaterialService.GetSigningCredentialsAsync(request.Client.AllowedIdentityTokenSigningAlgorithms);
             if (credential == null)
             {
                 throw new InvalidOperationException("No signing credential is configured.");
