@@ -90,18 +90,24 @@ public static class ModelBuilderExtensions
             {
                 grantType.ToTable(storeOptions.ClientGrantType);
                 grantType.Property(x => x.GrantType).HasMaxLength(250).IsRequired();
+                
+                grantType.HasIndex(x => new { x.ClientId, x.GrantType }).IsUnique();
             });
 
             modelBuilder.Entity<ClientRedirectUri>(redirectUri =>
             {
                 redirectUri.ToTable(storeOptions.ClientRedirectUri);
-                redirectUri.Property(x => x.RedirectUri).HasMaxLength(2000).IsRequired();
+                redirectUri.Property(x => x.RedirectUri).HasMaxLength(400).IsRequired();
+                
+                redirectUri.HasIndex(x => new { x.ClientId, x.RedirectUri }).IsUnique();
             });
 
             modelBuilder.Entity<ClientPostLogoutRedirectUri>(postLogoutRedirectUri =>
             {
                 postLogoutRedirectUri.ToTable(storeOptions.ClientPostLogoutRedirectUri);
-                postLogoutRedirectUri.Property(x => x.PostLogoutRedirectUri).HasMaxLength(2000).IsRequired();
+                postLogoutRedirectUri.Property(x => x.PostLogoutRedirectUri).HasMaxLength(400).IsRequired();
+                
+                postLogoutRedirectUri.HasIndex(x => new { x.ClientId, x.PostLogoutRedirectUri }).IsUnique();
             });
 
             modelBuilder.Entity<ClientScope>(scope =>
@@ -123,18 +129,24 @@ public static class ModelBuilderExtensions
                 claim.ToTable(storeOptions.ClientClaim);
                 claim.Property(x => x.Type).HasMaxLength(250).IsRequired();
                 claim.Property(x => x.Value).HasMaxLength(250).IsRequired();
+                
+                claim.HasIndex(x => new { x.ClientId, x.Type, x.Value }).IsUnique();
             });
 
             modelBuilder.Entity<ClientIdPRestriction>(idPRestriction =>
             {
                 idPRestriction.ToTable(storeOptions.ClientIdPRestriction);
                 idPRestriction.Property(x => x.Provider).HasMaxLength(200).IsRequired();
+                
+                idPRestriction.HasIndex(x => new { x.ClientId, x.Provider }).IsUnique();
             });
 
             modelBuilder.Entity<ClientCorsOrigin>(corsOrigin =>
             {
                 corsOrigin.ToTable(storeOptions.ClientCorsOrigin);
                 corsOrigin.Property(x => x.Origin).HasMaxLength(150).IsRequired();
+                
+                corsOrigin.HasIndex(x => new { x.ClientId, x.Origin }).IsUnique();
             });
 
             modelBuilder.Entity<ClientProperty>(property =>
@@ -174,6 +186,7 @@ public static class ModelBuilderExtensions
                 grant.HasIndex(x => new { x.SubjectId, x.SessionId, x.Type });
                 grant.HasIndex(x => x.Expiration);
                 grant.HasIndex(x => x.Key).IsUnique();
+                grant.HasIndex(x => x.ConsumedTime);
             });
 
             modelBuilder.Entity<DeviceFlowCodes>(codes =>
@@ -229,6 +242,8 @@ public static class ModelBuilderExtensions
                 claim.ToTable(storeOptions.IdentityResourceClaim).HasKey(x => x.Id);
 
                 claim.Property(x => x.Type).HasMaxLength(200).IsRequired();
+                
+                claim.HasIndex(x => new { x.IdentityResourceId, x.Type }).IsUnique();
             });
 
             modelBuilder.Entity<IdentityResourceProperty>(property =>
@@ -236,6 +251,8 @@ public static class ModelBuilderExtensions
                 property.ToTable(storeOptions.IdentityResourceProperty);
                 property.Property(x => x.Key).HasMaxLength(250).IsRequired();
                 property.Property(x => x.Value).HasMaxLength(2000).IsRequired();
+
+                property.HasIndex(x => new { x.IdentityResourceId, x.Key }).IsUnique();
             });
 
             modelBuilder.Entity<ApiResource>(apiResource =>
@@ -273,6 +290,8 @@ public static class ModelBuilderExtensions
                 apiClaim.ToTable(storeOptions.ApiResourceClaim).HasKey(x => x.Id);
 
                 apiClaim.Property(x => x.Type).HasMaxLength(200).IsRequired();
+                
+                apiClaim.HasIndex(x => new { x.ApiResourceId, x.Type }).IsUnique();
             });
 
             modelBuilder.Entity<ApiResourceScope>(apiScope =>
@@ -280,6 +299,8 @@ public static class ModelBuilderExtensions
                 apiScope.ToTable(storeOptions.ApiResourceScope).HasKey(x => x.Id);
 
                 apiScope.Property(x => x.Scope).HasMaxLength(200).IsRequired();
+                
+                apiScope.HasIndex(x => new { x.ApiResourceId, x.Scope }).IsUnique();
             });
 
             modelBuilder.Entity<ApiResourceProperty>(property =>
@@ -287,6 +308,8 @@ public static class ModelBuilderExtensions
                 property.ToTable(storeOptions.ApiResourceProperty);
                 property.Property(x => x.Key).HasMaxLength(250).IsRequired();
                 property.Property(x => x.Value).HasMaxLength(2000).IsRequired();
+                
+                property.HasIndex(x => new { x.ApiResourceId, x.Key }).IsUnique();
             });
 
             modelBuilder.Entity<ApiScope>(scope =>
@@ -307,12 +330,16 @@ public static class ModelBuilderExtensions
                 scopeClaim.ToTable(storeOptions.ApiScopeClaim).HasKey(x => x.Id);
 
                 scopeClaim.Property(x => x.Type).HasMaxLength(200).IsRequired();
+                
+                scopeClaim.HasIndex(x => new { x.ScopeId, x.Type }).IsUnique();
             });
             modelBuilder.Entity<ApiScopeProperty>(property =>
             {
                 property.ToTable(storeOptions.ApiScopeProperty).HasKey(x => x.Id);
                 property.Property(x => x.Key).HasMaxLength(250).IsRequired();
                 property.Property(x => x.Value).HasMaxLength(2000).IsRequired();
+                
+                property.HasIndex(x => new { x.ScopeId, x.Key }).IsUnique();
             });
         }
 
