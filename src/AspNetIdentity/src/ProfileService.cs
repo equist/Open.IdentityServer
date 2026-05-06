@@ -93,7 +93,7 @@ public class ProfileService<TUser> : IProfileService
     /// Called to get the claims for the user based on the profile request.
     /// </summary>
     /// <param name="context">The profile data request context to populate with claims.</param>
-    /// <param name="user">The ASP.NET Identity user whose claims should be added.</param>
+    /// <param name="user">The user to populate the claims from.</param>
     protected virtual async Task GetProfileDataAsync(ProfileDataRequestContext context, TUser user)
     {
         var principal = await GetUserClaimsAsync(user);

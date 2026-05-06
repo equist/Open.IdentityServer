@@ -83,8 +83,8 @@ public class ResourceStore : IResourceStore
     /// <summary>
     /// Gets API resources by scope name.
     /// </summary>
-    /// <param name="scopeNames">The API scope names whose owning <see cref="ApiResource"/>s should be returned.</param>
-    /// <returns>Every <see cref="ApiResource"/> that contains at least one scope listed in <paramref name="scopeNames"/>; empty when none match.</returns>
+    /// <param name="scopeNames">The API scope names to find.</param>
+    /// <returns>The <see cref="ApiResource"/> models matching any of the <paramref name="scopeNames"/>; empty when none are found.</returns>
     public virtual async Task<IEnumerable<ApiResource>> FindApiResourcesByScopeNameAsync(IEnumerable<string> scopeNames)
     {
         var names = scopeNames.ToArray();
