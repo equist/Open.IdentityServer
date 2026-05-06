@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Modified by Rock Solid Knowledge Ltd. Copyright in modifications 2026, Rock Solid Knowledge Ltd.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
 
 using Open.IdentityServer.EntityFramework.DbContexts;
 using Open.IdentityServer.EntityFramework.Interfaces;
@@ -8,6 +8,8 @@ using System;
 using Open.IdentityServer.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Open.IdentityServer.EntityFramework.Stores;
+using Open.IdentityServer.Stores;
 
 namespace Open.IdentityServer.EntityFramework.Storage;
 
@@ -101,6 +103,16 @@ public static class IdentityServerEntityFrameworkBuilderExtensions
         services.AddScoped<IPersistedGrantDbContext, TContext>();
         services.AddTransient<TokenCleanupService>();
 
+        if (storeOptions.EnableIdentityServerCompatibility)
+        {
+            services.AddIdentityServerCompatibilityDbContext(compatibilityOptions =>
+            {
+                compatibilityOptions.ConfigureDbContext = storeOptions.ConfigureDbContext;
+                compatibilityOptions.ResolveDbContextOptions = storeOptions.ResolveDbContextOptions;
+            });
+            services.AddScoped<IIdentityServerKeyStore, IdentityServerKeyStore>();
+        }
+
         return services;
     }
 
@@ -114,6 +126,51 @@ public static class IdentityServerEntityFrameworkBuilderExtensions
         where T : class, IOperationalStoreNotification
     {
         services.AddTransient<IOperationalStoreNotification, T>();
+        return services;
+    }
+    
+    /// <summary>
+    /// Adds IdentityServer compatibility DbContext to the DI system.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="storeOptionsAction">The store options action.</param>
+    /// <returns></returns>
+    public static IServiceCollection AddIdentityServerCompatibilityDbContext(this IServiceCollection services,
+        Action<IdentityServerCompatibilityStoreOptions> storeOptionsAction = null)
+    {
+        return services.AddIdentityServerCompatibilityDbContext<IdentityServerCompatibilityDbContext>(storeOptionsAction);
+    }
+
+    /// <summary>
+    /// Adds IdentityServer compatibility DbContext to the DI system.
+    /// </summary>
+    /// <typeparam name="TContext">The IIdentityServerCompatibilityDbContext to use.</typeparam>
+    /// <param name="services"></param>
+    /// <param name="storeOptionsAction">The store options action.</param>
+    /// <returns></returns>
+    public static IServiceCollection AddIdentityServerCompatibilityDbContext<TContext>(this IServiceCollection services,
+        Action<IdentityServerCompatibilityStoreOptions> storeOptionsAction = null)
+        where TContext : DbContext, IIdentityServerCompatibilityDbContext
+    {
+        var storeOptions = new IdentityServerCompatibilityStoreOptions();
+        services.AddSingleton(storeOptions);
+        storeOptionsAction?.Invoke(storeOptions);
+        
+        if (storeOptions.ResolveDbContextOptions != null)
+        {
+            services.AddDbContext<TContext>(storeOptions.ResolveDbContextOptions);
+        }
+        else
+        {
+            services.AddDbContext<TContext>(dbCtxBuilder =>
+            {
+                storeOptions.ConfigureDbContext?.Invoke(dbCtxBuilder);
+            });
+        }
+
+        services.AddScoped<IIdentityServerCompatibilityDbContext, TContext>();
+        services.AddTransient<TokenCleanupService>();
+
         return services;
     }
 }

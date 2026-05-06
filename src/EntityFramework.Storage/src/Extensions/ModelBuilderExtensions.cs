@@ -1,11 +1,19 @@
 // Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Modified by Rock Solid Knowledge Ltd. Copyright in modifications 2026, Rock Solid Knowledge Ltd.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
 
 using Open.IdentityServer.EntityFramework.Entities;
 using Open.IdentityServer.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Open.IdentityServer.EntityFramework.DbContexts;
+using Open.IdentityServer.Models;
+using ApiResource = Open.IdentityServer.EntityFramework.Entities.ApiResource;
+using ApiScope = Open.IdentityServer.EntityFramework.Entities.ApiScope;
+using Client = Open.IdentityServer.EntityFramework.Entities.Client;
+using ClientClaim = Open.IdentityServer.EntityFramework.Entities.ClientClaim;
+using IdentityResource = Open.IdentityServer.EntityFramework.Entities.IdentityResource;
+using PersistedGrant = Open.IdentityServer.EntityFramework.Entities.PersistedGrant;
 
 namespace Open.IdentityServer.EntityFramework.Extensions;
 
@@ -305,6 +313,21 @@ public static class ModelBuilderExtensions
                 property.ToTable(storeOptions.ApiScopeProperty).HasKey(x => x.Id);
                 property.Property(x => x.Key).HasMaxLength(250).IsRequired();
                 property.Property(x => x.Value).HasMaxLength(2000).IsRequired();
+            });
+        }
+
+        /// <summary>
+        /// Configures the identity server compatibility db context
+        /// </summary>
+        /// <param name="storeOptions"></param>
+        public void ConfigureIdentityServerCompatibilityContext(IdentityServerCompatibilityStoreOptions storeOptions)
+        {
+            if (!string.IsNullOrWhiteSpace(storeOptions.DefaultSchema))
+                modelBuilder.HasDefaultSchema(storeOptions.DefaultSchema);
+
+            modelBuilder.Entity<IdentityServerKeyMaterial>(keyMaterial =>
+            {
+                keyMaterial.ToTable(storeOptions.Keys).HasKey(x => x.Id);
             });
         }
     }

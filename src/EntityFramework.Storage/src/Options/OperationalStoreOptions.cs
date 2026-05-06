@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Modified by Rock Solid Knowledge Ltd. Copyright in modifications 2026, Rock Solid Knowledge Ltd.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
 
 using System;
 using Microsoft.EntityFrameworkCore;
@@ -77,4 +77,12 @@ public class OperationalStoreOptions
     /// The size of the token cleanup batch.
     /// </value>
     public int TokenCleanupBatchSize { get; set; } = 100;
+
+    /// <summary>
+    /// Gets or sets the value indicating if identity server compatibility should be enabled. Defaults to <c>true</c>.
+    /// </summary>
+    /// <value>
+    /// <c>true</c> if [compatibility enables]; otherwise, <c>false</c>.
+    /// </value>
+    public bool EnableIdentityServerCompatibility { get; set; } = true;
 }
