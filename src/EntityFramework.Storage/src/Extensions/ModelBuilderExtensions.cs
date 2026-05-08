@@ -14,6 +14,7 @@ using Client = Open.IdentityServer.EntityFramework.Entities.Client;
 using ClientClaim = Open.IdentityServer.EntityFramework.Entities.ClientClaim;
 using IdentityResource = Open.IdentityServer.EntityFramework.Entities.IdentityResource;
 using PersistedGrant = Open.IdentityServer.EntityFramework.Entities.PersistedGrant;
+using IdentityServerKeyMaterial = Open.IdentityServer.EntityFramework.Entities.IdentityServerKeyMaterial;
 
 namespace Open.IdentityServer.EntityFramework.Extensions;
 

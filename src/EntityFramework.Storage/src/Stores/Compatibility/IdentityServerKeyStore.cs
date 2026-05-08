@@ -2,7 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using System.Linq;
 using Open.IdentityServer.EntityFramework.Interfaces;
+using Open.IdentityServer.EntityFramework.Mappers;
 using Open.IdentityServer.Models;
 using Open.IdentityServer.Stores;
 
@@ -17,5 +19,5 @@ public class IdentityServerKeyStore(IIdentityServerCompatibilityDbContext dbCont
     /// Gets all keys stored in Duende key store
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<IdentityServerKeyMaterial> GetKeys() => dbContext.Keys;
+    public IEnumerable<IdentityServerKeyMaterial> GetKeys() => dbContext.Keys.Select(x => x.ToModel());
 }

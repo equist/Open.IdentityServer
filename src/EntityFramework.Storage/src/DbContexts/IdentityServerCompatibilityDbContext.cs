@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Open.IdentityServer.EntityFramework.Extensions;
 using Open.IdentityServer.EntityFramework.Interfaces;
 using Open.IdentityServer.EntityFramework.Options;
-using Open.IdentityServer.Models;
+using Open.IdentityServer.EntityFramework.Entities;
 
 namespace Open.IdentityServer.EntityFramework.DbContexts;
 

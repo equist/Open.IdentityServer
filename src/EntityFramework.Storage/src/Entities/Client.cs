@@ -67,13 +67,13 @@ public class Client
     public bool NonEditable { get; set; }
     
     //Unused Compatibility Properties
-    public int CibaLifetime { get; set; }
-    public int PollingInterval { get; set; }
-    public bool CoordinateLifetimeWithUserSession { get; set; }
+    public int? CibaLifetime { get; set; }
+    public int? PollingInterval { get; set; }
+    public bool? CoordinateLifetimeWithUserSession { get; set; }
     public string InitiateLoginUri { get; set; }
     public TimeSpan DPoPClockSkew { get; set; }
-    public int DPoPValidationMode { get; set; }
+    public DPoPTokenExpirationValidationMode DPoPValidationMode { get; set; }
     public bool RequireDPoP { get; set; }
-    public int PushedAuthorizationLifetime { get; set; }
+    public int? PushedAuthorizationLifetime { get; set; }
     public bool RequirePushedAuthorization { get; set; }
 }

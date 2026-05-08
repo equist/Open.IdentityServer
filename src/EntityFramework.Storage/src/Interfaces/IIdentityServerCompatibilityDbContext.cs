@@ -3,7 +3,7 @@
 
 using System;
 using Microsoft.EntityFrameworkCore;
-using Open.IdentityServer.Models;
+using Open.IdentityServer.EntityFramework.Entities;
 
 namespace Open.IdentityServer.EntityFramework.Interfaces;
 

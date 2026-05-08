@@ -1,7 +1,12 @@
-namespace Open.IdentityServer.Models;
+// Copyright (c) 2026, Rock Solid Knowledge Ltd
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
+using System;
+
+namespace Open.IdentityServer.EntityFramework.Entities;
 
 /// <summary>
-/// A model for key material stored in a Duende IdentityServer database
+/// An entity for the Key Material stored in a Duende IdentityServer database
 /// </summary>
 public class IdentityServerKeyMaterial
 {
@@ -9,6 +14,7 @@ public class IdentityServerKeyMaterial
     /// Get or set unique identifier
     /// </summary>
     public required string Id { get; set; }
+    
     /// <summary>
     /// Get or set version of key material
     /// </summary>
@@ -38,4 +44,9 @@ public class IdentityServerKeyMaterial
     /// Get or set data value
     /// </summary>
     public required string Data { get; set; }
+
+    /// <summary>
+    /// Get or set created value
+    /// </summary>
+    public DateTime Created { get; set; }
 }
