@@ -201,7 +201,7 @@ public class Client
     /// ReUse: the refresh token handle will stay the same when refreshing tokens
     /// OneTime: the refresh token handle will be updated when refreshing tokens
     /// </summary>
-    public TokenUsage RefreshTokenUsage { get; set; } = TokenUsage.OneTimeOnly;
+    public TokenUsage RefreshTokenUsage { get; set; } = TokenUsage.ReUse;
 
     /// <summary>
     /// Gets or sets a value indicating whether the access token (and its claims) should be updated on a refresh token request.
