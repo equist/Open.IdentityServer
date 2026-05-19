@@ -1,3 +1,4 @@
+.. _refMigrateFromDuende:
 Duende.IdentityServer to Open.IdentityServer
 =============================================
 
@@ -5,7 +6,7 @@ This guide is intended for users of Duende.IdentityServer that wish to migrate t
 
 .. note::
 
-    Open.IdentityServer is API-compatible with Duende.IdentityServer for core functionality. However, some Duende-specific commercial features are not yet available.
+    Open.IdentityServer is API-compatible with Duende.IdentityServer for core functionality. However, some :ref:`Duende-specific commercial <refUnsupportedFeatures>` features are not yet available.
 
 Prerequisites
 -------------
@@ -55,6 +56,8 @@ Migration Steps
 
    After replacing, attempt a build. Any remaining references will surface as compile errors, making them easy to locate and fix.
 
+
+.. _refUnsupportedFeatures:
 #. **Remove unsupported features**
 
    Some Duende-specific features are not yet supported in Open.IdentityServer. If your project uses any of the following, you will need to remove or replace them:

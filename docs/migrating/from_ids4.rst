@@ -1,3 +1,4 @@
+.. _refMigrateFromIdS4:
 IdentityServer4 to Open.IdentityServer
 =======================================
 
@@ -66,6 +67,11 @@ Migration Steps
        dotnet add package Open.IdentityServer
        dotnet add package Open.IdentityServer.EntityFramework
        dotnet add package Open.IdentityServer.AspNetIdentity
+    
+   .. note::
+
+       Open.IdentityServer has no IdentityModel or AccessTokenValidator packages. :ref:`Here is a guide <refInternalisedIdentityModel>` on what is still available within the Open.IdenttiyServer packages
+       and alternatives you can use where needed.
 
 #. **Update namespaces**
 

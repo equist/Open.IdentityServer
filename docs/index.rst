@@ -151,6 +151,7 @@ It enables the following features in your applications:
    reference/deviceflow_interactionservice
    reference/ef
    reference/aspnet_identity
+   reference/internalised_identitymodel
 
 .. toctree::
    :maxdepth: 3
