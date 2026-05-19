@@ -10,16 +10,16 @@ If a feature on this list is of high importance to you, we welcome community con
 
 ## Next Release
 
-> _Target: TBD_
+> _Target: Sept 2026_
 
 These items will be part of the next major release.
 
 ### Features
 
-- Key Management (Component)
 - Server side sessions (Core)
+- Use OpenTelemetry for observability (Core)
+- Key Management (Component)
 - Dynamic Authentication Providers (Component compatability)
-- AdminUI support for Open IdentityServer (Component)
 
 ## Future
 
@@ -27,13 +27,16 @@ These items will be part of the next major release.
 
 The team is committed to delivering these items in future releases.
 
-- Use OpenTelemetry for observability (Core)
-- JWT Response for OAuth Token Introspection (RFC 9701) (Core)
-- OAuth 2.0 Authorization Server Metadata (RFC 8414) (Core)
+> _Target: Sept 2026 - Dec 2026_
+
 - Dotnet project templates (Core)
 - Passkeys/FIDO sample (Core)
-- OAuth 2.0 Pushed Authorization Requests (RFC 9126)
-- Optional strict validation of `private_key_jwt` audiences. (RFC 7523)
+- JWT Response for OAuth Token Introspection (RFC 9701) (Core)
+
+> _Target: Q1 2027_
+
+- OAuth 2.0 Pushed Authorization Requests (RFC 9126) (Core)
+- OAuth 2.0 Authorization Server Metadata (RFC 8414) (Core)
 
 ### Under Consideration
 
@@ -53,4 +56,4 @@ We welcome community input on the roadmap. If you'd like to propose a feature or
 
 ## Disclaimer
 
-This roadmap represents current intentions and is subject to change. Rock solid knowledge will have the final say on contributions.
+This roadmap represents current intentions and is subject to change. Rock Solid Knowledge will have the final say on contributions.
