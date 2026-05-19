@@ -13,7 +13,7 @@ The client will request an access token from the Identity Server using its clien
 
 Source Code
 ^^^^^^^^^^^
-As with all of these quickstarts you can find the source code for it in the `IdentityServer4 <https://github.com/RockSolidKnowledge/Open.IdentityServer/blob/main/samples>`_ repository. The project for this quickstart is `Quickstart #1: Securing an API using Client Credentials <https://github.com/RockSolidKnowledge/Open.IdentityServer/tree/main/samples/Quickstarts/1_ClientCredentials>`_
+As with all of these quickstarts you can find the source code for it in the `Open.IdentityServer <https://github.com/RockSolidKnowledge/Open.IdentityServer/blob/main/samples>`_ repository. The project for this quickstart is `Quickstart #1: Securing an API using Client Credentials <https://github.com/RockSolidKnowledge/Open.IdentityServer/tree/main/samples/Quickstarts/1_ClientCredentials>`_
 
 Preparation
 ^^^^^^^^^^^

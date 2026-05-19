@@ -17,28 +17,12 @@ nugets:
 
 Quickstart UI
 ^^^^^^^^^^^^^
-`github <https://github.com/RockSolidKnowledge/Open.IdentityServer.Quickstart.UI>`_
-
+`github <https://github.com/IdentityServer/IdentityServer4.Quickstart.UI>`_
 Contains a simple starter UI including login, logout and consent pages.
 
 Templates
 ^^^^^^^^^
-`nuget <https://www.nuget.org/packages/Open.IdentityServer.Templates>`_
+`nuget <https://www.nuget.org/packages/IdentityServer4.Templates>`_
 
 Contains templates for the original IdentityServer4, can be used for Open.IdenityServer with little work to replce the refrences to old packages and
 update framework used to net10.0. In the future we will create some update templates.
-
-Dev builds
-^^^^^^^^^^
-In addition we publish CI builds to our package repository.
-Add the following ``nuget.config`` to your project
-
-.. code-block:: xml
-
-    <?xml version="1.0" encoding="utf-8"?>
-        <configuration>
-            <packageSources>
-                <clear />
-                <add key="IdentityServer CI" value="https://www.myget.org/F/identity/api/v3/index.json" />
-            </packageSources>
-        </configuration>
