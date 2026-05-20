@@ -1,7 +1,7 @@
 Supported Specifications
 ========================
 
-IdentityServer implements the following specifications:
+Open.IdentityServer implements the following specifications:
 
 OpenID Connect
 ^^^^^^^^^^^^^^
@@ -27,3 +27,4 @@ OAuth 2.0
 * OAuth 2.0 Device Authorization Grant (`RFC 8628 <https://tools.ietf.org/html/rfc8628>`_)
 * OAuth 2.0 Mutual TLS Client Authentication and Certificate-Bound Access Tokens (`RFC 8705 <https://tools.ietf.org/html/rfc8705>`_)
 * JWT Secured Authorization Request (`draft <https://tools.ietf.org/html/draft-ietf-oauth-jwsreq>`_)
+* Resource Indicators for OAuth 2.0 (`RFC 8707 <https://tools.ietf.org/html/rfc8707>`_)
