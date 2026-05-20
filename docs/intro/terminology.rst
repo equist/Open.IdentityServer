@@ -5,16 +5,16 @@ The specs, documentation and object model use a certain terminology that you sho
 
 .. image:: images/terminology.png
 
-IdentityServer
+Open.IdentityServer
 ^^^^^^^^^^^^^^
-IdentityServer is an OpenID Connect provider - it implements the OpenID Connect and OAuth 2.0 protocols.
+Open.IdentityServer is an OpenID Connect provider - it implements the OpenID Connect and OAuth 2.0 protocols.
 
 Different literature uses different terms for the same role - you probably also find security token service,
 identity provider, authorization server, IP-STS and more.
 
 But they are in a nutshell all the same: a piece of software that issues security tokens to clients.
 
-IdentityServer has a number of jobs and features - including:
+Open.IdentityServer has a number of jobs and features - including:
 
 * protect your resources
 
@@ -34,14 +34,14 @@ A user is a human that is using a registered client to access resources.
 
 Client
 ^^^^^^
-A client is a piece of software that requests tokens from IdentityServer - either for authenticating a user (requesting an identity token) 
-or for accessing a resource (requesting an access token). A client must be first registered with IdentityServer before it can request tokens.
+A client is a piece of software that requests tokens from Open.IdentityServer - either for authenticating a user (requesting an identity token) 
+or for accessing a resource (requesting an access token). A client must be first registered with Open.IdentityServer before it can request tokens.
 
 Examples for clients are web applications, native mobile or desktop applications, SPAs, server processes etc.
 
 Resources
 ^^^^^^^^^
-Resources are something you want to protect with IdentityServer - either identity data of your users, or APIs. 
+Resources are something you want to protect with Open.IdentityServer - either identity data of your users, or APIs. 
 
 Every resource has a unique name - and clients use this name to specify to which resources they want to get access to.
 
