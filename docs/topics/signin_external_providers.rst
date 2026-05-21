@@ -32,7 +32,7 @@ The signin scheme specifies the name of the cookie handler that will temporarily
 e.g. the claims that got sent by the external provider. This is necessary, since there are typically a couple of redirects involved until you are done with the 
 external authentication process.
 
-Given that this is such a common practise, IdentityServer registers a cookie handler specifically for this external provider workflow.
+Given that this is such a common practise, Open.IdentityServer registers a cookie handler specifically for this external provider workflow.
 The scheme is represented via the ``IdentityServerConstants.ExternalCookieAuthenticationScheme`` constant.
 If you were to use our external cookie handler, then for the ``SignInScheme`` above you'd assign the value to be the ``IdentityServerConstants.ExternalCookieAuthenticationScheme`` constant
 
@@ -169,9 +169,9 @@ The problem with storing state in a request parameter is that the request URL ca
 The OpenID Connect authentication handler does provide an extensibility point to store the state in your server, rather than in the request URL. 
 You can implement this yourself by implementing ``ISecureDataFormat<AuthenticationProperties>`` and configuring it on the `OpenIdConnectOptions <https://github.com/aspnet/AspNetCore/blob/main/src/Security/Authentication/OpenIdConnect/src/OpenIdConnectOptions.cs#L249>`_.
 
-Fortunately, IdentityServer provides an implementation of this for you, backed by the ``IDistributedCache`` implementation registered in the DI container (e.g. the standard ``MemoryDistributedCache``).
-To use the IdentityServer provided secure data format implementation, simply call the ``AddOidcStateDataFormatterCache`` extension method on the ``IServiceCollection`` when configuring DI.
-If no parameters are passed, then all OpenID Connect handlers configured will use the IdentityServer provided secure data format implementation
+Fortunately, Open.IdentityServer provides an implementation of this for you, backed by the ``IDistributedCache`` implementation registered in the DI container (e.g. the standard ``MemoryDistributedCache``).
+To use the Open.IdentityServer provided secure data format implementation, simply call the ``AddOidcStateDataFormatterCache`` extension method on the ``IServiceCollection`` when configuring DI.
+If no parameters are passed, then all OpenID Connect handlers configured will use the Open.IdentityServer provided secure data format implementation
 
 .. code-block:: csharp
 
