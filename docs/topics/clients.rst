@@ -1,6 +1,6 @@
 Defining Clients
 ================
-Clients represent applications that can request tokens from your identityserver.
+Clients represent applications that can request tokens from your IdentityServer.
 
 The details vary, but you typically define the following common settings for a client:
 
