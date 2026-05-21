@@ -5,12 +5,12 @@
         <TargetFramework>net10.0</TargetFramework>
         
         <Description>EntityFramework persistence layer for Open.IdentityServer</Description>
-        <Authors>Brock Allen;Dominick Baier;Scott Brady</Authors>
+        <Authors>Brock Allen;Dominick Baier;Scott Brady;Rock Solid Knowledge</Authors>
         <PackageTags>OAuth2;OAuth 2.0;OpenID Connect;Security;Identity;IdentityServer;EntityFramework</PackageTags>
-        <PackageIcon>icon.jpg</PackageIcon>
-        <PackageProjectUrl>https://github.com/IdentityServer/OpenIdentityServer</PackageProjectUrl>
+        <PackageIcon>OpenIdentityServerIcon.png</PackageIcon>
+        <PackageProjectUrl>https://github.com/RockSolidKnowledge/Open.IdentityServer</PackageProjectUrl>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-        <PackageReleaseNotes>https://github.com/IdentityServer/OpenIdentityServer/releases</PackageReleaseNotes>
+        <PackageReleaseNotes>https://github.com/RockSolidKnowledge/Open.IdentityServer/releases</PackageReleaseNotes>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -29,7 +29,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="../../../icon.jpg" Pack="true" Visible="false" PackagePath=""/>
+        <None Include="../../../OpenIdentityServerIcon.png" Pack="true" Visible="false" PackagePath=""/>
     </ItemGroup>
 
     <ItemGroup>
