@@ -1,7 +1,7 @@
 ﻿using Clients;
-using Open.IdentityModel;
-using Open.IdentityModel.Client;
+using Duende.IdentityModel.Client;
 using System;
+using System.Buffers.Text;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json.Nodes;
@@ -110,8 +110,8 @@ namespace ConsoleResourceOwnerFlowRefreshToken
                     var header = parts[0];
                     var claims = parts[1];
 
-                    Console.WriteLine(JsonNode.Parse(Encoding.UTF8.GetString(Base64Url.Decode(header))));
-                    Console.WriteLine(JsonNode.Parse(Encoding.UTF8.GetString(Base64Url.Decode(claims))));
+                    Console.WriteLine(JsonNode.Parse(Encoding.UTF8.GetString(Base64Url.DecodeFromChars(header))));
+                    Console.WriteLine(JsonNode.Parse(Encoding.UTF8.GetString(Base64Url.DecodeFromChars(claims))));
                 }
             }
             else

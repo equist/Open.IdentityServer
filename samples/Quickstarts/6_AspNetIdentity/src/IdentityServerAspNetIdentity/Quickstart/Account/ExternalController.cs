@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Open.IdentityModel;
 using Open.IdentityServer;
 using Open.IdentityServer.Events;
 using Open.IdentityServer.Services;

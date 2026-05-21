@@ -6,7 +6,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Update="Open.IdentityModel" Version="$(IdentityServerVersion)" />
+        <PackageReference Update="Duende.IdentityModel" Version="8.1.0" />
+        
         <PackageReference Update="Open.IdentityServer" Version="$(IdentityServerVersion)" />
         <PackageReference Update="Open.IdentityServer.EntityFramework" Version="$(IdentityServerVersion)" />
         <PackageReference Update="Open.IdentityServer.AspNetIdentity" Version="$(IdentityServerVersion)" />

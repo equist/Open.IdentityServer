@@ -1,4 +1,3 @@
-using Open.IdentityModel;
 using Open.IdentityServer;
 using Open.IdentityServer.Events;
 using Open.IdentityServer.Services;

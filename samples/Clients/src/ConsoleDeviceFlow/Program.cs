@@ -1,6 +1,6 @@
 ﻿using Clients;
-using Open.IdentityModel;
-using Open.IdentityModel.Client;
+using Duende.IdentityModel;
+using Duende.IdentityModel.Client;
 using System.Text.Json;
 using System;
 using System.Diagnostics;
