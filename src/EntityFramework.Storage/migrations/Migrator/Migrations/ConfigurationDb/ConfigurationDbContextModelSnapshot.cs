@@ -8,7 +8,7 @@ using Open.IdentityServer.EntityFramework.DbContexts;
 
 #nullable disable
 
-namespace SqlServer.Migrations.ConfigurationDb
+namespace Migrator.Migrations.ConfigurationDb
 {
     [DbContext(typeof(ConfigurationDbContext))]
     partial class ConfigurationDbContextModelSnapshot : ModelSnapshot

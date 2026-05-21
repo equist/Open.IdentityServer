@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace SqlServer.Migrations.PersistedGrantDb
+namespace Migrator.Migrations.PersistedGrantDb
 {
     /// <inheritdoc />
     public partial class Grants : Migration

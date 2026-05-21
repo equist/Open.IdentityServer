@@ -8,7 +8,7 @@ using Open.IdentityServer.EntityFramework.DbContexts;
 
 #nullable disable
 
-namespace SqlServer.Migrations.PersistedGrantDb
+namespace Migrator.Migrations.PersistedGrantDb
 {
     [DbContext(typeof(PersistedGrantDbContext))]
     partial class PersistedGrantDbContextModelSnapshot : ModelSnapshot

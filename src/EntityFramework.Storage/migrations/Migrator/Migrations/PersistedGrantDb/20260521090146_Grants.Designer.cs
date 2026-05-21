@@ -9,7 +9,7 @@ using Open.IdentityServer.EntityFramework.DbContexts;
 
 #nullable disable
 
-namespace SqlServer.Migrations.PersistedGrantDb
+namespace Migrator.Migrations.PersistedGrantDb
 {
     [DbContext(typeof(PersistedGrantDbContext))]
     [Migration("20260521090146_Grants")]

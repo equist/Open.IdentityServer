@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Open.IdentityServer.EntityFramework.Storage;
 using Microsoft.EntityFrameworkCore;
 
-namespace SqlServer;
+namespace Migrator;
 
 public class Startup(IConfiguration config)
 {
