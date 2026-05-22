@@ -7,4 +7,4 @@ If that token leaks, it cannot be used by anyone else (compare to a credit card 
 
 See `this <https://leastprivilege.com/2020/01/15/oauth-2-0-the-long-road-to-proof-of-possession-access-tokens/>`_ blog post for more history and motivation.
 
-IdentityServer supports PoP tokens by using the :ref:`Mutual TLS mechanism <refMutualTLS>`.
+Open.IdentityServer supports PoP tokens by using the :ref:`Mutual TLS mechanism <refMutualTLS>`.

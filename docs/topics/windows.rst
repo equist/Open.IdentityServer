@@ -1,6 +1,6 @@
 Windows Authentication
 ======================
-There are several ways how you can enable Windows authentication in ASP.NET Core (and thus in IdentityServer).
+There are several ways how you can enable Windows authentication in ASP.NET Core (and thus in Open.IdentityServer).
 
 * On Windows using IIS hosting (both in- and out-of process)
 * On Windows using HTTP.SYS hosting
@@ -14,7 +14,7 @@ The typical ``CreateDefaultBuilder`` host setup enables support for IIS-based Wi
 Make sure that Windows authentication is enabled in ``launchSettings.json`` or your IIS configuration.
 
 The IIS integration layer will configure a Windows authentication handler into DI that can be invoked via the authentication service.
-Typically in IdentityServer it is advisable to disable the automatic behavior. 
+Typically in Open.IdentityServer it is advisable to disable the automatic behavior. 
 
 This is done in ``ConfigureServices`` (details vary depending on in-proc vs out-of-proc hosting)
 
