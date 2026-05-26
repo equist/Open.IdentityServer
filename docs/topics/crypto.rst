@@ -2,11 +2,11 @@
 Cryptography, Keys and HTTPS
 ============================
 
-IdentityServer relies on a couple of crypto mechanisms to do its job.
+Open.IdentityServer relies on a couple of crypto mechanisms to do its job.
 
 Token signing and validation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-IdentityServer needs an asymmetric key pair to sign and validate JWTs. 
+Open.IdentityServer needs an asymmetric key pair to sign and validate JWTs. 
 This keymaterial can be either packaged as a certificate or just raw keys.
 Both RSA and ECDSA keys are supported and the supported signing algorithms are: RS256, RS384, RS512, PS256, PS384, PS512, ES256, ES384 and ES512.
 
@@ -38,8 +38,15 @@ In a nutshell, a rollover typically works like this:
 
 This requires that clients and APIs use the discovery document, and also have a feature to periodically refresh their configuration.
 
-Brock wrote a more detailed `blog post <https://brockallen.com/2019/08/09/identityserver-and-signing-key-rotation/>`_ about key rotation, and also
-created a `commercial component <https://www.identityserver.com/products/keymanagement>`_, that can automatically take care of all those details.
+This process is also commonly referred to as key rotation. There are many ways that you could implement key rotation in your Open.IdentityServer:
+
+- manually update them
+- write some logic to automatically manage them
+- use a 3rd party tool to do it for you
+
+A commercial key rotation component for Open.IdentityServer is planned from Rock Solid Knowledge and is on the roadmap.
+
+.. Note:: With v1 of Open.IdentityServer you will be able to get :ref:`read-only access <refReadOnlyKeyStore>` to the keys managed by Duende IdentityServer but rotation will be disabled
 
 Data protection
 ^^^^^^^^^^^^^^^
@@ -48,4 +55,4 @@ Depending on your deployment scenario, this might require additional configurati
 
 HTTPS
 ^^^^^
-We don't enforce the use of HTTPS, but for production it is mandatory for every interaction with IdentityServer.
+We don't enforce the use of HTTPS, but for production it is mandatory for every interaction with Open.IdentityServer.
