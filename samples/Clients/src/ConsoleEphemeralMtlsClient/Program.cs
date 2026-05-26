@@ -4,8 +4,8 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Clients;
-using Open.IdentityModel;
-using Open.IdentityModel.Client;
+using Duende.IdentityModel;
+using Duende.IdentityModel.Client;
 using System.Text.Json.Nodes;
 
 namespace ConsoleEphemeralMtlsClient

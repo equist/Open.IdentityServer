@@ -1,11 +1,9 @@
 ﻿using Clients;
-using Open.IdentityModel;
-using Open.IdentityModel.Client;
+using Duende.IdentityModel;
+using Duende.IdentityModel.Client;
 using System;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
-using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 

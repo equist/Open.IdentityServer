@@ -1,6 +1,5 @@
 ﻿using Clients;
-using Open.IdentityModel;
-using Open.IdentityModel.Client;
+using Duende.IdentityModel.Client;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,7 @@ using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using Duende.IdentityModel;
 
 namespace ConsolePrivateKeyJwtClient
 {
@@ -83,8 +83,7 @@ namespace ConsolePrivateKeyJwtClient
 
         private static string CreateClientToken(SigningCredentials credential, string clientId, string audience)
         {
-            
-            var now = DateTime.UtcNow;
+            var now = DateTimeOffset.UtcNow;
 
             var token = new JwtSecurityToken(
                     clientId,
@@ -93,10 +92,10 @@ namespace ConsolePrivateKeyJwtClient
                     {
                         new Claim(JwtClaimTypes.JwtId, Guid.NewGuid().ToString()),
                         new Claim(JwtClaimTypes.Subject, clientId),
-                        new Claim(JwtClaimTypes.IssuedAt, now.ToEpochTime().ToString(), ClaimValueTypes.Integer64)
+                        new Claim(JwtClaimTypes.IssuedAt, now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)
                     },
-                    now,
-                    now.AddMinutes(1),
+                    now.UtcDateTime,
+                    now.UtcDateTime.AddMinutes(1),
                     credential
             );
 

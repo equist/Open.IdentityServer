@@ -1,6 +1,5 @@
 ﻿using Clients;
-using Open.IdentityModel.Client;
-using System.Text.Json;
+using Duende.IdentityModel.Client;
 using System;
 using System.Net.Http;
 using System.Text.Json.Nodes;

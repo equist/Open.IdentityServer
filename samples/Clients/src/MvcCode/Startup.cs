@@ -1,5 +1,4 @@
 using Clients;
-using Open.IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -7,7 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
-using Open.IdentityModel.Client;
+using Duende.IdentityModel;
+using Duende.IdentityModel.Client;
 
 namespace MvcCode
 {
