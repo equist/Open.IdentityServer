@@ -67,13 +67,13 @@ These settings might be different in your environment
         });
 
 Open.IdentityServer setup
-^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^
 Next step is to enable MTLS in Open.IdentityServer. For that you need to specify the name of the certificate authentication handler you set-up in the last step (defaults to ``Certificate``),
 and the MTLS hosting strategy.
 
-In Open.IdentityServer, the mutual TLS endpoints, can be configured in three ways (assuming Open.IdentityServer is running on ``https://identityserver.io``:
+In Open.IdentityServer, the mutual TLS endpoints, can be configured in three ways (assuming Open.IdentityServer is running on ``https://identityserver.com``:
 
-* path-based - endpoints located beneath the path ``~/connect/mtls``, e.g. ``https://identityserver.io/connect/mtls/token``.
+* path-based - endpoints located beneath the path ``~/connect/mtls``, e.g. ``https://identityserver.com/connect/mtls/token``.
 * sub-domain based - endpoints are on a sub-domain of the main server, e.g. ``https://mtls.identityserver.io/connect/token``.
 * domain-based - endpoints are on a different domain, e.g. ``https://identityserver-mtls.io``.  
 
@@ -134,18 +134,17 @@ For example
     }
 
 Using a client certificate to authenticate to Open.IdentityServer
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 When writing a client to connect to Open.IdentityServer, the ``SocketsHttpHandler`` (or ``HttpClientHandler`` if you are on older .NET Framework versions) 
 class provides a convenient mechanism to add a client certificate to outgoing requests.
 
-And then HTTP calls (including using the various `IdentityModel <https://github.com/DuendeSoftware/foss/tree/main/identity-model>`_ extension methods) with the ``HttpClient`` 
-will perform client certificate authentication at the TLS channel.
+And then HTTP calls with the ``HttpClient`` will perform client certificate authentication at the TLS channel.
 
 For example
 
 .. code-block:: csharp
 
-    static async Task<TokenResponse> RequestTokenAsync()
+    static async Task<string> RequestTokenAsync()
     {
         var handler = new SocketsHttpHandler();
         var cert = new X509Certificate2("client.p12", "password");
@@ -153,22 +152,26 @@ For example
 
         var client = new HttpClient(handler);
 
-        var disco = await client.GetDiscoveryDocumentAsync(Constants.Authority);
-        if (disco.IsError) throw new Exception(disco.Error);
+        // Discover the MTLS token endpoint
+        var discoResponse = await client.GetAsync($"{Constants.Authority}/.well-known/openid-configuration");
+        discoResponse.EnsureSuccessStatusCode();
 
-        var response = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
+        var discoJson = JsonDocument.Parse(await discoResponse.Content.ReadAsStringAsync());
+        var mtlsAliases = discoJson.RootElement.GetProperty("mtls_endpoint_aliases");
+        var tokenEndpoint = mtlsAliases.GetProperty("token_endpoint").GetString();
+
+        // Request token
+        var tokenRequest = new FormUrlEncodedContent(new Dictionary<string, string>
         {
-            Address = disco
-                            .TryGetValue(OidcConstants.Discovery.MtlsEndpointAliases)
-                            .Value<string>(OidcConstants.Discovery.TokenEndpoint)
-                            .ToString(),
-                            
-            ClientId = "mtls",
-            Scope = "api1"
+            ["grant_type"] = "client_credentials",
+            ["client_id"] = "mtls",
+            ["scope"] = "api1"
         });
 
-        if (response.IsError) throw new Exception(response.Error);
-        return response;
+        var response = await client.PostAsync(tokenEndpoint, tokenRequest);
+        response.EnsureSuccessStatusCode();
+
+        return await response.Content.ReadAsStringAsync();
     }
 
 
@@ -202,7 +205,7 @@ Below is an example how an API in ASP.NET Core might be configured for both acce
     services.AddAuthentication("token")
         .AddIdentityServerAuthentication("token", options =>
         {
-            options.Authority = "https://identityserver.io";
+            options.Authority = "https://identityserver.com";
             options.ApiName = "api1";
 
         })
