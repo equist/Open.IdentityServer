@@ -55,5 +55,7 @@ We have a range of available `products <https://www.identityserver.com/products>
 * FIDO2 - Industry leading Passkey authentication for ASP.NET. FIDO2 certified, phishing-resistant, and ready for passwordless login. Passwordless, effortless and secure in only a few lines of code.
 * SCIM - SCIM 2.0-powered identity automation. Provision users and sync identities effortlessly across your enterprise. Fully integrated with IdentityServer for streamlined IAM and HR workflows.
 * Dynamic Authentication Providers - Ideal for adding and configuring external identity providers in ASP.NET Core.
+* SCIM for ASP.NET - Automatically synchronize users across multiple applications using the SCIM 2.0 protocol.
+* Enforcer - Enforcer allows you to write human-readable access control policies for your .NET applications.
 
 For any of the above, or if you have other needs, please `get in touch <mailto:sales@identityserver.com>`_ to discuss how we can help you.
