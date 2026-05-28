@@ -118,12 +118,12 @@ manage the database creation, schema changes, and data migration in any way your
 Using EF migrations is one possible approach to this. 
 If you do wish to use migrations, then see the :ref:`EF quickstart <refEntityFrameworkQuickstart>` for samples on how to get started, or consult the Microsoft `documentation on EF migrations <https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/index>`_.
 
-We also publish `sample SQL scripts <https://github.com/RockSolidKnowledge/Open.IdentityServer/tree/main/src/EntityFramework.Storage/migrations/SqlServer/scripts>`_ for the current version of the database schema.
+We also publish `sample SQL scripts <https://github.com/RockSolidKnowledge/Open.IdentityServer/tree/main/src/EntityFramework.Storage/migrations/Migrator/scripts>`_ for the current version of the database schema.
 
 Generating Delta Scripts
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-It is possible with some manual configuration to use our `Migrator Project <https://github.com/RockSolidKnowledge/Open.IdentityServer/tree/main/src/EntityFramework.Storage/migrations/SqlServer>`_ to generate scripts for migrating the schema from one version to another.
+It is possible with some manual configuration to use our `Migrator Project <https://github.com/RockSolidKnowledge/Open.IdentityServer/tree/main/src/EntityFramework.Storage/migrations/Migrator>`_ to generate scripts for migrating the schema from one version to another.
 
 .. note:: The connection string used in these steps only needs to be valid in format — it does not need to connect to a real database. EF migrations tooling uses it to determine the provider, not to execute against a live database.
 
