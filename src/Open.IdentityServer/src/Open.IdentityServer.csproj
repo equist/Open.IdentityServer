@@ -11,6 +11,7 @@
         <PackageProjectUrl>https://github.com/RockSolidKnowledge/Open.IdentityServer</PackageProjectUrl>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <PackageReleaseNotes>https://github.com/RockSolidKnowledge/Open.IdentityServer/releases</PackageReleaseNotes>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
 
         <!-- Declare that the Repository URL can be published to NuSpec -->
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -33,6 +34,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <None Include="../../../README.md" Pack="true" Visible="false" PackagePath=""/>
         <None Include="../../../OpenIdentityServerIcon.png" Pack="true" Visible="false" PackagePath=""/>
     </ItemGroup>
 
