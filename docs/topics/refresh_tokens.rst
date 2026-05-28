@@ -33,7 +33,7 @@ Requesting an access token using a refresh token
 To get a new access token, you send the refresh token to the token endpoint.
 This will result in a new token response containing a new access token and its expiration and potentially also a new refresh token depending on the client configuration (see above).
 
-::
+.. code-block:: http
 
     POST /connect/token
 
@@ -44,13 +44,15 @@ This will result in a new token response containing a new access token and its e
         
 (Form-encoding removed and line breaks added for readability)
 
-.. Note:: You can use the `IdentityModel <https://github.com/IdentityModel/IdentityModel>`_ client library to programmatically access the token endpoint from .NET code. For more information check the IdentityModel `docs <https://identitymodel.readthedocs.io/en/latest/client/token.html>`_.
+.. Note:: There are 3rd party libraries out there that are useful for programmatically access the token endpoint from .NET code.
 
 .. Note:: The refresh token, must be valid or an invalid_grant error is returned.  By default, a refresh_token can only be used once.  Using an already used refresh_token will result in an invalid_grant error.
 
 Customizing refresh token behavior
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-All refresh token handling is implemented in the ``DefaultRefreshTokenService`` (which is the default implementation of the ``IRefreshTokenService`` interface)::
+All refresh token handling is implemented in the ``DefaultRefreshTokenService`` (which is the default implementation of the ``IRefreshTokenService`` interface)
+
+.. code-block:: csharp
 
     public interface IRefreshTokenService
     {

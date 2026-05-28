@@ -1,49 +1,79 @@
 // Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Modified by Rock Solid Knowledge Ltd. Copyright in modifications 2026, Rock Solid Knowledge Ltd.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+#nullable enable
 
-using Newtonsoft.Json;
+using System.Text.Json;
+using Open.IdentityServer.Models;
 
-namespace IdentityServer4.Stores.Serialization
+namespace Open.IdentityServer.Stores.Serialization;
+
+/// <summary>
+/// JSON-based persisted grant serializer
+/// </summary>
+/// <seealso cref="Open.IdentityServer.Stores.Serialization.IPersistentGrantSerializer" />
+public class PersistentGrantSerializer: IPersistentGrantSerializer
 {
-    /// <summary>
-    /// JSON-based persisted grant serializer
-    /// </summary>
-    /// <seealso cref="IdentityServer4.Stores.Serialization.IPersistentGrantSerializer" />
-    public class PersistentGrantSerializer : IPersistentGrantSerializer
+    private static readonly JsonSerializerOptions _settings;
+
+    static PersistentGrantSerializer()
     {
-        private static readonly JsonSerializerSettings _settings;
-
-        static PersistentGrantSerializer()
+        _settings = new JsonSerializerOptions
         {
-            _settings = new JsonSerializerSettings
+            IgnoreReadOnlyFields = true,
+            IgnoreReadOnlyProperties = true,
+        };
+            
+        _settings.Converters.Add(new ClaimConverter());
+        _settings.Converters.Add(new ClaimsPrincipalConverter());
+    }
+
+    /// <inheritdoc/>
+    public string Serialize<T>(T value)
+    {
+        return JsonSerializer.Serialize(value, _settings);
+    }
+
+    /// <inheritdoc/>
+    public T? Deserialize<T>(string json)
+    {
+        T? deserializedObj = JsonSerializer.Deserialize<T>(json, _settings);
+
+        if (deserializedObj is RefreshToken refreshToken && refreshToken.Version != 5)
+        {
+            return HandleV4RefreshTokens<T>(refreshToken);
+        }
+
+        return deserializedObj;
+    }
+        
+    private static T HandleV4RefreshTokens<T>(RefreshToken refreshToken)
+    {
+        if (refreshToken.Version != 4)
+        {
+            throw new UnsupportedRefreshTokenException(refreshToken.Version);
+        }
+
+        var user = new IdentityServerUser(refreshToken.AccessToken.SubjectId);
+        if (refreshToken.AccessToken.Claims != null)
+        {
+            foreach (var claim in refreshToken.AccessToken.Claims)
             {
-                ContractResolver = new CustomContractResolver()
-            };
-            _settings.Converters.Add(new ClaimConverter());
-            _settings.Converters.Add(new ClaimsPrincipalConverter());
+                user.AdditionalClaims.Add(claim);
+            }
         }
+                
+        refreshToken.AccessTokens[string.Empty] = refreshToken.AccessToken;
+        refreshToken.ClientId = refreshToken.AccessToken.ClientId;
+        refreshToken.SessionId = refreshToken.AccessToken.SessionId;
+        refreshToken.Description = refreshToken.AccessToken.Description;
+        refreshToken.AuthorizedScopes = refreshToken.AccessToken.Scopes;
+        refreshToken.Subject = user.CreatePrincipal();
+        refreshToken.Version = 5;
+                
+        refreshToken.AccessToken = null;
 
-        /// <summary>
-        /// Serializes the specified value.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value">The value.</param>
-        /// <returns></returns>
-        public string Serialize<T>(T value)
-        {
-            return JsonConvert.SerializeObject(value, _settings);
-        }
-
-        /// <summary>
-        /// Deserializes the specified string.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="json">The json.</param>
-        /// <returns></returns>
-        public T Deserialize<T>(string json)
-        {
-            return JsonConvert.DeserializeObject<T>(json, _settings);
-        }
+        return (T)(object)refreshToken;
     }
 }

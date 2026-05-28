@@ -1,34 +1,36 @@
-﻿using System;
+﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using IdentityServer4.EntityFramework;
-using IdentityServer4.EntityFramework.Entities;
+using Open.IdentityServer.EntityFramework;
+using Open.IdentityServer.EntityFramework.Entities;
 
-namespace IdentityServerHost
+namespace IdentityServerHost;
+
+public class TestOperationalStoreNotification : IOperationalStoreNotification
 {
-    public class TestOperationalStoreNotification : IOperationalStoreNotification
+    public TestOperationalStoreNotification()
     {
-        public TestOperationalStoreNotification()
-        {
-            Console.WriteLine("ctor");
-        }
+        Console.WriteLine("ctor");
+    }
 
-        public Task PersistedGrantsRemovedAsync(IEnumerable<PersistedGrant> persistedGrants)
+    public Task PersistedGrantsRemovedAsync(IEnumerable<PersistedGrant> persistedGrants)
+    {
+        foreach (var grant in persistedGrants)
         {
-            foreach (var grant in persistedGrants)
-            {
-                Console.WriteLine("cleaned: " + grant.Type);
-            }
-            return Task.CompletedTask;
+            Console.WriteLine("cleaned: " + grant.Type);
         }
+        return Task.CompletedTask;
+    }
 
-        public Task DeviceCodesRemovedAsync(IEnumerable<DeviceFlowCodes> deviceCodes)
+    public Task DeviceCodesRemovedAsync(IEnumerable<DeviceFlowCodes> deviceCodes)
+    {
+        foreach (var deviceCode in deviceCodes) 
         {
-            foreach (var deviceCode in deviceCodes) 
-            {
-                Console.WriteLine("cleaned device code");
-            }
-            return Task.CompletedTask;
+            Console.WriteLine("cleaned device code");
         }
+        return Task.CompletedTask;
     }
 }

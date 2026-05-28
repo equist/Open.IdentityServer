@@ -12,7 +12,9 @@ the identity token containing the information about the authentication and sessi
 Modifying the client configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Updating the client configuration in IdentityServer is straightforward - we simply need to add the ``api1`` resource to the allowed scopes list.
-In addition we enable support for refresh tokens via the ``AllowOfflineAccess`` property::
+In addition we enable support for refresh tokens via the ``AllowOfflineAccess`` property
+
+.. code-block:: csharp
 
     new Client
     {
@@ -39,7 +41,9 @@ In addition we enable support for refresh tokens via the ``AllowOfflineAccess`` 
 
 Modifying the MVC client
 ^^^^^^^^^^^^^^^^^^^^^^^^
-All that's left to do now in the client is to ask for the additional resources via the scope parameter. This is done in the OpenID Connect handler configuration::
+All that's left to do now in the client is to ask for the additional resources via the scope parameter. This is done in the OpenID Connect handler configuration
+
+.. code-block:: csharp
 
     services.AddAuthentication(options =>
     {
@@ -67,11 +71,15 @@ You should be able to inspect the data on the page that prints out the contents 
 Using the access token
 ^^^^^^^^^^^^^^^^^^^^^^
 You can access the tokens in the session using the standard ASP.NET Core extension methods 
-that you can find in the ``Microsoft.AspNetCore.Authentication`` namespace::
+that you can find in the ``Microsoft.AspNetCore.Authentication`` namespace
+
+.. code-block:: csharp
 
     var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-For accessing the API using the access token, all you need to do is retrieve the token, and set it on your HttpClient::
+For accessing the API using the access token, all you need to do is retrieve the token, and set it on your HttpClient
+
+.. code-block:: csharp
 
     public async Task<IActionResult> CallApi()
     {
@@ -81,11 +89,13 @@ For accessing the API using the access token, all you need to do is retrieve the
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
         var content = await client.GetStringAsync("https://localhost:6001/identity");
 
-        ViewBag.Json = JArray.Parse(content).ToString();
+        ViewBag.Json = JsonNode .Parse(content).ToString();
         return View("json");
     }
 
-Create a view called json.cshtml that outputs the json like this::
+Create a view called json.cshtml that outputs the json like this
+
+.. code-block:: html
 
     <pre>@ViewBag.Json</pre>
 
@@ -103,5 +113,7 @@ By far the most complex task for a typical client is to manage the access token.
 
 ASP.NET Core has many built-in facility that can help you with those tasks (like caching or sessions), 
 but there is still quite some work left to do. 
-Feel free to have a look at `this <https://github.com/IdentityModel/IdentityModel.AspNetCore>`_ library, which can automate 
+
+
+Open.IdentityServer doesn't currently contain any Client side code, another package is required, such as the `Duende Identity Model <https://github.com/DuendeSoftware/foss/tree/main/identity-model>`_ library, which can automate 
 many of the boilerplate tasks.

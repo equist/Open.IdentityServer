@@ -5,7 +5,9 @@ This makes the parameters tamper proof and you can authenticate the client alrea
 
 You can either transmit them by value or by reference to the authorize endpoint - see the `spec <https://openid.net/specs/openid-connect-core-1_0.html#JWTRequests>`_ for more details.
 
-IdentityServer requires the request JWTs to be signed. We support X509 certificates and JSON web keys, e.g.::
+Open.IdentityServer requires the request JWTs to be signed. We support X509 certificates and JSON web keys, e.g.
+
+.. code-block:: csharp
 
     var client = new Client
     {
@@ -36,9 +38,11 @@ IdentityServer requires the request JWTs to be signed. We support X509 certifica
 
 Passing request JWTs by reference
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-If the ``request_uri`` parameter is used, IdentityServer will make an outgoing HTTP call to fetch the JWT from the specified URL.
+If the ``request_uri`` parameter is used, Open.IdentityServer will make an outgoing HTTP call to fetch the JWT from the specified URL.
 
-You can customize the HTTP client used for this outgoing connection, e.g. to add caching or retry logic (e.g. via the Polly library)::
+You can customize the HTTP client used for this outgoing connection, e.g. to add caching or retry logic (e.g. via the Polly library)
+
+.. code-block:: csharp
 
     builder.AddJwtRequestUriHttpClient(client =>
     {
@@ -51,7 +55,7 @@ You can customize the HTTP client used for this outgoing connection, e.g. to add
             TimeSpan.FromSeconds(3)
         }));
 
-.. note:: Request URI processing is disabled by default. Enable on the :ref:`IdentityServer Options <refOptions>` under ``Endpoints``. Also see the security considerations from the JAR `specification <https://tools.ietf.org/html/draft-ietf-oauth-jwsreq-23#section-10.4>`_.
+.. note:: Request URI processing is disabled by default. Enable on the :ref:`Open.IdentityServer Options <refOptions>` under ``Endpoints``. Also see the security considerations from the JAR `specification <https://tools.ietf.org/html/draft-ietf-oauth-jwsreq-23#section-10.4>`_.
 
 Accessing the request object data
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

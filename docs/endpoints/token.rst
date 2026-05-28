@@ -35,11 +35,13 @@ Furthermore the token endpoint can be extended to support extension grant types.
     the refresh token (required for ``refresh_token`` grant type)
 ``device_code``
     the device code (required for ``urn:ietf:params:oauth:grant-type:device_code`` grant type)
+``resource``
+    :ref:`resource indicator <_refResourceIndicators>` for the token request. Must be a valid URI. If follwing an authorize request, must also be a resource originally granted in that authorize request.
 
 Example
 ^^^^^^^
 
-::
+.. code-block:: http
 
     POST /connect/token
     CONTENT-TYPE application/x-www-form-urlencoded
@@ -51,5 +53,3 @@ Example
         redirect_uri=https://myapp.com/callback
 
 (Form-encoding removed and line breaks added for readability)
-
-.. Note:: You can use the `IdentityModel <https://github.com/IdentityModel/IdentityModel>`_ client library to programmatically access the token endpoint from .NET code. For more information check the IdentityModel `docs <https://identitymodel.readthedocs.io/en/latest/client/token.html>`_.

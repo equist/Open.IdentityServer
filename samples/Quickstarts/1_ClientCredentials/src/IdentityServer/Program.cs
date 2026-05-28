@@ -10,7 +10,7 @@ using Serilog.Sinks.SystemConsole.Themes;
 using System;
 using Microsoft.Extensions.Hosting;
 
-namespace IdentityServer
+namespace Open.IdentityServer
 {
     public class Program
     {

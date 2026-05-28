@@ -1,7 +1,9 @@
-﻿namespace IdentityServer4.Models.ManageViewModels
+﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
+namespace Open.IdentityServer.Models.ManageViewModels;
+
+public class GenerateRecoveryCodesViewModel
 {
-    public class GenerateRecoveryCodesViewModel
-    {
-        public string[] RecoveryCodes { get; set; }
-    }
+    public string[] RecoveryCodes { get; set; }
 }

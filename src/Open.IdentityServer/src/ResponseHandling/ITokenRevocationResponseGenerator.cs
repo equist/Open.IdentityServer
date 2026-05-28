@@ -1,0 +1,21 @@
+﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
+
+using System.Threading.Tasks;
+using Open.IdentityServer.Validation;
+
+namespace Open.IdentityServer.ResponseHandling;
+
+/// <summary>
+/// Interface for the token revocation response generator.
+/// </summary>
+public interface ITokenRevocationResponseGenerator
+{
+    /// <summary>
+    /// Creates the revocation endpoint response and processes the revocation request.
+    /// </summary>
+    /// <param name="validationResult">The userinfo request validation result.</param>
+    /// <returns>A task that resolves to a <see cref="TokenRevocationResponse"/> indicating whether the revocation succeeded.</returns>
+    Task<TokenRevocationResponse> ProcessAsync(TokenRevocationRequestValidationResult validationResult);
+}

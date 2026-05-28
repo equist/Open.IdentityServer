@@ -1,0 +1,21 @@
+﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
+
+using Open.IdentityServer.Validation;
+using System.Threading.Tasks;
+
+namespace Open.IdentityServer.ResponseHandling;
+
+/// <summary>
+/// Interface for the authorize response generator
+/// </summary>
+public interface IAuthorizeResponseGenerator
+{
+    /// <summary>
+    /// Creates the response
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <returns>A task that resolves to an <see cref="AuthorizeResponse"/> for the requested grant type (code, implicit, or hybrid).</returns>
+    Task<AuthorizeResponse> CreateResponseAsync(ValidatedAuthorizeRequest request);
+}

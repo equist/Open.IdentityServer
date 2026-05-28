@@ -9,53 +9,60 @@ If we wanted to modify this configuration data, we had to stop and start Identit
 IdentityServer also generates temporary data, such as authorization codes, consent choices, and refresh tokens.
 By default, these are also stored in-memory.
 
-To move this data into a database that is persistent between restarts and across multiple IdentityServer instances, we can use the IdentityServer4 Entity Framework library.
+To move this data into a database that is persistent between restarts and across multiple IdentityServer instances, we can use the Open IdentityServer Entity Framework library.
 
 .. Note:: In addition to manually configuring EF support, there is also an IdentityServer template to create a new project with EF support, using ``dotnet new is4ef``.
 
-IdentityServer4.EntityFramework
+Open.IdentityServer.EntityFramework
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-``IdentityServer4.EntityFramework`` implements the required stores and services using the following DbContexts:
+``Open.IdentityServer.EntityFramework`` implements the required stores and services using the following DbContexts:
 
     * ConfigurationDbContext - used for configuration data such as clients, resources, and scopes
     * PersistedGrantDbContext - used for temporary operational data such as authorization codes, and refresh tokens
 
 These contexts are suitable for any Entity Framework Core compatible relational database.
 
-You can find these contexts, their entities, and the IdentityServer4 stores that use them in the ``IdentityServer4.EntityFramework.Storage`` nuget package.
+You can find these contexts, their entities, and the Open.IdentityServer stores that use them in the ``Open.IdentityServer.EntityFramework.Storage`` nuget package.
 
-You can find the extension methods to register them in your IdentityServer in ``IdentityServer4.EntityFramework``, which we will do now::
+You can find the extension methods to register them in your IdentityServer in ``Open.IdentityServer.EntityFramework``, which we will do now
 
-    dotnet add package IdentityServer4.EntityFramework
+From the IdentityServer project root run
+.. code-block:: console
+
+    dotnet add package Open.IdentityServer.EntityFramework
 
 Using SqlServer
 ^^^^^^^^^^^^^^^
 
 For this quickstart, we will use the LocalDb version of SQLServer that comes with Visual Studio.
-To add SQL Server support to our IdentityServer project, you’ll need the following nuget package::
+To add SQL Server support to our IdentityServer project, you’ll need the following nuget package
+
+.. code-block:: console
 
     dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 
 Database Schema Changes and Using EF Migrations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``IdentityServer4.EntityFramework.Storage`` package contains entity classes that map from IdentityServer’s models.
-As IdentityServer’s models change, so will the entity classes in ``IdentityServer4.EntityFramework.Storage``.
-As you use ``IdentityServer4.EntityFramework.Storage`` and upgrade over time, you are responsible for your database schema and changes necessary to that schema as the entity classes change.
+The ``Open.IdentityServer.EntityFramework.Storage`` package contains entity classes that map from IdentityServer’s models.
+As IdentityServer’s models change, so will the entity classes in ``Open.IdentityServer.EntityFramework.Storage``.
+As you use ``Open.IdentityServer.EntityFramework.Storage`` and upgrade over time, you are responsible for your database schema and changes necessary to that schema as the entity classes change.
 One approach for managing those changes is to use `EF migrations <https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/index>`_, which is what we’ll use in this quickstart.
 If migrations are not your preference, then you can manage the schema changes in any way you see fit.
 
-.. Note:: You can find the `latest SQL scripts <https://github.com/IdentityServer/IdentityServer4/tree/main/src/EntityFramework.Storage/migrations/SqlServer/Migrations>`_ for SqlServer in the IdentityServer4.EntityFramework.Storage repository.
+.. Note:: You can find the `latest SQL scripts <https://github.com/RockSolidKnowledge/Open.IdentityServer/tree/main/src/EntityFramework.Storage/migrations/Migrator/scripts>`_ for SqlServer and other supported providers in the Open.IdentityServer.EntityFramework.Storage repository.
 
 Configuring the Stores
 ^^^^^^^^^^^^^^^^^^^^^^
 
 To start using these stores, you’ll need to replace any existing calls to ``AddInMemoryClients``, ``AddInMemoryIdentityResources``, ``AddInMemoryApiScopes``, ``AddInMemoryApiResources``, and ``AddInMemoryPersistedGrants`` in your ``ConfigureServices`` method in `Startup.cs` with ``AddConfigurationStore`` and ``AddOperationalStore``.
 
-These methods each require a ``DbContextOptionsBuilder``, meaning your code will look something like this::
+These methods each require a ``DbContextOptionsBuilder``, meaning your code will look something like this
+
+.. code-block:: csharp
 
     var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-    const string connectionString = @"Data Source=(LocalDb)\MSSQLLocalDB;database=IdentityServer4.Quickstart.EntityFramework-4.0.0;trusted_connection=yes;";
+    const string connectionString = @"Data Source=(LocalDb)\MSSQLLocalDB;database=IdentityServer.Quickstart.EntityFramework-4.0.0;trusted_connection=yes;";
 
     services.AddIdentityServer()
         .AddTestUsers(TestUsers.Users)
@@ -70,7 +77,9 @@ These methods each require a ``DbContextOptionsBuilder``, meaning your code will
                 sql => sql.MigrationsAssembly(migrationsAssembly));
         });
 
-You might need these namespaces added to the file::
+You might need these namespaces added to the file
+
+.. code-block:: csharp
 
     using Microsoft.EntityFrameworkCore;
     using System.Reflection;
@@ -84,12 +93,16 @@ Adding Migrations
 
 Once the IdentityServer has been configured to use Entity Framework, we’ll need to generate some migrations.
 
-To create migrations, you will need to install the Entity Framework Core CLI on your machine and the ``Microsoft.EntityFrameworkCore.Design`` nuget package in IdentityServer::
+To create migrations, you will need to install the Entity Framework Core CLI on your machine and the ``Microsoft.EntityFrameworkCore.Design`` nuget package in IdentityServer
+
+.. code-block:: console
 
     dotnet tool install --global dotnet-ef
     dotnet add package Microsoft.EntityFrameworkCore.Design
 
-To create the migrations, open a command prompt in the IdentityServer project directory and run the following two commands::
+To create the migrations, open a command prompt in the IdentityServer project directory and run the following two commands
+
+.. code-block:: console
 
     dotnet ef migrations add InitialIdentityServerPersistedGrantDbMigration -c PersistedGrantDbContext -o Data/Migrations/IdentityServer/PersistedGrantDb
     dotnet ef migrations add InitialIdentityServerConfigurationDbMigration -c ConfigurationDbContext -o Data/Migrations/IdentityServer/ConfigurationDb
@@ -104,7 +117,9 @@ We can also seed the database with the in-memory configuration data that we alre
 
 .. Note:: The approach used in this quickstart is used to make it easy to get IdentityServer up and running. You should devise your own database creation and maintenance strategy that is appropriate for your architecture.
 
-In `Startup.cs` add this method to help initialize the database::
+In `Startup.cs` add this method to help initialize the database
+
+.. code-block:: csharp
 
     private void InitializeDatabase(IApplicationBuilder app)
     {
@@ -143,13 +158,17 @@ In `Startup.cs` add this method to help initialize the database::
         }
     }
 
-The above code may require you to add the following namespaces to your file::
+The above code may require you to add the following namespaces to your file
+
+.. code-block:: csharp
 
     using System.Linq;
-    using IdentityServer4.EntityFramework.DbContexts;
-    using IdentityServer4.EntityFramework.Mappers;
+    using Open.IdentityServer.EntityFramework.DbContexts;
+    using Open.IdentityServer.EntityFramework.Mappers;
 
-And then we can invoke this from the ``Configure`` method::
+And then we can invoke this from the ``Configure`` method
+
+.. code-block:: csharp
 
     public void Configure(IApplicationBuilder app)
     {

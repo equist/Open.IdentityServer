@@ -19,10 +19,14 @@ This class models an API resource.
     List of associated user claim types that should be included in the access token.
 ``Scopes``
     List of API scope names.
+``RequireResourceIndicator``
+    If true, resource indicators need to be used for this resource to be present in the token ``aud`` claim.
 
 Defining API resources in appsettings.json
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The ``AddInMemoryApiResource`` extensions method also supports adding API resources from the ASP.NET Core configuration file::
+The ``AddInMemoryApiResource`` extensions method also supports adding API resources from the ASP.NET Core configuration file
+
+.. code-block:: json
 
     "IdentityServer": {
         "IssuerUri": "urn:sso.company.com",
@@ -53,6 +57,8 @@ The ``AddInMemoryApiResource`` extensions method also supports adding API resour
         ]
     }
 
-Then pass the configuration section to the ``AddInMemoryApiResource`` method::
+Then pass the configuration section to the ``AddInMemoryApiResource`` method
+
+.. code-block:: csharp
 
     AddInMemoryApiResources(configuration.GetSection("IdentityServer:ApiResources"))

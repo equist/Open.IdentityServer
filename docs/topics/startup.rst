@@ -2,12 +2,14 @@
 Startup
 =======
 
-IdentityServer is a combination of middleware and services.
+Open.IdentityServer is a combination of middleware and services.
 All configuration is done in your startup class.
 
 Configuring services
 ^^^^^^^^^^^^^^^^^^^^
-You add the IdentityServer services to the DI system by calling::
+You add the Open.IdentityServer services to the DI system by calling
+
+.. code-block:: csharp
 
     public void ConfigureServices(IServiceCollection services)
     {
@@ -21,7 +23,7 @@ This will return you a builder object that in turn has a number of convenience m
 .. _refStartupKeyMaterial:
 Key material
 ^^^^^^^^^^^^
-IdentityServer supports X.509 certificates (both raw files and a reference to the Windows certificate store), 
+Open.IdentityServer supports X.509 certificates (both raw files and a reference to the Windows certificate store), 
 RSA keys and EC keys for token signatures and validation. Each key can be configured with a (compatible) signing algorithm, 
 e.g. RS256, RS384, RS512, PS256, PS384, PS512, ES256, ES384 or ES512.
 
@@ -37,7 +39,7 @@ You can configure the key material with the following methods:
 In-Memory configuration stores
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The various "in-memory" configuration APIs allow for configuring IdentityServer from an in-memory list of configuration objects.
+The various "in-memory" configuration APIs allow for configuring Open.IdentityServer from an in-memory list of configuration objects.
 These "in-memory" collections can be hard-coded in the hosting application, or could be loaded dynamically from a configuration file or a database.
 By design, though, these collections are only created when the hosting application is starting up.
 
@@ -56,7 +58,7 @@ This style of configuration might also be appropriate for production scenarios i
 Test stores
 ^^^^^^^^^^^
 
-The ``TestUser`` class models a user, their credentials, and claims in IdentityServer. 
+The ``TestUser`` class models a user, their credentials, and claims in Open.IdentityServer. 
 Use of ``TestUser`` is similar to the use of the "in-memory" stores in that it is intended for when prototyping, developing, and/or testing.
 The use of ``TestUser`` is not recommended in production.
 
@@ -109,7 +111,7 @@ Additional services
 Caching
 ^^^^^^^
 
-Client and resource configuration data is used frequently by IdentityServer.
+Client and resource configuration data is used frequently by Open.IdentityServer.
 If this data is being loaded from a database or other external store, then it might be expensive to frequently re-load the same data.
 
 * ``AddInMemoryCaching``
@@ -138,7 +140,9 @@ If you wish to customize the in-memory caching behavior, you can replace the ``I
 
 Configuring the pipeline
 ^^^^^^^^^^^^^^^^^^^^^^^^
-You need to add IdentityServer to the pipeline by calling::
+You need to add Open.IdentityServer to the pipeline by calling
+
+.. code-block:: csharp
 
     public void Configure(IApplicationBuilder app)
     {

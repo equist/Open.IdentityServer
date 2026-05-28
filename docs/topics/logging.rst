@@ -1,7 +1,7 @@
 
 Logging
 =======
-IdentityServer uses the standard logging facilities provided by ASP.NET Core.
+Open.IdentityServer uses the standard logging facilities provided by ASP.NET Core.
 The Microsoft `documentation <https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging>`_ has a good intro and a description of the built-in logging providers.
 
 We are roughly following the Microsoft guidelines for usage of log levels:
@@ -15,7 +15,9 @@ We are roughly following the Microsoft guidelines for usage of log levels:
 
 Setup for Serilog
 ^^^^^^^^^^^^^^^^^
-We personally like `Serilog <https://serilog.net/>`_ and the ``Serilog.AspNetCore`` package a lot. Give it a try::
+We personally like `Serilog <https://serilog.net/>`_ and the ``Serilog.AspNetCore`` package a lot. Give it a try
+
+.. code-block:: csharp
 
     public class Program
     {

@@ -1,7 +1,7 @@
 Adding new Protocols
 ====================
 
-IdentityServer4 allows adding support for other protocols besides the built-in 
+Open.IdentityServer allows adding support for other protocols besides the built-in 
 support for OpenID Connect and OAuth 2.0.
 
 You can add those additional protocol endpoints either as middleware or using e.g. MVC controllers.
@@ -23,14 +23,16 @@ An authentication request typically works like this:
     * redirect back to protocol endpoint
 * creation of protocol response (token creation and redirect back to client)
 
-Useful IdentityServer services
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-To achieve the above workflow, some interaction points with IdentityServer are needed.
+Useful Open.IdentityServer services
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+To achieve the above workflow, some interaction points with Open.IdentityServer are needed.
 
 **Access to configuration and redirecting to the login page**
 
-You can get access to the IdentityServer configuration by injecting the ``IdentityServerOptions``
-class into your code. This, e.g. has the configured path to the login page::
+You can get access to the Open.IdentityServer configuration by injecting the ``IdentityServerOptions``
+class into your code. This, e.g. has the configured path to the login page
+
+.. code-block:: csharp
 
     var returnUrl = Url.Action("Index");
     returnUrl = returnUrl.AddQueryString(Request.QueryString.Value);
@@ -43,12 +45,16 @@ class into your code. This, e.g. has the configured path to the login page::
 **Interaction between the login page and current protocol request**
 
 The ``IIdentityServerInteractionService`` supports turning a protocol return URL into a 
-parsed and validated context object::
+parsed and validated context object
+
+.. code-block:: csharp
 
     var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
 
 By default the interaction service only understands OpenID Connect protocol messages.
-To extend support, you can write your own ``IReturnUrlParser``::
+To extend support, you can write your own ``IReturnUrlParser``
+
+.. code-block:: csharp
 
     public interface IReturnUrlParser
     {
@@ -56,7 +62,9 @@ To extend support, you can write your own ``IReturnUrlParser``::
         Task<AuthorizationRequest> ParseAsync(string returnUrl);
     }
 
-..and then register the parser in DI::
+..and then register the parser in DI
+
+.. code-block:: csharp
 
     builder.Services.AddTransient<IReturnUrlParser, WsFederationReturnUrlParser>();
 
@@ -66,7 +74,9 @@ protocol parameters.
 **Access to configuration and key material for creating the protocol response**
 
 By injecting the ``IKeyMaterialService`` into your code, you get access to the configured 
-signing credential and validation keys::
+signing credential and validation keys
+
+.. code-block:: csharp
 
     var credential = await _keys.GetSigningCredentialsAsync();
     var key = credential.Key as Microsoft.IdentityModel.Tokens.X509SecurityKey; 

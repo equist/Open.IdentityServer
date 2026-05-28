@@ -1,13 +1,15 @@
 Adding more API Endpoints
 =========================
-It's a common scenario to add additional API endpoints to the application hosting IdentityServer.
-These endpoints are typically protected by IdentityServer itself.
+It's a common scenario to add additional API endpoints to the application hosting Open.IdentityServer.
+These endpoints are typically protected by Open.IdentityServer itself.
 
 For simple scenarios, we give you some helpers. See the advanced section to understand more of the internal plumbing.
 
 .. note:: You could achieve the same by using either our ``IdentityServerAuthentication`` handler or Microsoft's ``JwtBearer`` handler. But this is not recommended since it requires more configuration and creates dependencies on external libraries that might lead to conflicts in future updates.
 
-Start by registering your API as an ``ApiResource``, e.g.::
+Start by registering your API as an ``ApiResource``, e.g.
+
+.. code-block:: csharp
 
     public static IEnumerable<ApiResource> Apis = new List<ApiResource>
     {
@@ -15,7 +17,9 @@ Start by registering your API as an ``ApiResource``, e.g.::
         new ApiResource(IdentityServerConstants.LocalApi.ScopeName),
     };
 
-..and give your clients access to this API, e.g.::
+..and give your clients access to this API, e.g.
+
+.. code-block:: csharp
 
     new Client
     {
@@ -25,11 +29,15 @@ Start by registering your API as an ``ApiResource``, e.g.::
 
 .. note:: The value of ``IdentityServerConstants.LocalApi.ScopeName`` is ``IdentityServerApi``.
 
-To enable token validation for local APIs, add the following to your IdentityServer startup::
+To enable token validation for local APIs, add the following to your Open.IdentityServer startup
+
+.. code-block:: csharp
 
     services.AddLocalApiAuthentication();
 
-To protect an API controller, decorate it with an ``Authorize`` attribute using the ``LocalApi.PolicyName`` policy::
+To protect an API controller, decorate it with an ``Authorize`` attribute using the ``LocalApi.PolicyName`` policy
+
+.. code-block:: csharp
 
     [Route("localApi")]
     [Authorize(LocalApi.PolicyName)]
@@ -45,7 +53,9 @@ Authorized clients can then request a token for the ``IdentityServerApi`` scope 
 
 Discovery
 ^^^^^^^^^
-You can also add your endpoints to the discovery document if you want, e.g like this::
+You can also add your endpoints to the discovery document if you want, e.g like this
+
+.. code-block:: csharp
 
     services.AddIdentityServer(options =>
     {
@@ -56,15 +66,17 @@ Advanced
 ^^^^^^^^
 Under the covers, the ``AddLocalApiAuthentication`` helper does a couple of things:
 
-* adds an authentication handler that validates incoming tokens using IdentityServer's built-in token validation engine (the name of this handler is ``IdentityServerAccessToken`` or ``IdentityServerConstants.LocalApi.AuthenticationScheme``
+* adds an authentication handler that validates incoming tokens using Open.IdentityServer's built-in token validation engine (the name of this handler is ``IdentityServerAccessToken`` or ``IdentityServerConstants.LocalApi.AuthenticationScheme``
 * configures the authentication handler to require a scope claim inside the access token of value ``IdentityServerApi``
 * sets up an authorization policy that checks for a scope claim of value ``IdentityServerApi``
 
 This covers the most common scenarios. You can customize this behavior in the following ways:
 
 * Add the authentication handler yourself by calling ``services.AddAuthentication().AddLocalApi(...)``
-    * this way you can specify the required scope name yourself, or (by specifying no scope at all) accept any token from the current IdentityServer instance
-* Do your own scope validation/authorization in your controllers using custom policies or code, e.g.::
+    * this way you can specify the required scope name yourself, or (by specifying no scope at all) accept any token from the current Open.IdentityServer instance
+* Do your own scope validation/authorization in your controllers using custom policies or code, e.g.
+
+.. code-block:: csharp
 
     services.AddAuthorization(options =>
     {
@@ -79,7 +91,9 @@ This covers the most common scenarios. You can customize this behavior in the fo
 Claims Transformation
 ^^^^^^^^^^^^^^^^^^^^^
 You can provide a callback to transform the claims of the incoming token after validation.
-Either use the helper method, e.g.::
+Either use the helper method, e.g.
+
+.. code-block:: csharp
 
     services.AddLocalApiAuthentication(principal =>
     {

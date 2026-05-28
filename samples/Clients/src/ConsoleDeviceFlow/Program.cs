@@ -1,10 +1,11 @@
 ﻿using Clients;
-using IdentityModel;
-using IdentityModel.Client;
-using Newtonsoft.Json.Linq;
+using Duende.IdentityModel;
+using Duende.IdentityModel.Client;
+using System.Text.Json;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Text.Json.Nodes;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -101,7 +102,7 @@ namespace ConsoleDeviceFlow
             var response = await client.GetStringAsync("identity");
 
             "\n\nService claims:".ConsoleGreen();
-            Console.WriteLine(JArray.Parse(response));
+            Console.WriteLine(JsonArray.Parse(response));
         }
     }
 }

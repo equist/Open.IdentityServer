@@ -2,48 +2,59 @@
 Support and Consulting Options
 ==============================
 
-We have several free and commercial support and consulting options for IdentityServer.
+We have several free and commercial support and consulting options for Open.IdentityServer.
 
 Free support
 ^^^^^^^^^^^^
-Free support is community-based and uses public forums
+
+**Video tutorials and articles**
+
+There are free resources available to help you with Open.IdentityServer, and to help you solve common problems. These include:
+
+* `IdentityServer.com/articles <https://www.identityserver.com/articles>`_.
+* Our `YouTube channel <https://www.youtube.com/@identityserver>`_. 
+
+Many of these resources were created for IdentityServer4 or Duende.IdentityServer, but are still relevant for Open.IdentityServer.
 
 **StackOverflow**
 
-There's an ever growing community of people using IdentityServer that monitor questions on StackOverflow. 
+There's a community of people using IdentityServer that monitor questions on StackOverflow. 
 If time permits, we also try to answer as many questions as possible
+
+As this project is based on IdentityServer4, historic IdentityServer4 questions are also relevant for Open.IdentityServer, and vice versa. So if you have a question, please check both tags:
 
 You can subscribe to all IdentityServer4 related questions using this feed:
 
 https://stackoverflow.com/questions/tagged/?tagnames=identityserver4&sort=newest
 
-Please use the ``IdentityServer4`` tag when asking new questions
+Please use the ``Open.IdentityServer`` tag when asking new questions, and use the following feed for new questions:
 
-**Gitter**
-
-You can chat with other IdentityServer4 users in our Gitter chat room:
-
-https://gitter.im/IdentityServer/IdentityServer4
+https://stackoverflow.com/questions/tagged/?tagnames=open.identityserver&sort=newest
 
 **Reporting a bug**
 
-If you think you have found a bug or unexpected behavior, please open an issue on the Github `issue tracker <https://github.com/IdentityServer/IdentityServer4/issues>`_.
-We try to get back to you ASAP. Please understand that we also have day jobs, and might be too busy to reply immediately.
+If you think you have found a bug or unexpected behavior, please open an issue on the Github `issue tracker <https://github.com/RockSolidKnowledge/Open.IdentityServer/issues>`_.
+We try to get back to you ASAP.
 
-Also check the `contribution <https://github.com/IdentityServer/IdentityServer4/blob/dev/CONTRIBUTING.md>`_ guidelines before posting.
 
 Commercial support
 ^^^^^^^^^^^^^^^^^^
-We are doing consulting, mentoring and custom software development around identity & access control architecture in general, and IdentityServer in particular.
-Please `get in touch <mailto:contact@identityserver.io>`_ with us to discuss possible options.
 
-**Training**
+We offer `commercial support <https://www.identityserver.com/services>`_ for Open.IdentityServer in various forms. This includes:
 
-We are regularly doing workshops around identity & access control for modern applications.
-Check the agenda and upcoming public dates  `here <https://identityserver.io/training>`_.
-We can also perform the training privately at your company. 
-`Contact us <mailto:contact@identityserver.io>`_ to request the training on-site. 
+* Production support contracts, with guaranteed SLAs, vulnerability scanning, and regular four times a year patching.
+* Bespoke development - Own your SSO. Built by trusted IdentityServer specialists. Rock Solid Knowledge delivers secure, scalable, and fully bespoke solutions tailored to your infrastructure with fixed pricing and full source code delivery.
+* Consultancy packages
+* Health checks for your SSO architecture and implementation
 
-**AdminUI, WS-Federation, SAML2p, and FIDO2 support**
+We have a range of available `products <https://www.identityserver.com/products>`_ compatible with Open.IdentityServer, including:
 
-There are commercial add-on products available from our partners, Rock Solid Knowledge, on `identityserver.com <https://www.identityserver.com/products>`_.
+* [AdminUI](https://www.identityserver.com/products/adminui) - The most trusted and advanced management portal for IdentityServer. Secure, intuitive, built for extensibility and scale. Take the complexity out of identity.
+* [SAML2P](https://www.identityserver.com/products/saml2p) - The only SAML plugin offering full IdentityProvider (IdP) and Service Prover(SP) support. With seamless IdentityServer integration and trusted for secure enterprise SSO across any platform.
+* [WS-Federation](https://www.identityserver.com/products/ws-federation) - The best way to integrate WS-Fed supported applications (SharePoint) with IdentityServer. Perfect for Microsoft ecosystem and cross-protocol SSO (OIDC and WSFED)
+* [FIDO2](https://www.identityserver.com/products/fido2-for-aspnet) - Industry leading Passkey authentication for ASP.NET. FIDO2 certified, phishing-resistant, and ready for passwordless login. Passwordless, effortless and secure in only a few lines of code.
+* [SCIM](https://www.identityserver.com/products/scim-for-aspnet) - SCIM 2.0-powered identity automation. Provision users and sync identities effortlessly across your enterprise. Fully integrated with IdentityServer for streamlined IAM and HR workflows.
+* [Dynamic Authentication Providers](https://www.identityserver.com/products/dynamic-authentication-providers) - Ideal for adding and configuring external identity providers in ASP.NET Core.
+* [Enforcer](https://www.identityserver.com/products/enforcer) - Enforcer allows you to write human-readable access control policies for your .NET applications.
+
+For any of the above, or if you have other needs, please `get in touch <mailto:sales@identityserver.com>`_ to discuss how we can help you.

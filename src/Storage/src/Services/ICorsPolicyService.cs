@@ -4,18 +4,17 @@
 
 using System.Threading.Tasks;
 
-namespace IdentityServer4.Services
+namespace Open.IdentityServer.Services;
+
+/// <summary>
+/// Service that determines if CORS is allowed.
+/// </summary>
+public interface ICorsPolicyService
 {
     /// <summary>
-    /// Service that determines if CORS is allowed.
+    /// Determines whether origin is allowed.
     /// </summary>
-    public interface ICorsPolicyService
-    {
-        /// <summary>
-        /// Determines whether origin is allowed.
-        /// </summary>
-        /// <param name="origin">The origin.</param>
-        /// <returns></returns>
-        Task<bool> IsOriginAllowedAsync(string origin);
-    }
+    /// <param name="origin">The origin.</param>
+    /// <returns><see langword="true"/> if the origin is allowed to make cross-origin requests; otherwise, <see langword="false"/>.</returns>
+    Task<bool> IsOriginAllowedAsync(string origin);
 }

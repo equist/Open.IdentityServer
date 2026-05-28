@@ -1,0 +1,18 @@
+<aside class="w-64 flex-no-shrink hidden lg:block no-print">
+    {% include "partials/search.html" %}
+    <div class="flex mb-2 justify-between items-center">
+        <h2>Documentation</h2>
+        <span class="js-expand-all text-grey-light cursor-pointer fas fa-plus-square"></span>
+    </div>
+    <ul class="pl-4 list-reset">
+        {% include "nav.html" %}
+    </ul>
+    {% if toc and theme_show_sidebar_in_doc_navigation != 'false' and theme_show_sidebar_in_doc_navigation %}
+        <h3 class="mt-8 mb-2">{{ title|striptags }}</h3>
+        <div class="pl-4 list-reset sphinx-toc">
+            {{ toc }}
+        </div>
+
+        <script src="{{ pathto('_static/js/sphinx-sidebar.js', 1) }}"></script>
+    {% endif %}
+</aside>

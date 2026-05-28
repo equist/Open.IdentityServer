@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Clients;
-using IdentityModel;
-using IdentityModel.Client;
-using Newtonsoft.Json.Linq;
+using Duende.IdentityModel;
+using Duende.IdentityModel.Client;
+using System.Text.Json.Nodes;
 
 namespace ConsoleEphemeralMtlsClient
 {
@@ -35,7 +34,7 @@ namespace ConsoleEphemeralMtlsClient
 
             var endpoint = disco
                 .TryGetValue(OidcConstants.Discovery.MtlsEndpointAliases)
-                .Value<string>(OidcConstants.Discovery.TokenEndpoint)
+                ?.TryGetValue(OidcConstants.Discovery.TokenEndpoint)
                 .ToString();
             
             var response = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
@@ -62,7 +61,7 @@ namespace ConsoleEphemeralMtlsClient
             var response = await client.GetStringAsync("identity");
 
             "\n\nService claims:".ConsoleGreen();
-            Console.WriteLine(JArray.Parse(response));
+            Console.WriteLine(JsonArray.Parse(response));
         }
         
         static X509Certificate2 CreateClientCertificate(string name)

@@ -1,0 +1,37 @@
+// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Open.IdentityServer.Services;
+
+/// <summary>
+/// Default user code service implementation.
+/// </summary>
+/// <seealso cref="Open.IdentityServer.Services.IUserCodeService" />
+public class DefaultUserCodeService : IUserCodeService
+{
+    private readonly IEnumerable<IUserCodeGenerator> _generators;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DefaultUserCodeService"/> class.
+    /// </summary>
+    /// <param name="generators">The generators.</param>
+    /// <exception cref="ArgumentNullException">generators</exception>
+    public DefaultUserCodeService(IEnumerable<IUserCodeGenerator> generators)
+    {
+        _generators = generators ?? throw new ArgumentNullException(nameof(generators));
+    }
+
+    /// <summary>
+    /// Gets the user code generator.
+    /// </summary>
+    /// <param name="userCodeType">Type of user code.</param>
+    /// <returns>A task that resolves to the <see cref="IUserCodeGenerator"/> matching <paramref name="userCodeType"/>, or <see langword="null"/> if no matching generator is registered.</returns>
+    public Task<IUserCodeGenerator> GetGenerator(string userCodeType) =>
+        Task.FromResult(_generators.FirstOrDefault(x => x.UserCodeType == userCodeType));
+}

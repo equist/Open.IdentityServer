@@ -59,10 +59,12 @@ This process typically involves authentication of the end-user and optionally co
         ``idp:name_of_idp`` bypasses the login/home realm screen and forwards the user directly to the selected identity provider (if allowed per client configuration)
         
         ``tenant:name_of_tenant`` can be used to pass a tenant name to the login UI
+``resource``
+    :ref:`resource indicator(s) <_refResourceIndicators>` for the authorise request. Must be a valid URI.
 
 **Example**
 
-::
+.. code-block:: http
 
     GET /connect/authorize?
         client_id=client1&
@@ -73,5 +75,3 @@ This process typically involves authentication of the end-user and optionally co
         nonce=xyz 
 
 (URL encoding removed, and line breaks added for readability)
-
-.. Note:: You can use the `IdentityModel <https://github.com/IdentityModel/IdentityModel2>`_ client library to programmatically create authorize requests .NET code. For more information check the IdentityModel `docs <https://identitymodel.readthedocs.io/en/latest/client/authorize.html>`_.

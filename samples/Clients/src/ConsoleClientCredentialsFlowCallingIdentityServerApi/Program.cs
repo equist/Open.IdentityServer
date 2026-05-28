@@ -1,8 +1,9 @@
 ﻿using Clients;
-using IdentityModel.Client;
-using Newtonsoft.Json.Linq;
+using Duende.IdentityModel.Client;
+using System.Text.Json;
 using System;
 using System.Net.Http;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace ConsoleClientCredentialsFlowCallingIdentityServerApi
@@ -53,7 +54,7 @@ namespace ConsoleClientCredentialsFlowCallingIdentityServerApi
             var response = await client.GetStringAsync("localApi");
 
             "\n\nService claims:".ConsoleGreen();
-            Console.WriteLine(JArray.Parse(response));
+            Console.WriteLine(JsonArray.Parse(response));
         }
     }
 }

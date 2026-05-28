@@ -1,0 +1,134 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+
+variables:
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+
+stages:
+  - stage: CI
+    jobs:
+      - job: CI
+        strategy:
+          matrix:
+            linux:
+              imageName: 'ubuntu-latest'
+              shouldPublish: true
+              pushOnPrivateFeed: false
+
+        pool:
+          vmImage: $(imageName)
+
+        steps:
+          - checkout: self
+            clean: true
+            fetchDepth: 0
+            fetchFilter: tree:0
+          
+          - template: templates/dotnet-install.yml
+            parameters:
+              dotnetVersions: [10.x]
+              nugetVersion: '5.4.0'
+              
+          # Build, test, and pack Open.IdentityServer.Storage 
+          - template: templates/dotnet-restore-build-and-test.yml
+            parameters:
+              nuGetConfig: NuGet.config
+              csproj: '**/Open.IdentityServer.Storage.sln'
+          
+          - template: templates/dotnet-pack-ci.yml
+            parameters:
+              name: 'Open.IdentityServer.Storage'
+              projects: 
+              - csproj: '**/Open.IdentityServer.Storage.csproj'
+            
+          # Build, test, and pack the Core package, which is the main package and has the most dependencies
+          - template: templates/dotnet-restore-build-and-test.yml
+            parameters:
+              nuGetConfig: NuGet.config
+              csproj: '**/Open.IdentityServer/Open.IdentityServer.sln'
+              testProjects: 
+              - '**/Open.IdentityServer.UnitTests.csproj'
+              - '**/Open.IdentityServer.IntegrationTests.csproj'
+            
+          - template: templates/dotnet-pack-ci.yml
+            parameters:
+              name: 'Open.IdentityServer'
+              projects: 
+              - csproj: '**/Open.IdentityServer.csproj' 
+          
+          # Build, test, and pack the ASP.NET Identity package, which depends on the Core package
+          - template: templates/dotnet-restore-build-and-test.yml
+            parameters:
+              nuGetConfig: NuGet.config
+              csproj: '**/Open.IdentityServer.AspNetIdentity.sln'
+          
+          - template: templates/dotnet-pack-ci.yml
+            parameters:
+              name: 'Open.IdentityServer.AspNetIdentity'
+              projects: 
+              - csproj: '**/Open.IdentityServer.AspNetIdentity.csproj'  
+
+          # Build, test, and pack the EntityFramework.Storage package, which depends on the Core package
+          - template: templates/dotnet-restore-build-and-test.yml
+            parameters:
+              nuGetConfig: NuGet.config
+              csproj: '**/Open.IdentityServer.EntityFramework.Storage.sln'
+              testProjects: 
+              - '**/EntityFramework.Storage/test/UnitTests/Open.IdentityServer.EntityFramework.UnitTests.csproj'
+              - '**/EntityFramework.Storage/test/IntegrationTests/Open.IdentityServer.EntityFramework.IntegrationTests.csproj'
+
+          - template: templates/dotnet-pack-ci.yml
+            parameters:
+              name: 'Open.IdentityServer.EntityFramework.Storage'
+              projects: 
+              - csproj: '**/Open.IdentityServer.EntityFramework.Storage.csproj'
+          
+          # Build, test, and pack the EntityFramework package, which depends on the EntityFramework Storage package
+          - template: templates/dotnet-restore-build-and-test.yml
+            parameters:
+              nuGetConfig: NuGet.config
+              csproj: '**/Open.IdentityServer.EntityFramework.sln'
+              testProjects: 
+              - '**/EntityFramework/test/Open.IdentityServer.EntityFramework.Tests/Open.IdentityServer.EntityFramework.Tests.csproj'
+
+          - template: templates/dotnet-pack-ci.yml
+            parameters:
+              name: 'Open.IdentityServer.EntityFramework'
+              projects: 
+              - csproj: '**/Open.IdentityServer.EntityFramework.csproj'
+
+  - stage: Publish
+    dependsOn: CI
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - deployment: Publish
+        environment: 'nuget-staging'
+        pool:
+          vmImage: 'windows-latest'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: 'Open.IdentityServer nupkg'
+
+                - task: NuGetCommand@2
+                  displayName: 'Push packages to RSKTools feed'
+                  inputs:
+                    command: 'push'
+                    allowPackageConflicts: true # Package with same version will be ignored.
+                    packagesToPush: '$(Pipeline.Workspace)/Open.IdentityServer nupkg/Staging/*.nupkg'
+                    nuGetFeedType: 'internal'
+                    publishVstsFeed: 'RSKTools'
+

@@ -1,8 +1,9 @@
-﻿using IdentityModel;
-using IdentityModel.Client;
-using Newtonsoft.Json.Linq;
+﻿
 using System;
 using System.Text;
+using System.Text.Json.Nodes;
+using System.Buffers.Text;
+using Duende.IdentityModel.Client;
 
 namespace Clients
 {
@@ -23,8 +24,8 @@ namespace Clients
                     var header = parts[0];
                     var claims = parts[1];
 
-                    Console.WriteLine(JObject.Parse(Encoding.UTF8.GetString(Base64Url.Decode(header))));
-                    Console.WriteLine(JObject.Parse(Encoding.UTF8.GetString(Base64Url.Decode(claims))));
+                    Console.WriteLine(JsonNode.Parse(Encoding.UTF8.GetString(Base64Url.DecodeFromChars(header))));
+                    Console.WriteLine(JsonNode.Parse(Encoding.UTF8.GetString(Base64Url.DecodeFromChars(claims))));
                 }
             }
             else

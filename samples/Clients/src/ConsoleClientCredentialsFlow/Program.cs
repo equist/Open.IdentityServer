@@ -1,8 +1,8 @@
 ﻿using Clients;
-using IdentityModel.Client;
-using Newtonsoft.Json.Linq;
+using Duende.IdentityModel.Client;
 using System;
 using System.Net.Http;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace ConsoleClientCredentialsFlow
@@ -52,7 +52,7 @@ namespace ConsoleClientCredentialsFlow
             var response = await client.GetStringAsync("identity");
 
             "\n\nService claims:".ConsoleGreen();
-            Console.WriteLine(JArray.Parse(response));
+            Console.WriteLine(JsonArray.Parse(response));
         }
     }
 }

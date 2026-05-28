@@ -1,23 +1,27 @@
 Client Authentication
 =====================
-In certain situations, clients need to authenticate with IdentityServer, e.g.
+In certain situations, clients need to authenticate with Open.IdentityServer, e.g.
 
 * confidential applications (aka clients) requesting tokens at the token endpoint
 * APIs validating reference tokens at the introspection endpoint
 
 For that purpose you can assign a list of secrets to a client or an API resource.
 
-Secret parsing and validation is an extensibility point in identityserver, out of the box it supports shared secrets
+Secret parsing and validation is an extensibility point in Open.IdentityServer, out of the box it supports shared secrets
 as well as transmitting the shared secret via a basic authentication header or the POST body.
 
 Creating a shared secret
 ^^^^^^^^^^^^^^^^^^^^^^^^
-The following code sets up a hashed shared secret::
+The following code sets up a hashed shared secret
+
+.. code-block:: csharp
 
     var secret = new Secret("secret".Sha256());
 
 This secret can now be assigned to either a ``Client`` or an ``ApiResource``. 
-Notice that both do not only support a single secret, but multiple. This is useful for secret rollover and rotation::
+Notice that both do not only support a single secret, but multiple. This is useful for secret rollover and rotation
+
+.. code-block:: csharp
 
     var client = new Client
     {
@@ -32,7 +36,9 @@ Notice that both do not only support a single secret, but multiple. This is usef
     };
 
 In fact you can also assign a description and an expiration date to a secret. The description will be used for logging, and 
-the expiration date for enforcing a secret lifetime::
+the expiration date for enforcing a secret lifetime
+
+.. code-block:: csharp
 
     var secret = new Secret(
         "secret".Sha256(), 
@@ -41,7 +47,9 @@ the expiration date for enforcing a secret lifetime::
 
 Authentication using a shared secret
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-You can either send the client id/secret combination as part of the POST body::
+You can either send the client id/secret combination as part of the POST body
+
+.. code-block:: http
 
     POST /connect/token
     
@@ -49,7 +57,9 @@ You can either send the client id/secret combination as part of the POST body::
     client_secret=secret&
     ...
 
-..or as a basic authentication header::
+..or as a basic authentication header
+
+.. code-block:: http
 
     POST /connect/token
     
@@ -57,7 +67,9 @@ You can either send the client id/secret combination as part of the POST body::
 
     ...
 
-You can manually create a basic authentication header using the following C# code::
+You can manually create a basic authentication header using the following C# code
+
+.. code-block:: csharp
 
     var credentials = string.Format("{0}:{1}", clientId, clientSecret);
     var headerValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(credentials));
@@ -65,13 +77,12 @@ You can manually create a basic authentication header using the following C# cod
     var client = new HttpClient();
     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", headerValue);
 
-The `IdentityModel <https://github.com/IdentityModel/IdentityModel>`_ library has helper classes called ``TokenClient`` and ``IntrospectionClient`` that encapsulate
-both authentication and protocol messages.
+.. note:: There are some 3rd party libraries out there that encapsulate both authentication and protocol messages.
 
 Authentication using an asymmetric Key
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 There are other techniques to authenticate clients, e.g. based on public/private key cryptography.
-IdentityServer includes support for private key JWT client secrets (see `RFC 7523 <https://tools.ietf.org/html/rfc7523>`_
+Open.IdentityServer includes support for private key JWT client secrets (see `RFC 7523 <https://tools.ietf.org/html/rfc7523>`_
 and `here <https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication>`_).
 
 Secret extensibility typically consists of three things:
@@ -81,13 +92,17 @@ Secret extensibility typically consists of three things:
 * a secret validator that knows how to validate the parsed secret based on the definition
 
 Secret parsers and validators are implementations of the ``ISecretParser`` and ``ISecretValidator`` interfaces. 
-To make them available to IdentityServer, you need to register them with the DI container, e.g.::
+To make them available to Open.IdentityServer, you need to register them with the DI container, e.g.
+
+.. code-block:: csharp
 
     builder.AddSecretParser<JwtBearerClientAssertionSecretParser>()
     builder.AddSecretValidator<PrivateKeyJwtSecretValidator>()
 
 Our default private key JWT secret validator expects the full (leaf) certificate as base64 on the secret definition 
-or an ESA/EC JSON web key::
+or an ESA/EC JSON web key
+
+.. code-block:: csharp
 
     var client = new Client
     {
