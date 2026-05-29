@@ -123,6 +123,10 @@ We also publish `sample SQL scripts <https://github.com/RockSolidKnowledge/Open.
 Generating Delta Scripts
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. note::
+    The following is only true for SqlServer, PostgreSql, and SQLite. MySQL isn't included as the package is targeting net10.0, and the package that supports net10.0 generates invalid SQL. There is a workaround, though
+    you can drop the EntityFrameworkCore package to a 9.0 version and use `Pomelo.EntityFrameworkCore.MySql <https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql>`_.
+
 It is possible with some manual configuration to use our `Migrator Project <https://github.com/RockSolidKnowledge/Open.IdentityServer/tree/main/src/EntityFramework.Storage/migrations/Migrator>`_ to generate scripts for migrating the schema from one version to another.
 
 .. note:: The connection string used in these steps only needs to be valid in format — it does not need to connect to a real database. EF migrations tooling uses it to determine the provider, not to execute against a live database.
@@ -137,15 +141,14 @@ It is possible with some manual configuration to use our `Migrator Project <http
     <!-- Add the following line, where x.x.x is your current version -->
     <PackageReference Include="Open.IdentityServer.EntityFramework.Storage" Version="x.x.x"/>
 
-2. Run the ``buildschema.sh`` bash script. This takes ``DbProvider`` (SqlServer, PostgreSql, or MySql) and a ``ConnectionString`` as arguments in that order. Once complete, you should have a migration for each ``DbContext`` that matches the referenced version of ``Open.IdentityServer.EntityFramework.Storage``.
+2. Run the ``buildschema.sh`` bash script. This takes ``DbProvider`` (SqlServer, PostgreSql, or SQLite) and a ``ConnectionString`` as arguments in that order. Once complete, you should have a migration for each ``DbContext`` that matches the referenced version of ``Open.IdentityServer.EntityFramework.Storage``.
 
 3. Update the ``Open.IdentityServer.EntityFramework.Storage`` package reference in the ``.csproj`` file to the **new** version you are migrating to.
 
 4. Generate new migrations for each ``DbContext``, then use the two migrations to produce delta SQL scripts. For example:
 
 .. code-block:: bash
-
-    export DbProvider=MySql
+    export DbProvider=SqlServer
     export ConnectionStrings__db='Server=myServerAddress;Database=myDataBase;'
 
     dotnet ef migrations add Grants_to_XXX -c PersistedGrantDbContext -o Migrations/PersistedGrantDb
