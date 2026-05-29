@@ -124,8 +124,10 @@ Generating Delta Scripts
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. note::
-    The following is only true for SqlServer, PostgreSql, and SQLite. MySQL isn't included as the package is targeting net10.0, and the package that supports net10.0 generates invalid SQL. There is a workaround, though
-    you can drop the EntityFrameworkCore package to a 9.0 version and use `Pomelo.EntityFrameworkCore.MySql <https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql>`_.
+    The following is only true for SQL Server, PostgreSQL, and SQLite. MySQL isn't included as the `MySql.EntityFrameworkCore package <https://www.nuget.org/packages/MySql.EntityFrameworkCore>`_ 
+    generated invalid SQL. We did try to work around this using the `Pomelo.EntityFrameworkCore.MySql package <https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql>`_ and downgrading the
+    EntityFrameworkCore packages to a 9.0 version, but the scripts generated from that were also invalid. We modified those scripts to make them work, and those are 
+    what you can see in the above-linked scripts directory.
 
 It is possible with some manual configuration to use our `Migrator Project <https://github.com/RockSolidKnowledge/Open.IdentityServer/tree/main/src/EntityFramework.Storage/migrations/Migrator>`_ to generate scripts for migrating the schema from one version to another.
 
