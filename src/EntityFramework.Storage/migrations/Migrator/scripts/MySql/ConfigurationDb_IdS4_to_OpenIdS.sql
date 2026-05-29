@@ -1,29 +1,4 @@
 ﻿START TRANSACTION;
-ALTER TABLE `IdentityResourceProperties` DROP INDEX `IX_IdentityResourceProperties_IdentityResourceId`;
-
-ALTER TABLE `IdentityResourceClaims` DROP INDEX `IX_IdentityResourceClaims_IdentityResourceId`;
-
-ALTER TABLE `ClientRedirectUris` DROP INDEX `IX_ClientRedirectUris_ClientId`;
-
-ALTER TABLE `ClientPostLogoutRedirectUris` DROP INDEX `IX_ClientPostLogoutRedirectUris_ClientId`;
-
-ALTER TABLE `ClientIdPRestrictions` DROP INDEX `IX_ClientIdPRestrictions_ClientId`;
-
-ALTER TABLE `ClientGrantTypes` DROP INDEX `IX_ClientGrantTypes_ClientId`;
-
-ALTER TABLE `ClientCorsOrigins` DROP INDEX `IX_ClientCorsOrigins_ClientId`;
-
-ALTER TABLE `ClientClaims` DROP INDEX `IX_ClientClaims_ClientId`;
-
-ALTER TABLE `ApiScopeProperties` DROP INDEX `IX_ApiScopeProperties_ScopeId`;
-
-ALTER TABLE `ApiScopeClaims` DROP INDEX `IX_ApiScopeClaims_ScopeId`;
-
-ALTER TABLE `ApiResourceScopes` DROP INDEX `IX_ApiResourceScopes_ApiResourceId`;
-
-ALTER TABLE `ApiResourceProperties` DROP INDEX `IX_ApiResourceProperties_ApiResourceId`;
-
-ALTER TABLE `ApiResourceClaims` DROP INDEX `IX_ApiResourceClaims_ApiResourceId`;
 
 ALTER TABLE `Clients` ADD `CibaLifetime` int NULL;
 
@@ -96,6 +71,32 @@ CREATE UNIQUE INDEX `IX_ApiResourceScopes_ApiResourceId_Scope` ON `ApiResourceSc
 CREATE UNIQUE INDEX `IX_ApiResourceProperties_ApiResourceId_Key` ON `ApiResourceProperties` (`ApiResourceId`, `Key`);
 
 CREATE UNIQUE INDEX `IX_ApiResourceClaims_ApiResourceId_Type` ON `ApiResourceClaims` (`ApiResourceId`, `Type`);
+
+ALTER TABLE `IdentityResourceProperties` DROP INDEX `IX_IdentityResourceProperties_IdentityResourceId`;
+
+ALTER TABLE `IdentityResourceClaims` DROP INDEX `IX_IdentityResourceClaims_IdentityResourceId`;
+
+ALTER TABLE `ClientRedirectUris` DROP INDEX `IX_ClientRedirectUris_ClientId`;
+
+ALTER TABLE `ClientPostLogoutRedirectUris` DROP INDEX `IX_ClientPostLogoutRedirectUris_ClientId`;
+
+ALTER TABLE `ClientIdPRestrictions` DROP INDEX `IX_ClientIdPRestrictions_ClientId`;
+
+ALTER TABLE `ClientGrantTypes` DROP INDEX `IX_ClientGrantTypes_ClientId`;
+
+ALTER TABLE `ClientCorsOrigins` DROP INDEX `IX_ClientCorsOrigins_ClientId`;
+
+ALTER TABLE `ClientClaims` DROP INDEX `IX_ClientClaims_ClientId`;
+
+ALTER TABLE `ApiScopeProperties` DROP INDEX `IX_ApiScopeProperties_ScopeId`;
+
+ALTER TABLE `ApiScopeClaims` DROP INDEX `IX_ApiScopeClaims_ScopeId`;
+
+ALTER TABLE `ApiResourceScopes` DROP INDEX `IX_ApiResourceScopes_ApiResourceId`;
+
+ALTER TABLE `ApiResourceProperties` DROP INDEX `IX_ApiResourceProperties_ApiResourceId`;
+
+ALTER TABLE `ApiResourceClaims` DROP INDEX `IX_ApiResourceClaims_ApiResourceId`;
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
 VALUES ('20260529101748_Configuration_to_OpenIdS', '9.0.16');
