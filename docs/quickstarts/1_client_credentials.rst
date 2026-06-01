@@ -17,7 +17,7 @@ As with all of these quickstarts you can find the source code for it in the `Ope
 
 Preparation
 ^^^^^^^^^^^
-The Open.IdentityServer `Samples <https://github.com/RockSolidKnowledge/Open.IdentityServer/tree/main/samples/Quickstarts>` from the repository are a good starting point for the quickstarts.
+The Open.IdentityServer `Samples <https://github.com/RockSolidKnowledge/Open.IdentityServer/tree/main/samples/Quickstarts>`_ from the repository are a good starting point for the quickstarts.
 
 They will be used as a starting point for the various tutorials.
 
