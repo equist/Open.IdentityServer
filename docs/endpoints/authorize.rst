@@ -60,7 +60,7 @@ This process typically involves authentication of the end-user and optionally co
 ``tenant:name_of_tenant`` 
     can be used to pass a tenant name to the login UI
 ``resource``
-    :ref:`resource indicator(s) <_refResourceIndicators>` for the authorise request. Must be a valid URI.
+    :ref:`resource indicator(s) <refResourceIndicators>` for the authorise request. Must be a valid URI.
 
 **Example**
 

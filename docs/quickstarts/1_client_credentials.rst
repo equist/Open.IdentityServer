@@ -5,7 +5,7 @@ Protecting an API using Client Credentials
 The following Open.IdentityServer quickstart provides step by step instructions for various common Open.IdentityServer scenarios. 
 These start with the absolute basics and become more complex as they progress. We recommend that you follow them in sequence.  
 
-To see the full list, please go to :ref:`Open.IdentityServer Quickstarts Overview <_refQuickstartOverview>`
+To see the full list, please go to :ref:`Open.IdentityServer Quickstarts Overview <refQuickstartOverview>`
 
 This first quickstart is the most basic scenario for protecting APIs using Open.IdentityServer. 
 In this quickstart you define an API and a Client with which to access it. 
