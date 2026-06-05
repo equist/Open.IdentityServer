@@ -324,7 +324,7 @@ public class IdentityServerSigningCredentialStoreTests
         var actual = await sut.GetSigningCredentialsAsync();
 
         var expectedCert = X509CertificateLoader.LoadPkcs12(Convert.FromBase64String(fakeX509CertData.CertificateRawData), null);
-        SigningCredentials expectedSigningCredentials = new SigningCredentials(new X509SecurityKey(expectedCert), fakeX509CertData.Algorithm);
+        SigningCredentials expectedSigningCredentials = new SigningCredentials(new X509SecurityKey(expectedCert) { KeyId = fakeX509CertData.Id }, fakeX509CertData.Algorithm);
         
         actual.Should().BeEquivalentTo(expectedSigningCredentials);
     }
@@ -334,13 +334,13 @@ public class IdentityServerSigningCredentialStoreTests
     {
         var fakeECDsaSecurityKey = new ECDsaSecurityKey(ECDsa.Create(FakeKeyData.EcDsaSecurityKey384))
         {
-            KeyId = "Fake_EC384",
+            KeyId = "Fake_ES384",
         };
         var fakeX509CertData = new X509IdentityServerKeyData
         {
             Id = fakeECDsaSecurityKey.KeyId,
             Created = FakeNow.AddDays(-33),
-            Algorithm = "EC384",
+            Algorithm = "ES384",
             CertificateRawData = fakeECDsaSecurityKey.ToBase64Pfx(),
         };
         var fakeX509Json = fakeX509CertData.ToExpectedJson();
@@ -363,7 +363,7 @@ public class IdentityServerSigningCredentialStoreTests
         var actual = await sut.GetSigningCredentialsAsync();
 
         var expectedCert = X509CertificateLoader.LoadPkcs12(Convert.FromBase64String(fakeX509CertData.CertificateRawData), null);
-        SigningCredentials expectedSigningCredentials = new SigningCredentials(new X509SecurityKey(expectedCert), fakeX509CertData.Algorithm);
+        SigningCredentials expectedSigningCredentials = new SigningCredentials(new X509SecurityKey(expectedCert) { KeyId = fakeX509CertData.Id }, fakeX509CertData.Algorithm);
         
         actual.Should().BeEquivalentTo(expectedSigningCredentials);
     }

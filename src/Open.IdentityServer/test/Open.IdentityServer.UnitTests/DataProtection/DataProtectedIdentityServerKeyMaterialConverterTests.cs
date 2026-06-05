@@ -99,17 +99,48 @@ public class DataProtectedIdentityServerKeyMaterialConverterTests
     }
     
     [Fact]
-    public void Convert_WhenX509IdentityServerKeyData_ShouldConvertToSigningKey()
+    public void Convert_WhenX509IdentityServerKeyData_ContainingRsaKey_ShouldConvertToSigningKey()
+    {
+        RsaSecurityKey fakeRsaSecurityKey = new RsaSecurityKey(FakeKeyData.RsaSecurityKey256)
+        {
+            KeyId = "Fake_RS256",
+        };
+        X509IdentityServerKeyData fakeX509CertData = new X509IdentityServerKeyData
+        {
+            Id = fakeRsaSecurityKey.KeyId,
+            Created = new DateTime(2026, 04, 25, 11, 20, 21, DateTimeKind.Utc),
+            Algorithm = "RS256",
+            CertificateRawData = fakeRsaSecurityKey.ToBase64Pfx(),
+        };
+        IdentityServerKeyMaterial testKeyMaterial = new IdentityServerKeyMaterial
+        {
+            Id = fakeX509CertData.Id, Version = 1, Use = "signing", DataProtected = false,
+            Algorithm = fakeX509CertData.Algorithm, IsX509Certificate = true, Data = fakeX509CertData.ToExpectedJson(),
+        };
+        
+        DataProtectedIdentityServerKeyMaterialConverter sut = CreateSut();
+        SigningKey actual = sut.Convert(testKeyMaterial);
+        
+        var expectedCert = X509CertificateLoader.LoadPkcs12(Convert.FromBase64String(fakeX509CertData.CertificateRawData), null);
+        SigningCredentials expectedCredentials = new SigningCredentials(new X509SecurityKey(expectedCert) { KeyId = fakeX509CertData.Id }, fakeX509CertData.Algorithm);
+        
+        actual.Id.Should().Be(fakeX509CertData.Id);
+        actual.Created.Should().Be(fakeX509CertData.Created);
+        actual.Credentials.Should().BeEquivalentTo(expectedCredentials);
+    }
+    
+    [Fact]
+    public void Convert_WhenX509IdentityServerKeyData_ContainingECDsaKey_ShouldConvertToSigningKey()
     {
         ECDsaSecurityKey fakeECDsaSecurityKey = new ECDsaSecurityKey(ECDsa.Create(FakeKeyData.EcDsaSecurityKey384))
         {
-            KeyId = "Fake_EC384",
+            KeyId = "Fake_ES384",
         };
         X509IdentityServerKeyData fakeX509CertData = new X509IdentityServerKeyData
         {
             Id = fakeECDsaSecurityKey.KeyId,
             Created = new DateTime(2026, 04, 25, 11, 20, 21, DateTimeKind.Utc),
-            Algorithm = "EC384",
+            Algorithm = "ES384",
             CertificateRawData = fakeECDsaSecurityKey.ToBase64Pfx(),
         };
         IdentityServerKeyMaterial testKeyMaterial = new IdentityServerKeyMaterial
@@ -122,7 +153,7 @@ public class DataProtectedIdentityServerKeyMaterialConverterTests
         SigningKey actual = sut.Convert(testKeyMaterial);
         
         var expectedCert = X509CertificateLoader.LoadPkcs12(Convert.FromBase64String(fakeX509CertData.CertificateRawData), null);
-        SigningCredentials expectedCredentials = new SigningCredentials(new X509SecurityKey(expectedCert), fakeX509CertData.Algorithm);
+        SigningCredentials expectedCredentials = new SigningCredentials(new X509SecurityKey(expectedCert) { KeyId = fakeX509CertData.Id }, fakeX509CertData.Algorithm);
         
         actual.Id.Should().Be(fakeX509CertData.Id);
         actual.Created.Should().Be(fakeX509CertData.Created);
@@ -130,17 +161,17 @@ public class DataProtectedIdentityServerKeyMaterialConverterTests
     }
     
     [Fact]
-    public void Convert_WhenDatProtected_ShouldConvertToSigningKey()
+    public void Convert_WhenDataProtected_ShouldConvertToSigningKey()
     {
         ECDsaSecurityKey fakeECDsaSecurityKey = new ECDsaSecurityKey(ECDsa.Create(FakeKeyData.EcDsaSecurityKey384))
         {
-            KeyId = "Fake_EC384",
+            KeyId = "Fake_ES384",
         };
         X509IdentityServerKeyData fakeX509CertData = new X509IdentityServerKeyData
         {
             Id = fakeECDsaSecurityKey.KeyId,
             Created = new DateTime(2026, 04, 25, 11, 20, 21, DateTimeKind.Utc),
-            Algorithm = "EC384",
+            Algorithm = "ES384",
             CertificateRawData = fakeECDsaSecurityKey.ToBase64Pfx(),
         };
         var fakeX509Json = fakeX509CertData.ToExpectedJson();
@@ -161,7 +192,7 @@ public class DataProtectedIdentityServerKeyMaterialConverterTests
         SigningKey actual = sut.Convert(testKeyMaterial);
         
         var expectedCert = X509CertificateLoader.LoadPkcs12(Convert.FromBase64String(fakeX509CertData.CertificateRawData), null);
-        SigningCredentials expectedCredentials = new SigningCredentials(new X509SecurityKey(expectedCert), fakeX509CertData.Algorithm);
+        SigningCredentials expectedCredentials = new SigningCredentials(new X509SecurityKey(expectedCert) { KeyId = fakeX509CertData.Id }, fakeX509CertData.Algorithm);
         
         actual.Id.Should().Be(fakeX509CertData.Id);
         actual.Created.Should().Be(fakeX509CertData.Created);

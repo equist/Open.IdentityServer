@@ -79,7 +79,7 @@ public class DataProtectedIdentityServerKeyMaterialConverter(IDataProtectionProv
             var cert = X509CertificateLoader.LoadPkcs12(System.Convert.FromBase64String(keyData.CertificateRawData), null);
             
             signingKey.Created = keyData.Created;
-            signingKey.Credentials = new SigningCredentials(new X509SecurityKey(cert), keyData.Algorithm);
+            signingKey.Credentials = new SigningCredentials(new X509SecurityKey(cert) { KeyId = keyData.Id }, keyData.Algorithm);
         }
         
         return signingKey;
