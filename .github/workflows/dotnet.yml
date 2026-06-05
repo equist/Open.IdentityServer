@@ -1,5 +1,5 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+# Builds the project, runs tests and creates NuGet packages.
+# Triggers on pushes to main and version tags, and pull requests targeting main.
 
 name: .NET
 
@@ -7,6 +7,9 @@ on:
   push:
     branches:
       - main
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-*'
   pull_request:
     branches:
       - main
