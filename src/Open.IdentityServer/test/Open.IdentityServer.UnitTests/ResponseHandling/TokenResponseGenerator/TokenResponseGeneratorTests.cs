@@ -29,7 +29,7 @@ public abstract class TokenResponseGeneratorTests
     protected readonly IClientStore clients = new InMemoryClientStore(TestClients.Get());
     protected readonly ILogger<Open.IdentityServer.ResponseHandling.TokenResponseGenerator> logger = NullLogger<Open.IdentityServer.ResponseHandling.TokenResponseGenerator>.Instance;
 
-    protected readonly DateTime FakeNow = new DateTime(2026, 02, 01, 12, 23, 00);
+    protected readonly DateTime FakeNow = new DateTime(2026, 02, 01, 12, 23, 00, DateTimeKind.Utc);
 
     protected TokenResponseGeneratorTests()
     {
