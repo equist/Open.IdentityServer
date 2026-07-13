@@ -17,7 +17,7 @@ public class DistributedCacheAuthorizationParametersMessageStoreTests
     private MockDistributedCache _mockCache = new();
 
     [Fact]
-    public async Task GetSigningCredentialsAsync_WhenUnspecifiedDateTime_ShouldTreatAsUtcTime()
+    public async Task DeleteAsync_ShouldRemoveEntryFromCache()
     {
         var subject = new DistributedCacheAuthorizationParametersMessageStore(_mockCache, new DefaultHandleGenerationService());
 
