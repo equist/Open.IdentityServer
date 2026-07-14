@@ -1,4 +1,5 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Modified by Rock Solid Knowledge Ltd. Copyright in modifications 2026, Rock Solid Knowledge Ltd.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ public class DistributedCacheAuthorizationParametersMessageStore : IAuthorizatio
         message.Data.Remove(OidcConstants.AuthorizeRequest.RequestUri);
 
         var key = await _handleGenerationService.GenerateAsync();
-        var cacheKey = $"{CacheKeyPrefix}-{key}";
+        var cacheKey = GetCacheKey(key);
             
         var json = ObjectSerializer.ToString(message);
 
@@ -55,7 +56,7 @@ public class DistributedCacheAuthorizationParametersMessageStore : IAuthorizatio
     /// <inheritdoc/>
     public async Task<Message<IDictionary<string, string[]>>> ReadAsync(string id)
     {
-        var cacheKey = $"{CacheKeyPrefix}-{id}";
+        var cacheKey = GetCacheKey(id);
         var json = await _distributedCache.GetStringAsync(cacheKey);
 
         if (json == null)
@@ -69,6 +70,12 @@ public class DistributedCacheAuthorizationParametersMessageStore : IAuthorizatio
     /// <inheritdoc/>
     public Task DeleteAsync(string id)
     {
-        return _distributedCache.RemoveAsync(id);
+        var cacheKey = GetCacheKey(id);
+        return _distributedCache.RemoveAsync(cacheKey);
+    }
+
+    private string GetCacheKey(string id)
+    {
+        return $"{CacheKeyPrefix}-{id}";
     }
 }
