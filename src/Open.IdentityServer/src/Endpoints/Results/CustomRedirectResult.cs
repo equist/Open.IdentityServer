@@ -55,14 +55,7 @@ public class CustomRedirectResult : ReturnUrlResult
     public override async Task ExecuteAsync(HttpContext context)
     {
         Init(context);
-        var returnUrl = await BuildReturnUrl(context);
-
-        if (!_url.IsLocalUrl())
-        {
-            // this converts the relative redirect path to an absolute one if we're 
-            // redirecting to a different server
-            returnUrl = context.GetIdentityServerHost().EnsureTrailingSlash() + returnUrl.RemoveLeadingSlash();
-        }
+        var returnUrl = await BuildReturnUrl(context, _url.IsLocalUrl());
 
         var url = _url.AddQueryString(Options.UserInteraction.CustomRedirectReturnUrlParameter, returnUrl);
         context.Response.RedirectToAbsoluteUrl(url);

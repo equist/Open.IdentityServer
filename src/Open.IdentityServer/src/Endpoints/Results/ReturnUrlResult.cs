@@ -67,8 +67,9 @@ public abstract class ReturnUrlResult: IEndpointResult
     /// Builds a returnUrl using <see cref="IAuthorizationParametersMessageStore"/> if registered, and fallback 
     /// </summary>
     /// <param name="context">The HTTP context.</param>
+    /// <param name="localUrl">Indicates whether the return URL should be local.</param>
     /// <returns>built return url</returns>
-    protected async Task<string> BuildReturnUrl(HttpContext context)
+    protected async Task<string> BuildReturnUrl(HttpContext context, bool localUrl)
     {
         var returnUrl = context.GetIdentityServerBasePath().EnsureTrailingSlash() + Constants.ProtocolRoutePaths.AuthorizeCallback;
         if (AuthorizationParametersMessageStore != null)
@@ -80,6 +81,13 @@ public abstract class ReturnUrlResult: IEndpointResult
         else
         {
             returnUrl = returnUrl.AddQueryString(Request.Raw.ToQueryString());
+        }
+
+        if (!localUrl)
+        {
+            // this converts the relative redirect path to an absolute one if we're 
+            // redirecting to a different server
+            returnUrl = context.GetIdentityServerHost().EnsureTrailingSlash() + returnUrl.RemoveLeadingSlash();
         }
 
         return returnUrl;

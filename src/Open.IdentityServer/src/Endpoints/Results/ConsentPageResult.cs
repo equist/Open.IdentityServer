@@ -39,15 +39,8 @@ public class ConsentPageResult : ReturnUrlResult
     public override async Task ExecuteAsync(HttpContext context)
     {
         Init(context);
-        var returnUrl = await BuildReturnUrl(context);
-
         var consentUrl = Options.UserInteraction.ConsentUrl;
-        if (!consentUrl.IsLocalUrl())
-        {
-            // this converts the relative redirect path to an absolute one if we're 
-            // redirecting to a different server
-            returnUrl = context.GetIdentityServerHost().EnsureTrailingSlash() + returnUrl.RemoveLeadingSlash();
-        }
+        var returnUrl = await BuildReturnUrl(context, consentUrl.IsLocalUrl());
 
         var url = consentUrl.AddQueryString(Options.UserInteraction.ConsentReturnUrlParameter, returnUrl);
         context.Response.RedirectToAbsoluteUrl(url);

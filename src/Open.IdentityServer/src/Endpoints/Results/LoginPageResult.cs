@@ -39,15 +39,8 @@ public class LoginPageResult : ReturnUrlResult
     public override async Task ExecuteAsync(HttpContext context)
     {
         Init(context);
-        var returnUrl = await BuildReturnUrl(context);
-
         var loginUrl = Options.UserInteraction.LoginUrl;
-        if (!loginUrl.IsLocalUrl())
-        {
-            // this converts the relative redirect path to an absolute one if we're 
-            // redirecting to a different server
-            returnUrl = context.GetIdentityServerHost().EnsureTrailingSlash() + returnUrl.RemoveLeadingSlash();
-        }
+        var returnUrl = await BuildReturnUrl(context, loginUrl.IsLocalUrl());
 
         var url = loginUrl.AddQueryString(Options.UserInteraction.LoginReturnUrlParameter, returnUrl);
         context.Response.RedirectToAbsoluteUrl(url);
