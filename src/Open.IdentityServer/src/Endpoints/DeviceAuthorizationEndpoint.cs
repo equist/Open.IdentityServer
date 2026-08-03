@@ -2,6 +2,7 @@
 // Modified by Rock Solid Knowledge Ltd. Copyright in modifications 2026, Rock Solid Knowledge Ltd.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+#nullable enable
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -85,7 +86,7 @@ internal class DeviceAuthorizationEndpoint : IEndpointHandler
         
         // validate request
         var form = (await context.Request.ReadFormAsync()).AsNameValueCollection();
-        var requestResult = await _requestValidator.ValidateAsync(form, clientResult);
+        var requestResult = await _requestValidator.ValidateAsync(new DeviceAuthorizationRequestValidationContext(form, clientResult));
 
         if (requestResult.IsError)
         {
@@ -109,7 +110,7 @@ internal class DeviceAuthorizationEndpoint : IEndpointHandler
         return new DeviceAuthorizationResult(response);
     }
 
-    private TokenErrorResult Error(string error, string errorDescription = null, Dictionary<string, object> custom = null)
+    private TokenErrorResult Error(string error, string? errorDescription = null, Dictionary<string, object>? custom = null)
     {
         var response = new TokenErrorResponse
         {

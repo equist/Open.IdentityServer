@@ -28,12 +28,12 @@ public class AuthorizeRequestValidationContext
     }
 
     /// <summary>
-    /// Gets or sets the query string or form parameters from the authorize request.
+    /// Gets the query string or form parameters from the authorize request.
     /// </summary>
-    public NameValueCollection Parameters { get; init; }
+    public NameValueCollection Parameters { get; }
 
     /// <summary>
-    /// Gets or sets the currently authenticated user, or <see langword="null"/> when the user has not yet signed in.
+    /// Gets the currently authenticated user, or <see langword="null"/> when the user has not yet signed in.
     /// </summary>
-    public ClaimsPrincipal Subject { get; init; }
+    public ClaimsPrincipal Subject { get; }
 }

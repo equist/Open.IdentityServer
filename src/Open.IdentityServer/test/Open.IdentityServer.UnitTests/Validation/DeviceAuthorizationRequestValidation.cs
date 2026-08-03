@@ -29,14 +29,32 @@ public class DeviceAuthorizationRequestValidation
         AllowedScopes = {"openid", "profile", "resource"},
         AllowOfflineAccess = true
     };
-        
+
+    [Fact]
+    [Trait("Category", Category)]
+    public void Null_Parameter_For_Context_Parameters()
+    {
+        Action act = () => new DeviceAuthorizationRequestValidationContext(null, new ClientSecretValidationResult());
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Fact]
+    [Trait("Category", Category)]
+    public void Null_Parameter_For_Context_ClientValidationResult()
+    {
+        Action act = () => new DeviceAuthorizationRequestValidationContext(new NameValueCollection(), null);
+
+        act.Should().Throw<ArgumentNullException>();
+    }
+
     [Fact]
     [Trait("Category", Category)]
     public async Task Null_Parameter()
     {
         var validator = Factory.CreateDeviceAuthorizationRequestValidator();
 
-        Func<Task> act = () => validator.ValidateAsync(null, null);
+        Func<Task> act = () => validator.ValidateAsync(null);
 
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
@@ -48,7 +66,7 @@ public class DeviceAuthorizationRequestValidation
         testClient.ProtocolType = IdentityServerConstants.ProtocolTypes.WsFederation;
 
         var validator = Factory.CreateDeviceAuthorizationRequestValidator();
-        var result = await validator.ValidateAsync(testParameters, new ClientSecretValidationResult {Client = testClient});
+        var result = await validator.ValidateAsync(new DeviceAuthorizationRequestValidationContext(testParameters, new ClientSecretValidationResult {Client = testClient}));
 
         result.IsError.Should().BeTrue();
         result.Error.Should().Be(OidcConstants.AuthorizeErrors.UnauthorizedClient);
@@ -61,7 +79,7 @@ public class DeviceAuthorizationRequestValidation
         testClient.AllowedGrantTypes = GrantTypes.Implicit;
 
         var validator = Factory.CreateDeviceAuthorizationRequestValidator();
-        var result = await validator.ValidateAsync(testParameters, new ClientSecretValidationResult {Client = testClient});
+        var result = await validator.ValidateAsync(new DeviceAuthorizationRequestValidationContext(testParameters, new ClientSecretValidationResult {Client = testClient}));
 
         result.IsError.Should().BeTrue();
         result.Error.Should().Be(OidcConstants.AuthorizeErrors.UnauthorizedClient);
@@ -74,7 +92,7 @@ public class DeviceAuthorizationRequestValidation
         var parameters = new NameValueCollection {{"scope", "resource2"}};
 
         var validator = Factory.CreateDeviceAuthorizationRequestValidator();
-        var result = await validator.ValidateAsync(parameters, new ClientSecretValidationResult {Client = testClient});
+        var result = await validator.ValidateAsync(new DeviceAuthorizationRequestValidationContext(parameters, new ClientSecretValidationResult {Client = testClient}));
 
         result.IsError.Should().BeTrue();
         result.Error.Should().Be(OidcConstants.AuthorizeErrors.InvalidScope);
@@ -87,7 +105,7 @@ public class DeviceAuthorizationRequestValidation
         var parameters = new NameValueCollection {{"scope", Guid.NewGuid().ToString()}};
 
         var validator = Factory.CreateDeviceAuthorizationRequestValidator();
-        var result = await validator.ValidateAsync(parameters, new ClientSecretValidationResult {Client = testClient});
+        var result = await validator.ValidateAsync(new DeviceAuthorizationRequestValidationContext(parameters, new ClientSecretValidationResult {Client = testClient}));
 
         result.IsError.Should().BeTrue();
         result.Error.Should().Be(OidcConstants.AuthorizeErrors.InvalidScope);
@@ -100,7 +118,7 @@ public class DeviceAuthorizationRequestValidation
         var parameters = new NameValueCollection {{"scope", "openid"}};
 
         var validator = Factory.CreateDeviceAuthorizationRequestValidator();
-        var result = await validator.ValidateAsync(parameters, new ClientSecretValidationResult {Client = testClient});
+        var result = await validator.ValidateAsync(new DeviceAuthorizationRequestValidationContext(parameters, new ClientSecretValidationResult {Client = testClient}));
 
         result.IsError.Should().BeFalse();
         result.ValidatedRequest.IsOpenIdRequest.Should().BeTrue();
@@ -122,7 +140,7 @@ public class DeviceAuthorizationRequestValidation
         var parameters = new NameValueCollection { { "scope", "resource" } };
 
         var validator = Factory.CreateDeviceAuthorizationRequestValidator();
-        var result = await validator.ValidateAsync(parameters, new ClientSecretValidationResult { Client = testClient });
+        var result = await validator.ValidateAsync(new DeviceAuthorizationRequestValidationContext(parameters, new ClientSecretValidationResult { Client = testClient }));
 
         result.IsError.Should().BeFalse();
         result.ValidatedRequest.IsOpenIdRequest.Should().BeFalse();
@@ -146,7 +164,7 @@ public class DeviceAuthorizationRequestValidation
         var parameters = new NameValueCollection { { "scope", "openid resource offline_access" } };
 
         var validator = Factory.CreateDeviceAuthorizationRequestValidator();
-        var result = await validator.ValidateAsync(parameters, new ClientSecretValidationResult { Client = testClient });
+        var result = await validator.ValidateAsync(new DeviceAuthorizationRequestValidationContext(parameters, new ClientSecretValidationResult { Client = testClient }));
 
         result.IsError.Should().BeFalse();
         result.ValidatedRequest.IsOpenIdRequest.Should().BeTrue();
@@ -173,8 +191,9 @@ public class DeviceAuthorizationRequestValidation
         var validator = Factory.CreateDeviceAuthorizationRequestValidator();
 
         var result = await validator.ValidateAsync(
-            new NameValueCollection(),
-            new ClientSecretValidationResult { Client = testClient });
+            new DeviceAuthorizationRequestValidationContext(
+                new NameValueCollection(),
+                new ClientSecretValidationResult { Client = testClient }));
 
         result.IsError.Should().BeFalse();
         result.ValidatedRequest.RequestedScopes.Should().Contain(testClient.AllowedScopes);
@@ -188,8 +207,9 @@ public class DeviceAuthorizationRequestValidation
         var validator = Factory.CreateDeviceAuthorizationRequestValidator();
 
         var result = await validator.ValidateAsync(
-            new NameValueCollection(),
-            new ClientSecretValidationResult { Client = testClient });
+            new DeviceAuthorizationRequestValidationContext(
+                new NameValueCollection(), 
+                new ClientSecretValidationResult { Client = testClient }));
 
         result.IsError.Should().BeTrue();
         result.Error.Should().Be(OidcConstants.AuthorizeErrors.InvalidScope);
@@ -209,7 +229,7 @@ public class DeviceAuthorizationRequestValidation
         var parameters = new NameValueCollection {{"scope", "openid"}};
 
         var validator = Factory.CreateDeviceAuthorizationRequestValidator(telemetry: telemetry.Object);
-        await validator.ValidateAsync(parameters, new ClientSecretValidationResult {Client = testClient});
+        await validator.ValidateAsync(new DeviceAuthorizationRequestValidationContext(parameters, new ClientSecretValidationResult {Client = testClient}));
         
         telemetry.Verify(t => t.Trace(
             TelemetryConstants.TraceCategories.Validation, validator, "ValidateAsync"));
