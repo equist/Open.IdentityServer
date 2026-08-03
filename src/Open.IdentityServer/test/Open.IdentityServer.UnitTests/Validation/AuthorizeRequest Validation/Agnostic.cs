@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Moq;
 using Open.IdentityServer.Services;
 using Open.IdentityServer.UnitTests.Validation.Setup;
+using Open.IdentityServer.Validation;
 using Xunit;
 
 namespace Open.IdentityServer.UnitTests.Validation.AuthorizeRequest_Validation;
@@ -24,7 +25,7 @@ public class Agnostic
         var parameters = new NameValueCollection();
 
         var validator = Factory.CreateAuthorizeRequestValidator(telemetry: telemetry.Object);
-        await validator.ValidateAsync(parameters);
+        await validator.ValidateAsync(new AuthorizeRequestValidationContext(parameters));
 
         telemetry.Verify(t => t.Trace(
             TelemetryConstants.TraceCategories.Validation, validator, "ValidateAsync"));

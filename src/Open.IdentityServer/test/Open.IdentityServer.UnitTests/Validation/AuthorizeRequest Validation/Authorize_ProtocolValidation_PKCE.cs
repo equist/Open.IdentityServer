@@ -1,4 +1,5 @@
 // Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Modified by Rock Solid Knowledge Ltd. Copyright in modifications 2026, Rock Solid Knowledge Ltd.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 using AwesomeAssertions;
 using Open.IdentityServer.UnitTests.Common;
 using Open.IdentityServer.UnitTests.Validation.Setup;
-using Open.IdentityServer;
 using Open.IdentityServer.Configuration;
 using Xunit;
+using Open.IdentityServer.Validation;
 
 namespace Open.IdentityServer.UnitTests.Validation.AuthorizeRequest_Validation;
 
@@ -17,7 +18,7 @@ public class Authorize_ProtocolValidation_Valid_PKCE
 {
     private const string Category = "AuthorizeRequest Protocol Validation - PKCE";
 
-    private InputLengthRestrictions lengths = new InputLengthRestrictions();
+    private InputLengthRestrictions lengths = new();
 
     [Theory]
     [InlineData("codeclient.pkce")]
@@ -25,16 +26,18 @@ public class Authorize_ProtocolValidation_Valid_PKCE
     [Trait("Category", Category)]
     public async Task valid_openid_code_request_with_challenge_and_plain_method_should_be_forbidden_if_plain_is_forbidden(string clientId)
     {
-        var parameters = new NameValueCollection();
-        parameters.Add(OidcConstants.AuthorizeRequest.ClientId, clientId);
-        parameters.Add(OidcConstants.AuthorizeRequest.Scope, "openid");
-        parameters.Add(OidcConstants.AuthorizeRequest.CodeChallenge, "x".Repeat(lengths.CodeChallengeMinLength));
-        parameters.Add(OidcConstants.AuthorizeRequest.CodeChallengeMethod, OidcConstants.CodeChallengeMethods.Plain);
-        parameters.Add(OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb");
-        parameters.Add(OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.Code);
+        var parameters = new NameValueCollection
+        {
+            { OidcConstants.AuthorizeRequest.ClientId, clientId },
+            { OidcConstants.AuthorizeRequest.Scope, "openid" },
+            { OidcConstants.AuthorizeRequest.CodeChallenge, "x".Repeat(lengths.CodeChallengeMinLength) },
+            { OidcConstants.AuthorizeRequest.CodeChallengeMethod, OidcConstants.CodeChallengeMethods.Plain },
+            { OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb" },
+            { OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.Code }
+        };
 
         var validator = Factory.CreateAuthorizeRequestValidator();
-        var result = await validator.ValidateAsync(parameters);
+        var result = await validator.ValidateAsync(new AuthorizeRequestValidationContext(parameters));
 
         result.IsError.Should().Be(true);
         result.ErrorDescription.Should().Be("Transform algorithm not supported");
@@ -46,16 +49,18 @@ public class Authorize_ProtocolValidation_Valid_PKCE
     [Trait("Category", Category)]
     public async Task valid_openid_code_request_with_challenge_and_sh256_method_should_be_allowed(string clientId)
     {
-        var parameters = new NameValueCollection();
-        parameters.Add(OidcConstants.AuthorizeRequest.ClientId, clientId);
-        parameters.Add(OidcConstants.AuthorizeRequest.Scope, "openid");
-        parameters.Add(OidcConstants.AuthorizeRequest.CodeChallenge, "x".Repeat(lengths.CodeChallengeMinLength));
-        parameters.Add(OidcConstants.AuthorizeRequest.CodeChallengeMethod, OidcConstants.CodeChallengeMethods.Sha256);
-        parameters.Add(OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb");
-        parameters.Add(OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.Code);
+        var parameters = new NameValueCollection
+        {
+            { OidcConstants.AuthorizeRequest.ClientId, clientId },
+            { OidcConstants.AuthorizeRequest.Scope, "openid" },
+            { OidcConstants.AuthorizeRequest.CodeChallenge, "x".Repeat(lengths.CodeChallengeMinLength) },
+            { OidcConstants.AuthorizeRequest.CodeChallengeMethod, OidcConstants.CodeChallengeMethods.Sha256 },
+            { OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb" },
+            { OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.Code }
+        };
 
         var validator = Factory.CreateAuthorizeRequestValidator();
-        var result = await validator.ValidateAsync(parameters);
+        var result = await validator.ValidateAsync(new AuthorizeRequestValidationContext(parameters));
 
         result.IsError.Should().Be(false);
     }
@@ -66,15 +71,17 @@ public class Authorize_ProtocolValidation_Valid_PKCE
     [Trait("Category", Category)]
     public async Task valid_openid_code_request_with_challenge_and_missing_method_should_be_allowed_if_plain_is_allowed(string clientId)
     {
-        var parameters = new NameValueCollection();
-        parameters.Add(OidcConstants.AuthorizeRequest.ClientId, clientId);
-        parameters.Add(OidcConstants.AuthorizeRequest.Scope, "openid");
-        parameters.Add(OidcConstants.AuthorizeRequest.CodeChallenge, "x".Repeat(lengths.CodeChallengeMinLength));
-        parameters.Add(OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb");
-        parameters.Add(OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.Code);
+        var parameters = new NameValueCollection
+        {
+            { OidcConstants.AuthorizeRequest.ClientId, clientId },
+            { OidcConstants.AuthorizeRequest.Scope, "openid" },
+            { OidcConstants.AuthorizeRequest.CodeChallenge, "x".Repeat(lengths.CodeChallengeMinLength) },
+            { OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb" },
+            { OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.Code }
+        };
 
         var validator = Factory.CreateAuthorizeRequestValidator();
-        var result = await validator.ValidateAsync(parameters);
+        var result = await validator.ValidateAsync(new AuthorizeRequestValidationContext(parameters));
 
         result.IsError.Should().Be(false);
     }
@@ -85,15 +92,17 @@ public class Authorize_ProtocolValidation_Valid_PKCE
     [Trait("Category", Category)]
     public async Task valid_openid_code_request_with_challenge_and_missing_method_should_be_forbidden_if_plain_is_forbidden(string clientId)
     {
-        var parameters = new NameValueCollection();
-        parameters.Add(OidcConstants.AuthorizeRequest.ClientId, clientId);
-        parameters.Add(OidcConstants.AuthorizeRequest.Scope, "openid");
-        parameters.Add(OidcConstants.AuthorizeRequest.CodeChallenge, "x".Repeat(lengths.CodeChallengeMinLength));
-        parameters.Add(OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb");
-        parameters.Add(OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.Code);
+        var parameters = new NameValueCollection
+        {
+            { OidcConstants.AuthorizeRequest.ClientId, clientId },
+            { OidcConstants.AuthorizeRequest.Scope, "openid" },
+            { OidcConstants.AuthorizeRequest.CodeChallenge, "x".Repeat(lengths.CodeChallengeMinLength) },
+            { OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb" },
+            { OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.Code }
+        };
 
         var validator = Factory.CreateAuthorizeRequestValidator();
-        var result = await validator.ValidateAsync(parameters);
+        var result = await validator.ValidateAsync(new AuthorizeRequestValidationContext(parameters));
 
         result.IsError.Should().Be(true);
         result.ErrorDescription.Should().Be("Transform algorithm not supported");
@@ -104,14 +113,16 @@ public class Authorize_ProtocolValidation_Valid_PKCE
     [Trait("Category", Category)]
     public async Task openid_code_request_missing_challenge_should_be_rejected()
     {
-        var parameters = new NameValueCollection();
-        parameters.Add(OidcConstants.AuthorizeRequest.ClientId, "codeclient.pkce");
-        parameters.Add(OidcConstants.AuthorizeRequest.Scope, "openid");
-        parameters.Add(OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb");
-        parameters.Add(OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.Code);
+        var parameters = new NameValueCollection
+        {
+            { OidcConstants.AuthorizeRequest.ClientId, "codeclient.pkce" },
+            { OidcConstants.AuthorizeRequest.Scope, "openid" },
+            { OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb" },
+            { OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.Code }
+        };
 
         var validator = Factory.CreateAuthorizeRequestValidator();
-        var result = await validator.ValidateAsync(parameters);
+        var result = await validator.ValidateAsync(new AuthorizeRequestValidationContext(parameters));
 
         result.IsError.Should().Be(true);
         result.Error.Should().Be(OidcConstants.AuthorizeErrors.InvalidRequest);
@@ -122,14 +133,16 @@ public class Authorize_ProtocolValidation_Valid_PKCE
     [Trait("Category", Category)]
     public async Task openid_hybrid_request_missing_challenge_should_be_rejected()
     {
-        var parameters = new NameValueCollection();
-        parameters.Add(OidcConstants.AuthorizeRequest.ClientId, "hybridclient.pkce");
-        parameters.Add(OidcConstants.AuthorizeRequest.Scope, "openid");
-        parameters.Add(OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb");
-        parameters.Add(OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.CodeIdToken);
+        var parameters = new NameValueCollection
+        {
+            { OidcConstants.AuthorizeRequest.ClientId, "hybridclient.pkce" },
+            { OidcConstants.AuthorizeRequest.Scope, "openid" },
+            { OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb" },
+            { OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.CodeIdToken }
+        };
 
         var validator = Factory.CreateAuthorizeRequestValidator();
-        var result = await validator.ValidateAsync(parameters);
+        var result = await validator.ValidateAsync(new AuthorizeRequestValidationContext(parameters));
 
         result.IsError.Should().Be(true);
         result.Error.Should().Be(OidcConstants.AuthorizeErrors.InvalidRequest);
@@ -144,16 +157,18 @@ public class Authorize_ProtocolValidation_Valid_PKCE
     [Trait("Category", Category)]
     public async Task openid_code_request_with_challenge_and_invalid_method_should_be_rejected(string clientId)
     {
-        var parameters = new NameValueCollection();
-        parameters.Add(OidcConstants.AuthorizeRequest.ClientId, clientId);
-        parameters.Add(OidcConstants.AuthorizeRequest.Scope, "openid");
-        parameters.Add(OidcConstants.AuthorizeRequest.CodeChallenge, "x".Repeat(lengths.CodeChallengeMinLength));
-        parameters.Add(OidcConstants.AuthorizeRequest.CodeChallengeMethod, "invalid");
-        parameters.Add(OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb");
-        parameters.Add(OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.Code);
+        var parameters = new NameValueCollection
+        {
+            { OidcConstants.AuthorizeRequest.ClientId, clientId },
+            { OidcConstants.AuthorizeRequest.Scope, "openid" },
+            { OidcConstants.AuthorizeRequest.CodeChallenge, "x".Repeat(lengths.CodeChallengeMinLength) },
+            { OidcConstants.AuthorizeRequest.CodeChallengeMethod, "invalid" },
+            { OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb" },
+            { OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.Code }
+        };
 
         var validator = Factory.CreateAuthorizeRequestValidator();
-        var result = await validator.ValidateAsync(parameters);
+        var result = await validator.ValidateAsync(new AuthorizeRequestValidationContext(parameters));
 
         result.IsError.Should().Be(true);
         result.Error.Should().Be(OidcConstants.AuthorizeErrors.InvalidRequest);
@@ -168,16 +183,18 @@ public class Authorize_ProtocolValidation_Valid_PKCE
     [Trait("Category", Category)]
     public async Task openid_code_request_with_too_short_challenge_should_be_rejected(string clientId)
     {
-        var parameters = new NameValueCollection();
-        parameters.Add(OidcConstants.AuthorizeRequest.ClientId, clientId);
-        parameters.Add(OidcConstants.AuthorizeRequest.Scope, "openid");
-        parameters.Add(OidcConstants.AuthorizeRequest.CodeChallenge, "x".Repeat(lengths.CodeChallengeMinLength - 1));
-        parameters.Add(OidcConstants.AuthorizeRequest.CodeChallengeMethod, OidcConstants.CodeChallengeMethods.Plain);
-        parameters.Add(OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb");
-        parameters.Add(OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.Code);
+        var parameters = new NameValueCollection
+        {
+            { OidcConstants.AuthorizeRequest.ClientId, clientId },
+            { OidcConstants.AuthorizeRequest.Scope, "openid" },
+            { OidcConstants.AuthorizeRequest.CodeChallenge, "x".Repeat(lengths.CodeChallengeMinLength - 1) },
+            { OidcConstants.AuthorizeRequest.CodeChallengeMethod, OidcConstants.CodeChallengeMethods.Plain },
+            { OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb" },
+            { OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.Code }
+        };
 
         var validator = Factory.CreateAuthorizeRequestValidator();
-        var result = await validator.ValidateAsync(parameters);
+        var result = await validator.ValidateAsync(new AuthorizeRequestValidationContext(parameters));
 
         result.IsError.Should().Be(true);
         result.Error.Should().Be(OidcConstants.AuthorizeErrors.InvalidRequest);
@@ -191,16 +208,18 @@ public class Authorize_ProtocolValidation_Valid_PKCE
     [Trait("Category", Category)]
     public async Task openid_code_request_with_too_long_challenge_should_be_rejected(string clientId)
     {
-        var parameters = new NameValueCollection();
-        parameters.Add(OidcConstants.AuthorizeRequest.ClientId, clientId);
-        parameters.Add(OidcConstants.AuthorizeRequest.Scope, "openid");
-        parameters.Add(OidcConstants.AuthorizeRequest.CodeChallenge, "x".Repeat(lengths.CodeChallengeMaxLength + 1));
-        parameters.Add(OidcConstants.AuthorizeRequest.CodeChallengeMethod, OidcConstants.CodeChallengeMethods.Plain);
-        parameters.Add(OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb");
-        parameters.Add(OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.Code);
+        var parameters = new NameValueCollection
+        {
+            { OidcConstants.AuthorizeRequest.ClientId, clientId },
+            { OidcConstants.AuthorizeRequest.Scope, "openid" },
+            { OidcConstants.AuthorizeRequest.CodeChallenge, "x".Repeat(lengths.CodeChallengeMaxLength + 1) },
+            { OidcConstants.AuthorizeRequest.CodeChallengeMethod, OidcConstants.CodeChallengeMethods.Plain },
+            { OidcConstants.AuthorizeRequest.RedirectUri, "https://server/cb" },
+            { OidcConstants.AuthorizeRequest.ResponseType, OidcConstants.ResponseTypes.Code }
+        };
 
         var validator = Factory.CreateAuthorizeRequestValidator();
-        var result = await validator.ValidateAsync(parameters);
+        var result = await validator.ValidateAsync(new AuthorizeRequestValidationContext(parameters));
 
         result.IsError.Should().Be(true);
         result.Error.Should().Be(OidcConstants.AuthorizeErrors.InvalidRequest);

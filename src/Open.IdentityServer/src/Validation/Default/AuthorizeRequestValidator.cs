@@ -15,7 +15,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Open.IdentityServer.Logging.Models;
-using Open.IdentityServer.Utility;
+
+#nullable enable
 
 namespace Open.IdentityServer.Validation;
 
@@ -32,8 +33,7 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
     private readonly ITelemetryService _telemetry;
     private readonly ILogger _logger;
 
-    private readonly ResponseTypeEqualityComparer
-        _responseTypeEqualityComparer = new ResponseTypeEqualityComparer();
+    private readonly ResponseTypeEqualityComparer _responseTypeEqualityComparer = new();
 
     public AuthorizeRequestValidator(
         IdentityServerOptions options,
@@ -59,17 +59,25 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
         _logger = logger;
     }
 
-    public async Task<AuthorizeRequestValidationResult> ValidateAsync(NameValueCollection parameters,
-        ClaimsPrincipal subject = null)
+    Task<AuthorizeRequestValidationResult> IAuthorizeRequestValidator.ValidateAsync(NameValueCollection parameters,
+        ClaimsPrincipal? subject)
     {
+        var context = new AuthorizeRequestValidationContext(parameters, subject);
+        return ValidateAsync(context);
+    }
+
+    public async Task<AuthorizeRequestValidationResult> ValidateAsync(AuthorizeRequestValidationContext context)
+    {
+        ArgumentNullException.ThrowIfNull(context, nameof(context));
+
         using var trace = _telemetry.Trace(TelemetryConstants.TraceCategories.Validation, this);
         _logger.LogDebug("Start authorize request protocol validation");
 
         var request = new ValidatedAuthorizeRequest
         {
             Options = _options,
-            Subject = subject ?? Principal.Anonymous,
-            Raw = parameters ?? throw new ArgumentNullException(nameof(parameters))
+            Subject = context.Subject,
+            Raw = context.Parameters
         };
 
         // load client_id
@@ -124,13 +132,13 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
 
         // custom validator
         _logger.LogDebug("Calling into custom validator: {type}", _customValidator.GetType().FullName);
-        var context = new CustomAuthorizeRequestValidationContext
+        var customContext = new CustomAuthorizeRequestValidationContext
         {
             Result = new AuthorizeRequestValidationResult(request)
         };
-        await _customValidator.ValidateAsync(context);
+        await _customValidator.ValidateAsync(customContext);
 
-        var customResult = context.Result;
+        var customResult = customContext.Result;
         if (customResult.IsError)
         {
             LogError("Error in custom validation", customResult.Error, request);
@@ -890,7 +898,7 @@ internal class AuthorizeRequestValidator : IAuthorizeRequestValidator
         _logger.LogError(message + "\n{@requestDetails}", requestDetails);
     }
 
-    private void LogError(string message, string detail, ValidatedAuthorizeRequest request)
+    private void LogError(string message, string? detail, ValidatedAuthorizeRequest request)
     {
         var requestDetails =
             new AuthorizeRequestValidationLog(request, _options.Logging.AuthorizeRequestSensitiveValuesFilter);
